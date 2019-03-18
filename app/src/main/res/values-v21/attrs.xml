@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="border_overlay" format="boolean" />
+    </declare-styleable>
+
+    <attr name="cropImageStyle" format="reference" />
+
+    <declare-styleable name="CropImageView">
+        <attr name="highlightColor" format="reference|color" />
+        <attr name="showThirds" format="boolean" />
+        <attr name="showCircle" format="boolean" />
+        <attr name="showHandles">
+            <enum name="changing" value="0" />
+            <enum name="always" value="1" />
+            <enum name="never" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CircularImageView">
+        <attr name="border_ci" format="boolean"/>
+        <attr name="border_width_ci" format="dimension"/>
+        <attr name="border_color_ci" format="color"/>
+        <attr name="shadow_ci" format="boolean"/>
+    </declare-styleable>
+
+
+
+
+    <declare-styleable name="GuidelineMessageView">
+        <attr name="titleText" format="string" localization="suggested" />
+        <attr name="titleBeforeIcon" format="string" localization="suggested" />
+        <attr name="titleAfterIcon" format="string" localization="suggested" />
+        <attr name="actionIcon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ProfileMultiSelectorView">
+
+        <attr name="titleMultiSelectText" format="string" localization="suggested" />
+        <attr name="isGrid" format="boolean" localization="suggested" />
+        <attr name="isTOShowChildBorder" format="boolean" localization="suggested" />
+        <attr name="isToShowTitle" format="boolean" localization="suggested" />
+        <attr name="isMultiSelected" format="boolean" localization="suggested" />
+    </declare-styleable>
+
+    <declare-styleable name="ImageWithTextBelow">
+        <attr name="wom_icon" format="reference" />
+        <attr name="wom_icon_text" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageWithTextBelow">
+        <attr name="wom_circlr_icon" format="reference" />
+        <attr name="wom_circlr_icon_text" format="string" />
+    </declare-styleable>
+
+
+    <!--Classified-->
+    <declare-styleable name="ExpandableTextView">
+        <attr name="maxCollapsedLines" format="integer" />
+        <attr name="animDuration" format="integer" />
+        <attr name="animAlphaStart" format="float" />
+        <attr name="expandText" format="string" />
+        <attr name="collapseText" format="string" />
+    </declare-styleable>
+
+
+    <declare-styleable name="AboutBusinessView">
+        <attr name="textExpandable" format="string" localization="suggested" />
+    </declare-styleable>
+
+    <!--  <declare-styleable name="KeyValueTextView">
+          <attr name="key" format="string" localization="suggested"/>
+          <attr name="value" format="string" localization="suggested"/>
+          <attr name="separator" format="string" localization="suggested"/>
+      </declare-styleable>-->
+
+    <declare-styleable name="AwardAndRecognitionView">
+        <attr name="textExpandableas" format="string" localization="suggested" />
+    </declare-styleable>
+
+
+    <declare-styleable name="FemaleSuperVisionView">
+        <attr name="supervisionImage" format="reference" />
+        <attr name="businessMessage" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ImageRightTextView">
+        <attr name="womCirclrIcon" format="reference" />
+        <attr name="womRightText" format="string" localization="suggested" />
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="android:gravity" />
+    </declare-styleable>
+    <declare-styleable name="FlowLayout_Layout">
+        <attr name="android:layout_gravity" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundedImageView">
+        <attr name="riv_corner_radius" format="dimension" />
+        <attr name="riv_corner_radius_top_left" format="dimension" />
+        <attr name="riv_corner_radius_top_right" format="dimension" />
+        <attr name="riv_corner_radius_bottom_left" format="dimension" />
+        <attr name="riv_corner_radius_bottom_right" format="dimension" />
+        <attr name="riv_border_width" format="dimension" />
+        <attr name="riv_border_color" format="color" />
+        <attr name="riv_mutate_background" format="boolean" />
+        <attr name="riv_oval" format="boolean" />
+        <attr name="android:scaleType" />
+        <attr name="riv_tile_mode">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+        <attr name="riv_tile_mode_x">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+        <attr name="riv_tile_mode_y">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+    </declare-styleable>
+
+</resources>
