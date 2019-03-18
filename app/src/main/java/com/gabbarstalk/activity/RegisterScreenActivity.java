@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +24,6 @@ import com.gabbarstalk.interfaces.RESTClientResponse;
 import com.gabbarstalk.models.RegisterResponseModel;
 import com.gabbarstalk.models.StatusModel;
 import com.gabbarstalk.models.UserData;
-import com.gabbarstalk.utils.UserPreferences;
 import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.RegisterUserService;
 
@@ -36,8 +34,7 @@ import com.gabbarstalk.webservices.RegisterUserService;
 public class RegisterScreenActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 200;
     private Context mContext;
-    private LinearLayout llWardNumber;
-    private EditText edtName, edtMobile, edtLoksabha, edtVidhansabha, edtWardNumber;
+    private EditText edtMobile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,7 +91,11 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
         UserData userData = new UserData();
 //        userData.setiMEI(telephonyManager.getDeviceId());
         userData.setMobileNumber(edtMobile.getText().toString().trim());
-        callToRegisterUser(userData);
+
+        //TODO Api call remove this activity call
+        Intent intent = new Intent(RegisterScreenActivity.this, OTPValidateActivity.class);
+        startActivity(intent);
+//        callToRegisterUser(userData);
     }
 
     private boolean checkWriteExternalPermission()
@@ -119,7 +120,7 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
                     /*if (statusModel.getErrorcode() == 1) {
                         userData.setUserId(statusModel.getUserid());
                         UserPreferences.getInstance(RegisterScreenActivity.this).saveUserInfo(userData, true);
-                        Intent intent = new Intent(RegisterScreenActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(RegisterScreenActivity.this, OTPValidateActivity.class);
                         startActivity(intent);
                         finish();
                     }else{
@@ -144,7 +145,7 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
             return false;
         }
         if (edtMobile.getText().toString().trim().length() < 10) {
-            showToast(this, getString(R.string.enter_mobile_valid_number));
+            showToast(this, getString(R.string.enter_valid_mobile_number));
             return false;
         }
         return true;

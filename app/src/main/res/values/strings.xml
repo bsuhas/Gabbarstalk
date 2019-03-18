@@ -7,90 +7,23 @@
     <string name="action_settings">Settings</string>
     <string name="app_version">Version 1.0.0</string>
     <string name="developed_by">Developed by PIXEL TECH SERVICES </string>
+    <string name="error_network_unavailable">Please check your internet connection and try again.</string>
+
     <string name="submit">Register </string>
     <string name="registration">Registration</string>
     <string name="mobile_number">Mobile number </string>
     <string name="error_msg_enter_mobile_number">Please enter mobile number </string>
-    <string name="enter_mobile_valid_number">Enter valid mobile number </string>
-    <string name="name">नाव</string>
-    <string name="enter_name">नाव प्रविष्ट करा </string>
+    <string name="enter_valid_mobile_number">Enter valid mobile number </string>
     <string name="enter_mobile_number">Enter mobile number </string>
 
-
-    <string name="election_type">प्रकार</string>
-    <string name="ward_number">प्रभाग क्रमांक</string>
-    <string name="enter_ward_number">प्रभाग क्रमांक प्रविष्ट करा </string>
-
-    <string name="loksabha">लोकसभा</string>
-    <string name="enter_loksabha">लोकसभा क्रमांक प्रविष्ट करा </string>
-    <string name="vidhan_sabha">विधानसभा</string>
-    <string name="enter_vidhan_sabha">विधानसभा क्रमांक प्रविष्ट करा </string>
-
-    <string name="error_msg_enter_name">कृपया नाव प्रविष्ट करा </string>
-
-    <string name="error_msg_enter_ward_number">कृपया प्रभाग क्रमांक प्रविष्ट करा </string>
-    <string name="error_msg_enter_loksabha">कृपया लोकसभा क्रमांक प्रविष्ट करा </string>
-    <string name="error_msg_enter_vidhan_sabha">कृपया विधानसभा क्रमांक प्रविष्ट करा </string>
-
-   <!--Lang Localization -->
-    <string name="msg_loksabha">Loksabha</string>
-    <string name="msg_vidhan_sabha">Vidhansabha</string>
-    <string name="msg_ward_number"> Ward Number</string>
+    <string name="otp_screen">OTP Authentication </string>
+    <string name="otp_lbl">OTP </string>
+    <string name="enter_otp">Enter otp </string>
+    <string name="submit_otp">Submit OTP </string>
+    <string name="resend_otp"><u>Resend OTP</u> </string>
+    <string name="error_msg_enter_otp">Please enter OTP </string>
+    <string name="enter_valid_otp">Enter valid OTP </string>
 
 
-    <string name="drawer_home">Home Page</string>
-    <string name="drawer_search">Search</string>
-    <string name="drawer_list">List</string>
-    <string name="drawer_report">Report</string>
-    <string name="booth_drawer_sync">Booth Data Sync</string>
-    <string name="survey_sync">Survey Data Sync</string>
-    <string name="voter_drawer_sync">Voter Data Sync</string>
-    <string name="drawer_lang">Language Change</string>
-    <string name="drawer_exit">Exit</string>
-    <string name="drawer_more">More Options</string>
-    <string name="by_name">Search by Name</string>
-    <string name="by_surname">Search by Surname</string>
-    <string name="select_search_category">Select Search Category</string>
-    <string name="by_address">Search by Address</string>
-    <string name="by_age">Search by Age</string>
-    <string name="by_booth">Search by Booth</string>
-    <string name="by_election_card">Search by Voter Id</string>
-    <string name="enter_here"> Enter here </string>
-    <string name="search_result"> No Result found, Please try again.</string>
-    <string name="information">Information</string>
-    <string name="age_limit">Age Limit :</string>
-    <string name="enter_min_limit">Min Age</string>
-    <string name="enter_max_age">Max Age</string>
-    <string name="to">to</string>
-    <string name="update_voter">Update Voter</string>
-    <string name="voter_status">Voter Status</string>
-    <string name="neutral_vote">Neutral Vote</string>
-    <string name="tentative_vote">Tentative Vote</string>
-    <string name="confirm_vote">Confirm Vote</string>
-    <string name="never_going_to_vote">Never going to Vote</string>
-    <string name="report">Report</string>
-    <string name="error_network_unavailable">Please check your internet connection and try again.</string>
-    <string name="close_the_app">Do you want to close the app?</string>
-    <string name="mem_txt_gallery">Gallery</string>
-    <string name="mem_txt_camera">Camera</string>
-    <string name="lang_english">English</string>
-    <string name="lang_marathi">मराठी</string>
-    <string name="serial_number">Serial No :</string>
-    <string name="list_number">List No :</string>
-    <string name="voter_name">Name</string>
-    <string name="gender_age">Gender/Age</string>
-    <string name="voter_address">Address</string>
-    <string name="voting_booth">Voting Booth</string>
-    <string name="adhar_number">Aadhar No.</string>
-    <string name="mobile_num">Mobile No.</string>
-    <string name="voter_id">Voter Id</string>
-    <string name="enter_adhar">Enter Aadhar Number</string>
-    <string name="enter_mobile_num">Enter Mobile Number</string>
-    <string name="save_voter_detail">Save Voter Details</string>
-    <string name="click_to_change_lang">Click here to Change Language</string>
-    <string name="selected_lang">Selected Language :</string>
-    <string name="save">Save</string>
-    <string name="msg_enter_valid_mobile_number">Please enter valid mobile number  </string>
-    <string name="msg_enter_valid_aadhar_number">Please enter valid aadhar number </string>
-    <string name="change_party_logo">Click here to change the party logo</string>
+
 </resources>
