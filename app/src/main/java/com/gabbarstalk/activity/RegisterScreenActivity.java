@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -46,6 +47,12 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
     }
 
     private void init() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.registration);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
         Button btnRegister = (Button) findViewById(R.id.btn_register);
 
         edtMobile = (EditText) findViewById(R.id.edt_mobile);
@@ -98,8 +105,7 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
 //        callToRegisterUser(userData);
     }
 
-    private boolean checkWriteExternalPermission()
-    {
+    private boolean checkWriteExternalPermission() {
         String permission = "android.permission.READ_PHONE_STATE";
         int res = this.checkCallingOrSelfPermission(permission);
         return (res == PackageManager.PERMISSION_GRANTED);
@@ -157,7 +163,7 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
 
     private void checkPermission() {
         // Here, mContext is the current activity
-        if (ContextCompat.checkSelfPermission(mContext,Manifest.permission.READ_PHONE_STATE)
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(RegisterScreenActivity.this,
                     Manifest.permission.READ_PHONE_STATE)) {

@@ -32,8 +32,13 @@
 
         <activity
             android:name="com.gabbarstalk.activity.RegisterScreenActivity"
-            android:label="@string/app_name" />
-        <activity android:name=".activity.OTPValidateActivity" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.OTPValidateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

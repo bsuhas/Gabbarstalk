@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -41,6 +42,13 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void init() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.otp_screen);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         Button btnRegister = (Button) findViewById(R.id.btn_submit_otp);
 
         edtOTP = (EditText) findViewById(R.id.edt_otp);
@@ -60,6 +68,11 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
         });
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
     @Override
     public void onClick(View view) {

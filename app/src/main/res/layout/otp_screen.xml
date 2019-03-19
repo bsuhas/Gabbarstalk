@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/product_activity_coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/product_activity_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background">
+        android:background="@drawable/img_background">
 
 
         <LinearLayout
@@ -17,6 +37,14 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="@dimen/margin_100dp"
+                android:layout_height="@dimen/margin_100dp"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:src="@drawable/chat" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -25,17 +53,18 @@
                 android:text="@string/otp_screen"
                 android:textColor="@color/md_black_1000"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="bottom"
                 android:text="@string/otp_lbl"
-                android:textColor="@color/md_black_1000"
+                android:textColor="@color/md_white_1000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -53,8 +82,8 @@
                 android:id="@+id/btn_submit_otp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/login_button_bg"
                 android:padding="5dp"
                 android:text="@string/submit_otp"
@@ -62,11 +91,12 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView android:id="@+id/txt_resend_otp"
+            <TextView
+                android:id="@+id/txt_resend_otp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="bottom"
                 android:text="@string/resend_otp"
                 android:textColor="@color/selected_color"
@@ -74,4 +104,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
