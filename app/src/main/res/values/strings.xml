@@ -16,7 +16,7 @@
     <string name="enter_valid_mobile_number">Enter valid mobile number </string>
     <string name="enter_mobile_number">Enter mobile number </string>
 
-    <string name="otp_screen">OTP Authentication </string>
+    <string name="otp_screen">OTP Verification </string>
     <string name="otp_lbl">OTP </string>
     <string name="enter_otp">Enter otp </string>
     <string name="submit_otp">Submit OTP </string>

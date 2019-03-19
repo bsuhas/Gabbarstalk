@@ -38,12 +38,12 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="@dimen/margin_100dp"
-                android:layout_height="@dimen/margin_100dp"
-                android:layout_marginTop="?attr/actionBarSize"
+                android:layout_width="@dimen/margin_120dp"
+                android:layout_height="@dimen/margin_120dp"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="?attr/actionBarSize"
                 android:gravity="center"
-                android:src="@drawable/chat" />
+                android:src="@drawable/sms" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -60,8 +60,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="@string/otp_lbl"
                 android:textColor="@color/md_white_1000"
@@ -82,8 +82,8 @@
                 android:id="@+id/btn_submit_otp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="40dp"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/login_button_bg"
                 android:padding="5dp"
                 android:text="@string/submit_otp"
@@ -95,8 +95,8 @@
                 android:id="@+id/txt_resend_otp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="@string/resend_otp"
                 android:textColor="@color/selected_color"
