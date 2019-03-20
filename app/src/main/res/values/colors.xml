@@ -7,6 +7,9 @@
     <color name="selected_color">@color/md_pink_700</color> -->
 
 
+    <color name="new_app_color">#FFDB01</color>
+    <color name="new_app_color_black">#000000</color>
+
     <color name="app_color">#295080</color>
     <color name="colorPrimary">@color/app_color</color>
     <color name="colorPrimaryDark">#295080</color>
