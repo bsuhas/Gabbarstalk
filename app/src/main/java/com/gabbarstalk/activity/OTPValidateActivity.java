@@ -93,7 +93,7 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
         }
 //        userData.setMobileNumber(edtOTP.getText().toString().trim());
 //        callToSubmitOtp(userData);
-        Intent intent = new Intent(OTPValidateActivity.this, HomeScreenActivity.class);
+        Intent intent = new Intent(OTPValidateActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
 
