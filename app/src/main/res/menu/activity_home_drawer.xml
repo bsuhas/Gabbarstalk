@@ -7,43 +7,27 @@
             android:icon="@drawable/ic_home"
             android:title="@string/drawer_home" />
         <item
-            android:id="@+id/nav_search"
-            android:icon="@drawable/ic_search"
-            android:title="@string/drawer_search" />
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile_white"
+            android:title="@string/drawer_profile" />
         <item
-            android:id="@+id/nav_list"
-            android:icon="@drawable/ic_list"
-            android:title="@string/drawer_list"
-            android:visible="false"/>
+            android:id="@+id/nav_my_videos"
+            android:icon="@drawable/ic_ondemand_video_white"
+            android:title="@string/drawer_my_videos"
+            android:visible="false" />
         <item
-            android:id="@+id/nav_report"
-            android:icon="@drawable/ic_report"
-            android:title="@string/drawer_report" />
+            android:id="@+id/nav_disclaimer"
+            android:icon="@drawable/ic_warning_white"
+            android:title="@string/drawer_disclaimer" />
         <item
-            android:id="@+id/nav_booth_sync"
-            android:icon="@drawable/ic_sync"
-            android:title="@string/booth_drawer_sync" />
+            android:id="@+id/nav_privacy_policy"
+            android:icon="@drawable/ic_assignment_white"
+            android:title="@string/drawer_privacy_policy" />
         <item
-            android:id="@+id/nav_voter_sync"
-            android:icon="@drawable/ic_sync"
-            android:title="@string/voter_drawer_sync" />
-        <item
-            android:id="@+id/nav_survey_sync"
-            android:icon="@drawable/ic_sync"
-            android:title="@string/survey_sync" />
+            android:id="@+id/nav_terms_cond"
+            android:icon="@drawable/ic_description_white"
+            android:title="@string/drawer_terms_cond" />
     </group>
 
-    <item android:title="@string/drawer_more">
-        <menu>
-            <item
-                android:id="@+id/nav_lang"
-                android:icon="@drawable/ic_language"
-                android:title="@string/drawer_lang" />
-            <item
-                android:id="@+id/nav_exit"
-                android:icon="@drawable/ic_exit"
-                android:title="@string/drawer_exit" />
-        </menu>
-    </item>
 
 </menu>

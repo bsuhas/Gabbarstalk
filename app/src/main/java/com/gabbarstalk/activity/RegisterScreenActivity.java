@@ -35,7 +35,7 @@ import com.gabbarstalk.webservices.RegisterUserService;
 public class RegisterScreenActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 200;
     private Context mContext;
-    private EditText edtMobile;
+    private EditText edtMobile,edtName,edtUserName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +56,8 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
         Button btnRegister = (Button) findViewById(R.id.btn_register);
 
         edtMobile = (EditText) findViewById(R.id.edt_mobile);
+        edtUserName = (EditText) findViewById(R.id.edt_username);
+        edtName = (EditText) findViewById(R.id.edt_name);
         btnRegister.setOnClickListener(this);
 
         edtMobile.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -146,6 +148,14 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
 
     private boolean validate() {
 
+        if (TextUtils.isEmpty(edtUserName.getText().toString().trim())) {
+            showToast(this, getString(R.string.error_msg_enter_username));
+            return false;
+        }
+        if (TextUtils.isEmpty(edtName.getText().toString().trim())) {
+            showToast(this, getString(R.string.error_msg_enter_name));
+            return false;
+        }
         if (TextUtils.isEmpty(edtMobile.getText().toString().trim())) {
             showToast(this, getString(R.string.error_msg_enter_mobile_number));
             return false;

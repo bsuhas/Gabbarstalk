@@ -24,16 +24,14 @@
     <string name="error_msg_enter_otp">Please enter OTP </string>
     <string name="enter_valid_otp">Enter valid OTP </string>
 
+    <string name="error_msg_enter_username">Please enter username </string>
+    <string name="error_msg_enter_name">Please enter name </string>
 
     <string name="drawer_home">Home Page</string>
-    <string name="drawer_search">Search</string>
-    <string name="drawer_list">List</string>
-    <string name="drawer_report">Report</string>
-    <string name="booth_drawer_sync">Booth Data Sync</string>
-    <string name="survey_sync">Survey Data Sync</string>
-    <string name="voter_drawer_sync">Voter Data Sync</string>
-    <string name="drawer_lang">Language Change</string>
-    <string name="drawer_exit">Exit</string>
-    <string name="drawer_more">More Options</string>
+    <string name="drawer_profile">Profile</string>
+    <string name="drawer_my_videos">My Videos</string>
+    <string name="drawer_disclaimer">Disclaimer</string>
+    <string name="drawer_privacy_policy">Privacy Policy</string>
+    <string name="drawer_terms_cond">Terms &amp; Conditions</string>
     <string name="close_the_app">Do you want to close the app?</string>
 </resources>

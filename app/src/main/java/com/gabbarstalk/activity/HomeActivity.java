@@ -1,6 +1,7 @@
 package com.gabbarstalk.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -9,23 +10,28 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.gabbarstalk.R;
+import com.gabbarstalk.adapter.FragmentPagerAdapter;
 import com.gabbarstalk.fragments.AgendaFragment;
+import com.gabbarstalk.fragments.ProfileFragment;
 import com.gabbarstalk.models.UserData;
 import com.gabbarstalk.utils.CircularImageView;
 import com.gabbarstalk.utils.DialogUtils;
@@ -78,6 +84,15 @@ public class HomeActivity extends AppCompatActivity
             txtProfileName.setText(mUserData.getUsername());
             txtMobileNumber.setText(mUserData.getMobileNumber());
         }
+        /*LayoutInflater mInflater = LayoutInflater.from(getApplicationContext());
+        @SuppressLint("InflateParams") View mCustomView = mInflater.inflate(R.layout.activity_home_toolbar, null);
+        toolbar.addView(mCustomView);*/
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setVisibility(View.VISIBLE);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()));
+        tabLayout.setupWithViewPager(viewPager);
         setDrawerProfileImage();
     }
 
@@ -145,8 +160,8 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             setFragment(new AgendaFragment(), bundle);
-        } else if (id == R.id.nav_exit) {
-            exitFromAPP();
+        }else if (id == R.id.nav_profile) {
+           setFragment(ProfileFragment.newInstance(),new Bundle());
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
