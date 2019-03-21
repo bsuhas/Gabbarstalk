@@ -19,14 +19,15 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#295080"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextColor="@color/md_black_1000" />
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/img_background">
+        android:background="@drawable/side_nav_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,19 +37,54 @@
             android:padding="10dp">
 
             <ImageView
-                android:layout_width="@dimen/margin_120dp"
-                android:layout_height="@dimen/margin_120dp"
-                android:layout_marginBottom="50dp"
+                android:layout_width="@dimen/margin_100dp"
+                android:layout_height="@dimen/margin_100dp"
                 android:layout_marginTop="?attr/actionBarSize"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:src="@mipmap/app_icon" />
-
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="bottom"
+                android:text="Username"
+                android:textColor="@color/md_white_1000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_username"
+                style="@style/EditText_style"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:hint="Enter Username" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="bottom"
+                android:text="Name"
+                android:textColor="@color/md_white_1000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_name"
+                style="@style/EditText_style"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:hint="Enter name" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="bottom"
                 android:text="@string/mobile_number"
                 android:textColor="@color/md_white_1000"
@@ -69,12 +105,12 @@
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginTop="40dp"
-                android:background="#295080"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/login_button_bg"
                 android:padding="5dp"
                 android:text="@string/submit"
-                android:textColor="@color/md_white_1000"
+                android:textColor="@color/md_black_1000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>

@@ -2,6 +2,7 @@ package com.gabbarstalk.activity;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +48,7 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.otp_screen);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
         }
 
         Button btnRegister = (Button) findViewById(R.id.btn_submit_otp);
@@ -91,6 +93,10 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
         }
 //        userData.setMobileNumber(edtOTP.getText().toString().trim());
 //        callToSubmitOtp(userData);
+        Intent intent = new Intent(OTPValidateActivity.this, HomeScreenActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
 
@@ -109,7 +115,7 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
                     /*if (statusModel.getErrorcode() == 1) {
                         userData.setUserId(statusModel.getUserid());
                         UserPreferences.getInstance(mContext).saveUserInfo(userData, true);
-                        Intent intent = new Intent(mContext, HomeActivity.class);
+                        Intent intent = new Intent(mContext, HomeScreenActivity.class);
                         startActivity(intent);
                         finish();
                     }else{
