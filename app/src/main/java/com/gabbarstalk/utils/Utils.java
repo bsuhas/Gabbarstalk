@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.gabbarstalk.R;
 import com.gabbarstalk.interfaces.RetrofitRestClient;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -75,9 +77,14 @@ public class Utils {
                     .connectTimeout(1, TimeUnit.MINUTES)
                     .build();
 
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(Constants.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
             fbRestClient = retrofit.create(RetrofitRestClient.class);

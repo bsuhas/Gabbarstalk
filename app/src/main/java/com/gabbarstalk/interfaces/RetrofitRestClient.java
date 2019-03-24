@@ -1,6 +1,8 @@
 package com.gabbarstalk.interfaces;
 
+import com.gabbarstalk.models.AgendaListResponse;
 import com.gabbarstalk.models.BoothDataResponse;
+import com.gabbarstalk.models.OTPRequestModel;
 import com.gabbarstalk.models.RegisterResponseModel;
 import com.gabbarstalk.models.RequestModel;
 import com.gabbarstalk.models.SurveyDataRequestModel;
@@ -11,6 +13,7 @@ import com.gabbarstalk.models.VoterDataResponseModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
@@ -20,12 +23,20 @@ import retrofit2.http.POST;
 
 public interface RetrofitRestClient {
     @Headers("Content-Type: application/json")
-    @POST("register")
+    @POST("userRegister")
     Call<RegisterResponseModel> registerUser(@Body UserData user);
 
     @Headers("Content-Type: application/json")
-    @POST("BoothAddress")
-    Call<BoothDataResponse> getBoothData(@Body RequestModel model);
+    @POST("verifyUser")
+    Call<RegisterResponseModel>verifyUser(@Body OTPRequestModel model);
+
+    @Headers("Content-Type: application/json")
+    @POST("resendOtp")
+    Call<RegisterResponseModel> resendOTP(@Body UserData user);
+
+    @Headers("Content-Type: application/json")
+    @GET("getAgendasList")
+    Call<AgendaListResponse> getAgendaList();
 
     @Headers("Content-Type: application/json")
     @POST("VoterData")

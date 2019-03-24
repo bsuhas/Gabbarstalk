@@ -23,8 +23,8 @@ import android.widget.Toast;
 import com.gabbarstalk.R;
 import com.gabbarstalk.interfaces.RESTClientResponse;
 import com.gabbarstalk.models.RegisterResponseModel;
-import com.gabbarstalk.models.StatusModel;
 import com.gabbarstalk.models.UserData;
+import com.gabbarstalk.utils.UserPreferences;
 import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.RegisterUserService;
 
@@ -35,7 +35,7 @@ import com.gabbarstalk.webservices.RegisterUserService;
 public class RegisterScreenActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 200;
     private Context mContext;
-    private EditText edtMobile,edtName,edtUserName;
+    private EditText edtMobile, edtName, edtUserName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,16 +82,17 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
                 if (validate()) {
                     sendDataToRegister();
                 }
+                break;
         }
     }
 
     private void sendDataToRegister() {
-        /*if(!checkWriteExternalPermission()){
+      /* if(!checkWriteExternalPermission()){
             showToast(this,"Please Grant the phone state permission ");
             return;
         }
 
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 */
         if (!Utils.getInstance().isOnline(RegisterScreenActivity.this)) {
             Toast.makeText(RegisterScreenActivity.this, R.string.error_network_unavailable, Toast.LENGTH_SHORT).show();
@@ -99,11 +100,15 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
         }
         UserData userData = new UserData();
 //        userData.setiMEI(telephonyManager.getDeviceId());
+        userData.setUsername(edtUserName.getText().toString().trim());
+        userData.setName(edtName.getText().toString().trim());
         userData.setMobileNumber(edtMobile.getText().toString().trim());
 
-        //TODO Api call remove this activity call
+//        //TODO Api call remove this activity call
         Intent intent = new Intent(RegisterScreenActivity.this, OTPValidateActivity.class);
+        intent.putExtra("UserData", userData);
         startActivity(intent);
+        finish();
 //        callToRegisterUser(userData);
     }
 
@@ -120,27 +125,27 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
         new RegisterUserService().registerUser(RegisterScreenActivity.this, userData, new RESTClientResponse() {
             @Override
             public void onSuccess(Object response, int statusCode) {
-                if (statusCode == 200) {
+                if (statusCode == 200 || statusCode == 201) {
                     Utils.getInstance().hideProgressDialog();
                     RegisterResponseModel model = (RegisterResponseModel) response;
                     Log.e("TAG", "Response:" + model.toString());
-                    StatusModel statusModel = model.getStatus().get(0);
-                    /*if (statusModel.getErrorcode() == 1) {
-                        userData.setUserId(statusModel.getUserid());
+
+                    if (model.getErrorCode() == 0 || model.getErrorCode() == 1) {
                         UserPreferences.getInstance(RegisterScreenActivity.this).saveUserInfo(userData, true);
                         Intent intent = new Intent(RegisterScreenActivity.this, OTPValidateActivity.class);
+                        intent.putExtra("UserData", userData);
                         startActivity(intent);
                         finish();
-                    }else{
-                        showToast(mContext,"This user is already register, please contact to administer ");
+                    } else {
+                        showToast(mContext, model.getErrorMsg());
                     }
-*/
                 }
             }
 
             @Override
-            public void onFailure(Object errorResponse) {
 
+            public void onFailure(Object errorResponse) {
+                Log.e("TAG", errorResponse.toString());
             }
         });
 

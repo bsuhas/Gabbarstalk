@@ -1,24 +1,24 @@
 package com.gabbarstalk.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
- * Created by SUHAS on 10/03/2017.
+ * Created by SUHAS on 24/03/2019.
  */
 
-public class RegisterResponseModel {
+public class AgendaListResponse implements Serializable {
+
     @SerializedName("error_code")
-    @Expose
     private int errorCode;
 
     @SerializedName("error_msg")
-    @Expose
     private String errorMsg;
 
-    @SerializedName("isNewUser")
-    @Expose
-    private boolean isNewUser;
+    @SerializedName("agendaDetailList")
+    private List<AgendaDetailsModel> agendaDetailList;
 
     public int getErrorCode() {
         return errorCode;
@@ -36,20 +36,20 @@ public class RegisterResponseModel {
         this.errorMsg = errorMsg;
     }
 
-    public boolean isNewUser() {
-        return isNewUser;
+    public List<AgendaDetailsModel> getAgendaDetailList() {
+        return agendaDetailList;
     }
 
-    public void setNewUser(boolean newUser) {
-        isNewUser = newUser;
+    public void setAgendaDetailList(List<AgendaDetailsModel> agendaDetailList) {
+        this.agendaDetailList = agendaDetailList;
     }
 
     @Override
     public String toString() {
-        return "RegisterResponseModel{" +
+        return "AgendaListResponse{" +
                 "errorCode=" + errorCode +
                 ", errorMsg='" + errorMsg + '\'' +
-                ", isNewUser=" + isNewUser +
+                ", agendaDetailList=" + agendaDetailList +
                 '}';
     }
 }

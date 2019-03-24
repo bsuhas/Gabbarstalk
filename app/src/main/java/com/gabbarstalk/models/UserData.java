@@ -3,32 +3,27 @@ package com.gabbarstalk.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by SUHAS on 07/03/2017.
  */
 
-public class UserData {
+public class UserData implements Serializable{
 
-    @SerializedName("LoksabhaId")
+    @SerializedName("name")
     @Expose
-    private String loksabhaId;
-    @SerializedName("VidhansabhaId")
-    @Expose
-    private String vidhansabhaId;
-    @SerializedName("WardNumber")
-    @Expose
-    private String wardNumber;
-    @SerializedName("IMEI")
-    @Expose
-    private String iMEI;
-    @SerializedName("Username")
+    private String name;
+
+    @SerializedName("username")
     @Expose
     private String username;
-    @SerializedName("MobileNumber")
+
+    @SerializedName("mobile_number")
     @Expose
     private String mobileNumber;
 
-    private  String userId;
+    private String userId;
 
     public String getUserId() {
         return userId;
@@ -38,36 +33,12 @@ public class UserData {
         this.userId = userId;
     }
 
-    public String getLoksabhaId() {
-        return loksabhaId;
+    public String getName() {
+        return name;
     }
 
-    public void setLoksabhaId(String loksabhaId) {
-        this.loksabhaId = loksabhaId;
-    }
-
-    public String getVidhansabhaId() {
-        return vidhansabhaId;
-    }
-
-    public void setVidhansabhaId(String vidhansabhaId) {
-        this.vidhansabhaId = vidhansabhaId;
-    }
-
-    public String getWardNumber() {
-        return wardNumber;
-    }
-
-    public void setWardNumber(String wardNumber) {
-        this.wardNumber = wardNumber;
-    }
-
-    public String getiMEI() {
-        return iMEI;
-    }
-
-    public void setiMEI(String iMEI) {
-        this.iMEI = iMEI;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUsername() {
@@ -89,12 +60,10 @@ public class UserData {
     @Override
     public String toString() {
         return "UserData{" +
-                "loksabhaId='" + loksabhaId + '\'' +
-                ", vidhansabhaId='" + vidhansabhaId + '\'' +
-                ", wardNumber='" + wardNumber + '\'' +
-                ", iMEI='" + iMEI + '\'' +
+                "name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

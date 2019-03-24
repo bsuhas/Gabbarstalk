@@ -19,11 +19,12 @@ import android.widget.Toast;
 
 import com.gabbarstalk.R;
 import com.gabbarstalk.interfaces.RESTClientResponse;
+import com.gabbarstalk.models.OTPRequestModel;
 import com.gabbarstalk.models.RegisterResponseModel;
-import com.gabbarstalk.models.StatusModel;
 import com.gabbarstalk.models.UserData;
 import com.gabbarstalk.utils.Utils;
-import com.gabbarstalk.webservices.RegisterUserService;
+import com.gabbarstalk.webservices.ResendOTPService;
+import com.gabbarstalk.webservices.VerifyUserService;
 
 
 /**
@@ -33,12 +34,18 @@ import com.gabbarstalk.webservices.RegisterUserService;
 public class OTPValidateActivity extends AppCompatActivity implements View.OnClickListener {
     private Context mContext;
     private EditText edtOTP;
+    private String mobileNumber;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.otp_screen);
         mContext = this;
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            UserData userData = (UserData) intent.getSerializableExtra("UserData");
+            mobileNumber = userData.getMobileNumber();
+        }
         init();
     }
 
@@ -51,10 +58,12 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
         }
 
-        Button btnRegister = (Button) findViewById(R.id.btn_submit_otp);
-
+        Button btnSubmitOtp = (Button) findViewById(R.id.btn_submit_otp);
+        TextView txtResendOTP = (TextView) findViewById(R.id.txt_resend_otp);
         edtOTP = (EditText) findViewById(R.id.edt_otp);
-        btnRegister.setOnClickListener(this);
+
+        btnSubmitOtp.setOnClickListener(this);
+        txtResendOTP.setOnClickListener(this);
 
         edtOTP.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
@@ -79,10 +88,14 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_register:
+            case R.id.btn_submit_otp:
                 if (validate()) {
                     sendDataToRegister();
                 }
+                break;
+            case R.id.txt_resend_otp:
+                callResendOtp();
+                break;
         }
     }
 
@@ -91,33 +104,29 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(mContext, R.string.error_network_unavailable, Toast.LENGTH_SHORT).show();
             return;
         }
-//        userData.setMobileNumber(edtOTP.getText().toString().trim());
-//        callToSubmitOtp(userData);
-        Intent intent = new Intent(OTPValidateActivity.this, HomeActivity.class);
-        startActivity(intent);
-        finish();
+        OTPRequestModel otpRequestModel = new OTPRequestModel();
+        otpRequestModel.setMobileNumber(mobileNumber);
+        otpRequestModel.setOtp(edtOTP.getText().toString().trim());
 
+        callToSubmitOtp(otpRequestModel);
     }
 
 
-    private void callToSubmitOtp(final UserData userData) {
-        Log.e("TAG", "Request:" + userData.toString());
+    private void callToSubmitOtp(final OTPRequestModel oTPRequestModel) {
+        Log.e("TAG", "Request:" + oTPRequestModel.toString());
         Utils.getInstance().showProgressDialog(OTPValidateActivity.this);
 
-        new RegisterUserService().registerUser(OTPValidateActivity.this, userData, new RESTClientResponse() {
+        new VerifyUserService().verifyUser(OTPValidateActivity.this, oTPRequestModel, new RESTClientResponse() {
             @Override
             public void onSuccess(Object response, int statusCode) {
-                if (statusCode == 200) {
+                if (statusCode == 201) {
                     Utils.getInstance().hideProgressDialog();
                     RegisterResponseModel model = (RegisterResponseModel) response;
                     Log.e("TAG", "Response:" + model.toString());
-                    StatusModel statusModel = model.getStatus().get(0);
+                    Intent intent = new Intent(mContext, HomeScreenActivity.class);
+                    startActivity(intent);
+                    finish();
                     /*if (statusModel.getErrorcode() == 1) {
-                        userData.setUserId(statusModel.getUserid());
-                        UserPreferences.getInstance(mContext).saveUserInfo(userData, true);
-                        Intent intent = new Intent(mContext, HomeScreenActivity.class);
-                        startActivity(intent);
-                        finish();
                     }else{
                         showToast(mContext,"This user is already register, please contact to administer ");
                     }
@@ -148,6 +157,32 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
 
     private void showToast(Context context, String string) {
         Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
+    }
+
+    private void callResendOtp() {
+        UserData userData = new UserData();
+        userData.setMobileNumber(mobileNumber);
+        Log.e("TAG", "Request:" + userData.toString());
+        Utils.getInstance().showProgressDialog(OTPValidateActivity.this);
+
+        new ResendOTPService().resendOtp(OTPValidateActivity.this, userData, new RESTClientResponse() {
+            @Override
+            public void onSuccess(Object response, int statusCode) {
+                if (statusCode == 201) {
+                    Utils.getInstance().hideProgressDialog();
+                    RegisterResponseModel model = (RegisterResponseModel) response;
+                    Log.e("TAG", "Response:" + model.toString());
+                    showToast(mContext, model.getErrorMsg());
+                    edtOTP.setText("");
+                }
+            }
+
+            @Override
+            public void onFailure(Object errorResponse) {
+
+            }
+        });
+
     }
 }
 

@@ -5,8 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AgendaFragment">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_agenda_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/md_white_1000"
+        android:layout_margin="@dimen/margin_10dp" />
+
 
 </FrameLayout>

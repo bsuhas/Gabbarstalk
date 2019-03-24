@@ -15,7 +15,7 @@ public class Constants {
 //    public static final String URL_GET_CUSTOMER_CODE = BASE_URL + "Customer/getCodes";
 
 
-    public static final String BASE_URL = "http://www.pixeltechservices.in/Election.asmx/";
+    public static final String BASE_URL = "http://app.api.gabbartalks.com/restful/api/";
 
     public static final int GALLERY_INTENT_REQUEST_CODE = 0x000005;
     public static final int CAMERA_REQUEST = 0x000003;
