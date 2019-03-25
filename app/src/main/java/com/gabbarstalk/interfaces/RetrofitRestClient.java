@@ -1,15 +1,9 @@
 package com.gabbarstalk.interfaces;
 
 import com.gabbarstalk.models.AgendaListResponse;
-import com.gabbarstalk.models.BoothDataResponse;
 import com.gabbarstalk.models.OTPRequestModel;
 import com.gabbarstalk.models.RegisterResponseModel;
-import com.gabbarstalk.models.RequestModel;
-import com.gabbarstalk.models.SurveyDataRequestModel;
-import com.gabbarstalk.models.SurveyDataResponse;
 import com.gabbarstalk.models.UserData;
-import com.gabbarstalk.models.VoterDataRequestModel;
-import com.gabbarstalk.models.VoterDataResponseModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -37,12 +31,4 @@ public interface RetrofitRestClient {
     @Headers("Content-Type: application/json")
     @GET("getAgendasList")
     Call<AgendaListResponse> getAgendaList();
-
-    @Headers("Content-Type: application/json")
-    @POST("VoterData")
-    Call<VoterDataResponseModel> getVoterData(@Body VoterDataRequestModel model);
-
-    @Headers("Content-Type: application/json")
-    @POST("SurveyData")
-    Call<SurveyDataResponse> getSurveyData(@Body SurveyDataRequestModel model);
 }

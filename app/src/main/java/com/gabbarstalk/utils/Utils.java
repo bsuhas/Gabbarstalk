@@ -167,8 +167,9 @@ public class Utils {
         imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
 
-    public void openVideoPlayer(Activity activity, Uri fileUri) {
+    public void openVideoPlayer(Activity activity, String videoUrl) {
         try {
+            Uri fileUri = Uri.parse(videoUrl);
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(fileUri, "video/*");
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

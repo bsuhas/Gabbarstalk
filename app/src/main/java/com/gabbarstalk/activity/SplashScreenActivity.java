@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import com.gabbarstalk.R;
+import com.gabbarstalk.models.AgendaDetailsModel;
+import com.gabbarstalk.utils.Constants;
 import com.gabbarstalk.utils.UserPreferences;
 
 
@@ -36,7 +38,6 @@ public class SplashScreenActivity extends Activity {
 
     private void checkUserLogin() {
         boolean isLoggedIn = UserPreferences.getInstance(mContext).isUserLogin();
-
         Intent loginIntent = new Intent(SplashScreenActivity.this, HomeScreenActivity.class);
         startActivity(loginIntent);
         finish();

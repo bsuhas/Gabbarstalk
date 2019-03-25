@@ -1,6 +1,7 @@
 package com.gabbarstalk.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gabbarstalk.R;
+import com.gabbarstalk.activity.AgendaWithVideosActivity;
+import com.gabbarstalk.activity.SplashScreenActivity;
 import com.gabbarstalk.models.AgendaDetailsModel;
+import com.gabbarstalk.utils.Constants;
 
 import java.util.List;
 
@@ -61,6 +65,11 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
                /* Bundle bundle = new Bundle();
                 bundle.putSerializable(Constants.VOTER_MODEL, model);
                 ((HomeScreenActivity) mContext).setFragment(new VoterDetailsFragment(), bundle);*/
+
+                Intent loginIntent = new Intent(view.getContext(), AgendaWithVideosActivity.class);
+                loginIntent.putExtra(Constants.AGENDA_MODEL,model);
+                view.getContext().startActivity(loginIntent);
+
             }
         });
     }

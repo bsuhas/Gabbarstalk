@@ -12,15 +12,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gabbarstalk.R;
+import com.gabbarstalk.adapters.AgendaVideosListAdapter;
 import com.gabbarstalk.models.AgendaDetailsModel;
+import com.gabbarstalk.models.VideoDetailsModel;
 import com.gabbarstalk.utils.Constants;
 import com.gabbarstalk.utils.SimpleDividerItemDecoration;
 import com.gabbarstalk.utils.Utils;
+
+import java.util.ArrayList;
 
 public class AgendaWithVideosActivity extends AppCompatActivity {
     private Context mContext;
     private AgendaDetailsModel agendaDetailsModel;
     private RecyclerView rvAgendaVideoList;
+    private ArrayList<VideoDetailsModel> videoDetailsModelList;
+    private AgendaVideosListAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +60,21 @@ public class AgendaWithVideosActivity extends AppCompatActivity {
         rvAgendaVideoList.addItemDecoration(new SimpleDividerItemDecoration(this));
         rvAgendaVideoList.setLayoutManager(llm);
 
+        videoDetailsModelList = new ArrayList<>();
+
+        //TODO hardcoded
+
+        VideoDetailsModel model = new VideoDetailsModel();
+        model.setUserName("Suhas Bachewar");
+        model.setVideoThumbnail("https://www.webslake.com/w_img/t_i/plc.png");
+        model.setVideoUrl("http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4");
+
+        for (int i = 0; i < 5; i++) {
+            videoDetailsModelList.add(model);
+        }
+
+        adapter = new AgendaVideosListAdapter(this, this, videoDetailsModelList);
+        rvAgendaVideoList.setAdapter(adapter);
     }
 
     @Override

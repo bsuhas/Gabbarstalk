@@ -29,39 +29,56 @@
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
         android:background="@color/md_white_1000"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/margin_10dp"
-        android:paddingRight="@dimen/margin_10dp">
+        android:orientation="vertical">
 
-        <TextView android:id="@+id/txt_agenda_name"
+        <LinearLayout
+            android:id="@+id/ll_agenda_list_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="left"
-            android:text="Agenda Name"
-            android:textColor="@color/md_black_1000"
-            android:textSize="@dimen/text_24sp"
-            android:textStyle="bold" />
+            android:background="@color/app_color"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_5dp"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_agenda" />
+
+            <TextView
+                android:id="@+id/txt_agenda_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:padding="@dimen/margin_10dp"
+                android:text="Agenda Title"
+                android:textColor="@color/md_black_1000"
+                android:textSize="@dimen/text_24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:gravity="left"
-            android:text="Video uploaded for agenda   "
+            android:gravity="start"
+            android:text="Video uploaded for agenda"
             android:textColor="@color/md_red_700"
-            android:textSize="@dimen/text_18sp" />
+            android:textSize="@dimen/text_18sp"
+            android:visibility="gone" />
 
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_1dp"
-            android:background="@color/md_black_1000" />
+            android:background="@color/md_black_1000"
+            android:visibility="gone" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_agenda_video_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin_10dp"
             android:background="@color/md_white_1000" />
 
     </LinearLayout>
