@@ -33,5 +33,7 @@
     <string name="drawer_disclaimer">Disclaimer</string>
     <string name="drawer_privacy_policy">Privacy Policy</string>
     <string name="drawer_terms_cond">Terms &amp; Conditions</string>
+    <string name="drawer_contact_us">Contact Us</string>
     <string name="close_the_app">Do you want to close the app?</string>
+    <string name="agenda_details">Agenda Details</string>
 </resources>

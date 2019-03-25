@@ -39,7 +39,7 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.otp_screen);
+        setContentView(R.layout.submit_otp_activity);
         mContext = this;
         Intent intent = getIntent();
         if (intent.getExtras() != null) {

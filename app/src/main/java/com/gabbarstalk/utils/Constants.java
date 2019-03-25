@@ -22,7 +22,7 @@ public class Constants {
     public static final String PROFILE_IMAGE = "Profile_Path";
     public static final String PARTY_LOGO_IMAGE = "Party_Logo_Path";
     public static final String DEFAULT_LANG = "Profile_Path";
-    public static final String VOTER_LIST = "Voter_list";
+    public static final String AGENDA_MODEL = "Agenda_model";
     public static final String VOTER_MODEL = "Voter_model";
     public static String STORED_IMAGE_PATH = "/" + "Vijay_yog";
     public static String mCurrentPhotoPath = "";

@@ -126,4 +126,9 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/md_black_1000</item>
     </style>
+
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">14dp</item>
+    </style>
+
 </resources>

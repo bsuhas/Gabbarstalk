@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -46,6 +47,7 @@ public class HomeScreenActivity extends AppCompatActivity
     private SystemBarTintManager mTintManager;
     private CircularImageView profileImage;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 201;
+    private NavigationView navigationView;
 
 
     @Override
@@ -69,7 +71,7 @@ public class HomeScreenActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
         TextView txtProfileName = (TextView) view.findViewById(R.id.txt_profile_name);
@@ -90,6 +92,24 @@ public class HomeScreenActivity extends AppCompatActivity
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
         setDrawerProfileImage();
+
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerClosed(View view) {
+                int size = navigationView.getMenu().size();
+                for (int i = 0; i < size; i++) {
+                    navigationView.getMenu().getItem(i).setChecked(false);
+                }
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+                //drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            }
+        };
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
     }
 
     public void setDrawerProfileImage() {
@@ -155,12 +175,16 @@ public class HomeScreenActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            setFragment(new AgendaFragment(), bundle);
+//            setFragment(new AgendaFragment(), bundle);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
         }else if (id == R.id.nav_profile) {
            setFragment(ProfileFragment.newInstance(),new Bundle());
+        }else if (id == R.id.nav_my_videos) {
+            Intent intent = new Intent(this,PlayVideoActivity.class);
+            startActivity(intent);
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 

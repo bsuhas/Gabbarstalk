@@ -3,12 +3,15 @@ package com.gabbarstalk.utils;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
@@ -22,6 +25,7 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -99,10 +103,10 @@ public class Utils {
     public void showToast(Context context, String string) {
         Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
     }
-    public Bitmap getOriententionBitmap(String filePath){
+
+    public Bitmap getOriententionBitmap(String filePath) {
         Bitmap myBitmap = null;
-        try
-        {
+        try {
             File f = new File(filePath);
             ExifInterface exif = new ExifInterface(f.getPath());
             int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
@@ -111,11 +115,9 @@ public class Utils {
 
             if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
                 angle = 90;
-            }
-            else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            } else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
                 angle = 180;
-            }
-            else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            } else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
                 angle = 270;
             }
 
@@ -125,7 +127,7 @@ public class Utils {
             Bitmap bmp1 = BitmapFactory.decodeStream(new FileInputStream(f), null, null);
             myBitmap = Bitmap.createBitmap(bmp1, 0, 0, bmp1.getWidth(), bmp1.getHeight(), mat, true);
 
-            if(myBitmap.getByteCount()>31961088){
+            if (myBitmap.getByteCount() > 31961088) {
                 myBitmap = getResizedBitmap(myBitmap, myBitmap.getWidth() / 2, myBitmap.getHeight() / 2);
             }
 
@@ -134,11 +136,9 @@ public class Utils {
 //            // Write 'bitmap' to file using JPEG and 80% quality hint for JPEG:
 //            myBitmap.compress(Bitmap.CompressFormat.JPEG, 80, imagefile);
 //            LocalLog.d("myBitmap_size:",""+myBitmap.getByteCount());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Log.w("TAG", "-- Error in setting image");
-        }
-        catch(OutOfMemoryError oom) {
+        } catch (OutOfMemoryError oom) {
             Log.w("TAG", "-- OOM Error in setting image");
         }
         return myBitmap;
@@ -162,8 +162,33 @@ public class Utils {
         return resizedBitmap;
     }
 
-    public void hidekeyboard(Activity activity){
-        InputMethodManager imm = (InputMethodManager)activity.getSystemService(INPUT_METHOD_SERVICE);
+    public void hidekeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
+    public void openVideoPlayer(Activity activity, Uri fileUri) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(fileUri, "video/*");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            if (intent.resolveActivity(activity.getPackageManager()) != null) {
+                List<ResolveInfo> resInfos = activity.getPackageManager().queryIntentActivities(intent, 0);
+                String packageName = null;
+                if (resInfos != null && resInfos.size() > 0) {
+                    packageName = resInfos.get(0).activityInfo.packageName;
+                }
+                if (packageName != null) {
+                    intent.setPackage(packageName);
+                    activity.startActivity(intent);
+                }
+            } else {
+//                Toast.makeText(activity, activity.getString(R.string.no_application_found_to_play_video), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+//            Toast.makeText(activity, activity.getString(R.string.no_application_found_to_play_video), Toast.LENGTH_SHORT).show();
+        }
     }
 }
