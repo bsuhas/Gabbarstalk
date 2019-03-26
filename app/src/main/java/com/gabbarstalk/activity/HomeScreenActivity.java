@@ -29,8 +29,6 @@ import android.widget.TextView;
 
 import com.gabbarstalk.R;
 import com.gabbarstalk.adapters.FragmentPagerAdapter;
-import com.gabbarstalk.fragments.AgendaFragment;
-import com.gabbarstalk.fragments.ProfileFragment;
 import com.gabbarstalk.models.UserData;
 import com.gabbarstalk.utils.CircularImageView;
 import com.gabbarstalk.utils.DialogUtils;
@@ -79,7 +77,7 @@ public class HomeScreenActivity extends AppCompatActivity
         profileImage = (CircularImageView) view.findViewById(R.id.profile_image);
 
         if (mUserData != null) {
-            txtProfileName.setText(mUserData.getUsername());
+            txtProfileName.setText(mUserData.getName());
             txtMobileNumber.setText(mUserData.getMobileNumber());
         }
         /*LayoutInflater mInflater = LayoutInflater.from(getApplicationContext());
@@ -173,13 +171,14 @@ public class HomeScreenActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         Bundle bundle = new Bundle();
         int id = item.getItemId();
+        Intent intent = new Intent(this, WebViewActivity.class);
 
-        if (id == R.id.nav_home) {
-//            setFragment(new AgendaFragment(), bundle);
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-        } else if (id == R.id.nav_profile) {
-//           setFragment(ProfileFragment.newInstance(),new Bundle());
+        if (id == R.id.nav_disclaimer) {
+            startActivity(intent);
+        } else if (id == R.id.nav_privacy_policy) {
+            startActivity(intent);
+        } else if (id == R.id.nav_terms_cond) {
+            startActivity(intent);
         } else if (id == R.id.nav_my_videos) {
 //            Intent intent = new Intent(this,PlayVideoActivity.class);
 //            startActivity(intent);

@@ -124,6 +124,7 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
                     RegisterResponseModel model = (RegisterResponseModel) response;
                     Log.e("TAG", "Response:" + model.toString());
                     Intent intent = new Intent(mContext, HomeScreenActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                     /*if (statusModel.getErrorcode() == 1) {

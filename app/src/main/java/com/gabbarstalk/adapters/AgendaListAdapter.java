@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.gabbarstalk.R;
 import com.gabbarstalk.activity.AgendaWithVideosActivity;
-import com.gabbarstalk.activity.SplashScreenActivity;
 import com.gabbarstalk.models.AgendaDetailsModel;
 import com.gabbarstalk.utils.Constants;
 

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by SUHAS on 07/03/2017.
  */
 
-public class UserData implements Serializable{
+public class UserData implements Serializable {
 
     @SerializedName("name")
     @Expose
@@ -25,13 +25,13 @@ public class UserData implements Serializable{
 
     private String userId;
 
-    public String getUserId() {
-        return userId;
-    }
+    @SerializedName("deviceDetail")
+    @Expose
+    private DeviceDetailModel deviceDetail;
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    @SerializedName("referralCode")
+    @Expose
+    private String referralCode = "";
 
     public String getName() {
         return name;
@@ -57,6 +57,30 @@ public class UserData implements Serializable{
         this.mobileNumber = mobileNumber;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public DeviceDetailModel getDeviceDetail() {
+        return deviceDetail;
+    }
+
+    public void setDeviceDetail(DeviceDetailModel deviceDetail) {
+        this.deviceDetail = deviceDetail;
+    }
+
+    public String getReferralCode() {
+        return referralCode;
+    }
+
+    public void setReferralCode(String referralCode) {
+        this.referralCode = referralCode;
+    }
+
     @Override
     public String toString() {
         return "UserData{" +
@@ -64,6 +88,8 @@ public class UserData implements Serializable{
                 ", username='" + username + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", userId='" + userId + '\'' +
+                ", deviceDetail=" + deviceDetail +
+                ", referralCode='" + referralCode + '\'' +
                 '}';
     }
 }
