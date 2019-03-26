@@ -131,4 +131,16 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:immersive">true</item>
+        <item name="android:windowBackground">@drawable/ic_bg</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>
