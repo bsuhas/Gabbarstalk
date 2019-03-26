@@ -178,11 +178,11 @@ public class HomeScreenActivity extends AppCompatActivity
 //            setFragment(new AgendaFragment(), bundle);
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
-        }else if (id == R.id.nav_profile) {
-           setFragment(ProfileFragment.newInstance(),new Bundle());
-        }else if (id == R.id.nav_my_videos) {
-            Intent intent = new Intent(this,PlayVideoActivity.class);
-            startActivity(intent);
+        } else if (id == R.id.nav_profile) {
+//           setFragment(ProfileFragment.newInstance(),new Bundle());
+        } else if (id == R.id.nav_my_videos) {
+//            Intent intent = new Intent(this,PlayVideoActivity.class);
+//            startActivity(intent);
         }
 
         return true;

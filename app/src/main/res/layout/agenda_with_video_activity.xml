@@ -2,6 +2,7 @@
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/product_activity_coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,31 +33,52 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/ll_agenda_list_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_color"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_5dp"
-            android:weightSum="1">
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="0.2"
-                android:src="@drawable/ic_agenda" />
-
-            <TextView
-                android:id="@+id/txt_agenda_name"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/ll_agenda_list_item"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:padding="@dimen/margin_10dp"
-                android:text="Agenda Title"
-                android:textColor="@color/md_black_1000"
-                android:textSize="@dimen/text_24sp"
-                android:textStyle="bold" />
+                android:background="@color/app_color"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_5dp"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.2"
+                    android:src="@drawable/ic_agenda" />
+
+                <TextView
+                    android:id="@+id/txt_agenda_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:padding="@dimen/margin_10dp"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="@dimen/text_24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:layout_marginBottom="@dimen/margin_10dp"
+                android:background="@drawable/black_button_bg"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Record Video"
+                android:textColor="@color/md_white_1000"
+                android:visibility="gone" />
         </LinearLayout>
 
         <TextView
@@ -82,4 +104,16 @@
             android:background="@color/md_white_1000" />
 
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/invoxx_bottom_fab_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end|right"
+        android:layout_margin="@dimen/margin_10dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_videocam_black"
+        app:backgroundTint="@color/app_color" />
 </android.support.design.widget.CoordinatorLayout>
