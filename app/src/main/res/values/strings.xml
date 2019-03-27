@@ -36,4 +36,5 @@
     <string name="drawer_contact_us">Contact Us</string>
     <string name="close_the_app">Do you want to close the app?</string>
     <string name="agenda_details">Agenda Details</string>
+    <string name="upload_video">Upload Video</string>
 </resources>

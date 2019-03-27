@@ -1,52 +1,90 @@
 package com.gabbarstalk.utils;
 
-/**
- * Created by harshalranpise on 19/10/15.
- */
-public class Constants {
+import android.app.Activity;
+import android.os.Environment;
 
-    /**
-     * URL's
-     */
-//    public static final String BASE_URL = "http://onenethost-001-site1.1tempurl.com/api/";
-//    public static final String URL_AUTHENTICATE = BASE_URL + "Account/Authenticate";
-//    public static final String URL_ADD_CONTAINER = BASE_URL + "Container/add";
-//    public static final String URL_ADD_IMAGE = BASE_URL + "Container/saveimage";
-//    public static final String URL_GET_CUSTOMER_CODE = BASE_URL + "Customer/getCodes";
+import java.io.File;
+
+
+public class Constants {
 
 
     public static final String BASE_URL = "http://app.api.gabbartalks.com/restful/api/";
+    public static final String APP_DIRECTORY = "GabbarsTalk";
+    public static final String CAMERA_OUTPUT_NAME = APP_DIRECTORY + "_";
+    private static final String YOUVOXX_TEMPORARY_DIRECTORY = "Temporary Files";
 
-    public static final int GALLERY_INTENT_REQUEST_CODE = 0x000005;
-    public static final int CAMERA_REQUEST = 0x000003;
+
     public static final String PROFILE_IMAGE = "Profile_Path";
     public static final String PARTY_LOGO_IMAGE = "Party_Logo_Path";
     public static final String DEFAULT_LANG = "Profile_Path";
     public static final String AGENDA_MODEL = "Agenda_model";
-    public static final String VOTER_MODEL = "Voter_model";
-    public static String STORED_IMAGE_PATH = "/" + "Vijay_yog";
-    public static String mCurrentPhotoPath = "";
-
-
     public static final String LANG_ENGLISH = "en";
-    public static final String LANG_HINDI = "hi";
-    public static final String LANG_MARATHI = "mr";
-
-
     //Shared preference
+    public static final String AGENDA_DETAILS_MODEL = "agenda_details_model";
+    public static final String RECORDED_VIDEO = "recorded_video";
     public static final String USERDATA = "username";
     public static final String KEEP_ME_LOGIN = "keepmelogin";
 
+    public static Boolean isExternalStorageDirectoryExist = null;
+    public static boolean isExternalHiddenStorageDirectoryExist = false;
+    public static final String HIDE_APP_DIRECTORY = ".YouVOXX";
 
-    public static final String SEARCH_FOR_TEXT = "SearchForText";
-    public static final String SEARCH_FOR_TYPE = "SearchForType";
-    public static final String SEARCH_FOR_ACTUAL_TYPE = "SearchActualType";
+    public static String getTemporaryFilePath(Activity activity) {
+        return getFilePath(YOUVOXX_TEMPORARY_DIRECTORY + File.separator, activity);
+    }
 
-    public static final int BY_FNAME  = 901;
-    public static final int BY_LNAME  = 902;
-    public static final int BY_VOTERID  = 903;
-    public static final int BY_AGE  = 904;
-    public static final int BY_ADDRESS  = 905;
-    public static final int BY_BOOTH  = 906;
-    public static int KEYBOARD_TYPE = 2;
+    public static String getFilePath(Activity activity) {
+        String path = YOUVOXX_TEMPORARY_DIRECTORY + File.separator;
+        if (isExternalStorageDirectoryExist == null) {
+            setIsExternalStorageDirectoryExistFlag(path);
+        }
+
+        if (isExternalStorageDirectoryExist != null && isExternalStorageDirectoryExist) {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + APP_DIRECTORY + File.separator + path;
+        } else if (isExternalHiddenStorageDirectoryExist) {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + HIDE_APP_DIRECTORY + File.separator + path;
+        }
+        return activity.getExternalCacheDir() + File.separator + APP_DIRECTORY + File.separator + path;
+    }
+
+    private static String getFilePath(String path, Activity activity) {
+        if (isExternalStorageDirectoryExist == null) {
+            setIsExternalStorageDirectoryExistFlag(path);
+        }
+
+        if (isExternalStorageDirectoryExist != null && isExternalStorageDirectoryExist) {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + APP_DIRECTORY + File.separator + path;
+        } else if (isExternalHiddenStorageDirectoryExist) {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + HIDE_APP_DIRECTORY + File.separator + path;
+        }
+        return activity.getExternalCacheDir() + File.separator + APP_DIRECTORY + File.separator + path;
+    }
+
+    private static void setIsExternalStorageDirectoryExistFlag(String path) {
+        File mydir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + APP_DIRECTORY + File.separator + path);
+        if (!mydir.exists()) {
+            isExternalStorageDirectoryExist = mydir.mkdirs();
+        }
+        if (isExternalStorageDirectoryExist != null && !isExternalStorageDirectoryExist) {
+            path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + HIDE_APP_DIRECTORY + File.separator + path;
+            mydir = new File(path);
+            if (!mydir.exists()) {
+                isExternalHiddenStorageDirectoryExist = mydir.mkdirs();
+            }
+        }
+    }
+
+    /*private static String getFilePath(String path, Application app) {
+        if (isExternalStorageDirectoryExist == null) {
+            setIsExternalStorageDirectoryExistFlag(path);
+        }
+
+        if (isExternalStorageDirectoryExist != null && isExternalStorageDirectoryExist) {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + APP_DIRECTORY + File.separator + path;
+        } else if (isExternalHiddenStorageDirectoryExist) {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + HIDE_APP_DIRECTORY + File.separator + path;
+        }
+        return app.getExternalCacheDir() + File.separator + APP_DIRECTORY + File.separator + path;
+    }*/
 }

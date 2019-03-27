@@ -2,11 +2,10 @@
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/product_activity_coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_black_1000"
+    android:background="@color/md_white_1000"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -27,7 +26,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:background="@color/md_white_1000"
         android:orientation="vertical">
@@ -35,85 +34,69 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/app_color"
-            android:gravity="center"
+            android:layout_margin="@dimen/margin_10dp"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/ll_agenda_list_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/app_color"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/margin_5dp"
                 android:weightSum="1">
 
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="0.2"
+                    android:layout_height="60dp"
+                    android:layout_weight="0.3"
                     android:src="@drawable/ic_agenda" />
 
                 <TextView
-                    android:id="@+id/txt_agenda_name"
+                    android:id="@+id/tv_agenda_title"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
+                    android:layout_height="60dp"
+                    android:layout_weight="0.7"
                     android:padding="@dimen/margin_10dp"
+                    android:text="Agenda Name"
                     android:textColor="@color/md_black_1000"
-                    android:textSize="@dimen/text_24sp"
+                    android:textSize="@dimen/text_18sp"
                     android:textStyle="bold" />
-
             </LinearLayout>
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20dp">
+
+                <ImageView
+                    android:id="@+id/img_video_thumb"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_200dp"
+                    android:background="@color/md_black_1000"
+                    android:scaleType="fitXY" />
+
+                <ImageView
+                    android:id="@+id/img_video_play"
+                    android:layout_width="@dimen/margin_50dp"
+                    android:layout_height="@dimen/margin_50dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_play_circle" />
+            </RelativeLayout>
+
             <Button
+                android:id="@+id/btn_upload_video"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_30dp"
                 android:layout_marginRight="@dimen/margin_5dp"
                 android:layout_marginBottom="@dimen/margin_10dp"
                 android:background="@drawable/black_button_bg"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Record Video"
-                android:textColor="@color/md_white_1000"
-                android:visibility="gone" />
+                android:text="Upload Video"
+                android:textColor="@color/md_white_1000" />
+
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="start"
-            android:text="Video uploaded for agenda"
-            android:textColor="@color/md_red_700"
-            android:textSize="@dimen/text_18sp"
-            android:visibility="gone" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1dp"
-            android:background="@color/md_black_1000"
-            android:visibility="gone" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_agenda_video_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/md_white_1000" />
-
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom|end|right"
-        android:layout_margin="@dimen/margin_10dp"
-        android:scaleType="center"
-        android:src="@drawable/ic_videocam_black"
-        app:backgroundTint="@color/app_color" />
 </android.support.design.widget.CoordinatorLayout>

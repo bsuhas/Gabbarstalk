@@ -36,7 +36,7 @@ public class SplashScreenActivity extends Activity {
 
     private void checkUserLogin() {
         boolean isLoggedIn = UserPreferences.getInstance(mContext).isUserLogin();
-        Intent loginIntent = new Intent(SplashScreenActivity.this, RegisterScreenActivity.class);
+        Intent loginIntent = new Intent(SplashScreenActivity.this, HomeScreenActivity.class);
         startActivity(loginIntent);
         finish();
 

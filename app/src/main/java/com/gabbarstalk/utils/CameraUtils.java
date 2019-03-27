@@ -2,6 +2,7 @@ package com.gabbarstalk.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +11,9 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.util.Log;
 
@@ -31,6 +34,8 @@ public class CameraUtils {
     public static Bitmap sImageThumbBitmap;
     public static Bitmap sImageActualBitmap;
     public static final String sPassImageURI = "PassedImageURI";
+    public static final int ACTIVITY_REQUEST_CODE = 30;
+
     public static String compressImage(String imageUri, Activity activity) {
 
         String filePath = getRealPathFromURI(imageUri, activity);
@@ -231,21 +236,41 @@ public class CameraUtils {
         return myBitmap;
     }
 
-   public static String getImageEncodedData(String path) {
-       File f = new File(path);
-       Bitmap imageBitmap = null;
-       try {
-           imageBitmap = BitmapFactory.decodeStream(new FileInputStream(f));
-       } catch (FileNotFoundException e) {
-           e.printStackTrace();
-       }
-       //added for testing base 64
-       ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//       imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-       imageBitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-       byte[] imageBytes = baos.toByteArray();
-       String mImageEncodedString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-//       Log.e("TAG", "imageEncodedString: " + mImageEncodedString);
-       return mImageEncodedString;
-   }
+    public static String getImageEncodedData(String path) {
+        File f = new File(path);
+        Bitmap imageBitmap = null;
+        try {
+            imageBitmap = BitmapFactory.decodeStream(new FileInputStream(f));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        //added for testing base 64
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String mImageEncodedString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return mImageEncodedString;
+    }
+
+    public static String startCameraIntent(Activity activity) {
+        String fileName = Constants.CAMERA_OUTPUT_NAME + System.currentTimeMillis() + ".mp4";
+        File filePath = new File(Constants.getFilePath(activity));
+        if (!filePath.exists()) {
+            if (!filePath.mkdirs()) {
+                return null;
+            }
+        }
+        File file = new File(Constants.getTemporaryFilePath(activity) + fileName);
+        Intent cameraIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        final Uri outputUri;
+        if (Build.VERSION.SDK_INT < 24) {
+            outputUri = Uri.fromFile(file);
+        } else {
+            outputUri = FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".provider", file);
+            cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+        activity.startActivityForResult(cameraIntent, ACTIVITY_REQUEST_CODE);
+        return file.getAbsolutePath();
+    }
 }
