@@ -58,8 +58,8 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
         Button btnRegister = (Button) findViewById(R.id.btn_register);
 
         edtMobile = (EditText) findViewById(R.id.edt_mobile);
-        edtUserName = (EditText) findViewById(R.id.edt_username);
-        edtName = (EditText) findViewById(R.id.edt_name);
+       /* edtUserName = (EditText) findViewById(R.id.edt_username);
+        edtName = (EditText) findViewById(R.id.edt_name);*/
         btnRegister.setOnClickListener(this);
 
         edtMobile.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -102,8 +102,8 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
         }
         UserData userData = new UserData();
 //        userData.setiMEI(telephonyManager.getDeviceId());
-        userData.setUsername(edtUserName.getText().toString().trim());
-        userData.setName(edtName.getText().toString().trim());
+//        userData.setUsername(edtUserName.getText().toString().trim());
+//        userData.setName(edtName.getText().toString().trim());
         userData.setMobileNumber(edtMobile.getText().toString().trim());
 
         DeviceDetailModel model = new DeviceDetailModel();
@@ -159,14 +159,14 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
 
     private boolean validate() {
 
-        if (TextUtils.isEmpty(edtUserName.getText().toString().trim())) {
+        /*if (TextUtils.isEmpty(edtUserName.getText().toString().trim())) {
             showToast(this, getString(R.string.error_msg_enter_username));
             return false;
         }
         if (TextUtils.isEmpty(edtName.getText().toString().trim())) {
             showToast(this, getString(R.string.error_msg_enter_name));
             return false;
-        }
+        }*/
         if (TextUtils.isEmpty(edtMobile.getText().toString().trim())) {
             showToast(this, getString(R.string.error_msg_enter_mobile_number));
             return false;

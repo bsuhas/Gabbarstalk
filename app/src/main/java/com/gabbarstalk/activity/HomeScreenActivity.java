@@ -10,14 +10,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +26,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gabbarstalk.R;
-import com.gabbarstalk.adapters.FragmentPagerAdapter;
+import com.gabbarstalk.fragments.MostLikedVideosFragment;
 import com.gabbarstalk.models.UserData;
 import com.gabbarstalk.utils.CircularImageView;
 import com.gabbarstalk.utils.DialogUtils;
@@ -54,7 +52,9 @@ public class HomeScreenActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         mUserData = UserPreferences.getInstance(this).getUserNameInfo();
         initToolBar();
-        checkPermissionForWrite();
+        Bundle bundle = new Bundle();
+        setFragment(new MostLikedVideosFragment(), bundle);
+//        checkPermissionForWrite();
     }
 
     private void initToolBar() {
@@ -84,11 +84,11 @@ public class HomeScreenActivity extends AppCompatActivity
         @SuppressLint("InflateParams") View mCustomView = mInflater.inflate(R.layout.activity_home_toolbar, null);
         toolbar.addView(mCustomView);*/
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setVisibility(View.VISIBLE);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()));
-        tabLayout.setupWithViewPager(viewPager);
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+//        tabLayout.setVisibility(View.VISIBLE);
+//        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+//        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()));
+//        tabLayout.setupWithViewPager(viewPager);
         setDrawerProfileImage();
 
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
@@ -151,8 +151,6 @@ public class HomeScreenActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
 
@@ -168,22 +166,24 @@ public class HomeScreenActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        Bundle bundle = new Bundle();
         int id = item.getItemId();
         Intent intent = new Intent(this, WebViewActivity.class);
 
-        if (id == R.id.nav_disclaimer) {
+        if (id == R.id.nav_agenda) {
+            startActivity(new Intent(this, AgendaListActivity.class));
+        } else if (id == R.id.nav_profile) {
+            //TODO
+        } else if (id == R.id.nav_my_videos) {
+            //TODO
+        } else if (id == R.id.nav_disclaimer) {
             startActivity(intent);
         } else if (id == R.id.nav_privacy_policy) {
             startActivity(intent);
         } else if (id == R.id.nav_terms_cond) {
             startActivity(intent);
-        } else if (id == R.id.nav_my_videos) {
-//            Intent intent = new Intent(this,PlayVideoActivity.class);
-//            startActivity(intent);
+        } else if (id == R.id.nav_contact_us) {
+            //TODO
         }
-
         return true;
     }
 

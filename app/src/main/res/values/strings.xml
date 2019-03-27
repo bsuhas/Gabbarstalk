@@ -27,6 +27,7 @@
     <string name="error_msg_enter_username">Please enter username </string>
     <string name="error_msg_enter_name">Please enter name </string>
 
+    <string name="drawer_agenda">Agendas</string>
     <string name="drawer_home">Home Page</string>
     <string name="drawer_profile">Profile</string>
     <string name="drawer_my_videos">My Videos</string>
@@ -37,4 +38,5 @@
     <string name="close_the_app">Do you want to close the app?</string>
     <string name="agenda_details">Agenda Details</string>
     <string name="upload_video">Upload Video</string>
+    <string name="group_about">About</string>
 </resources>
