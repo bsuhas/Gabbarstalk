@@ -26,7 +26,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gabbarstalk.R;
-import com.gabbarstalk.fragments.MostLikedVideosFragment;
+import com.gabbarstalk.fragments.RecentVideosFragment;
 import com.gabbarstalk.models.UserData;
 import com.gabbarstalk.utils.CircularImageView;
 import com.gabbarstalk.utils.DialogUtils;
@@ -53,7 +53,7 @@ public class HomeScreenActivity extends AppCompatActivity
         mUserData = UserPreferences.getInstance(this).getUserNameInfo();
         initToolBar();
         Bundle bundle = new Bundle();
-        setFragment(new MostLikedVideosFragment(), bundle);
+        setFragment(new RecentVideosFragment(), bundle);
 //        checkPermissionForWrite();
     }
 

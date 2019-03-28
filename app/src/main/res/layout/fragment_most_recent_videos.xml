@@ -9,17 +9,16 @@
         android:id="@+id/rv_most_liked_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_10dp"
-        android:background="@color/md_white_1000"
-        android:visibility="gone" />
+        android:background="@color/md_white_1000" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="@dimen/margin_50dp"
+        android:gravity="center"
         android:text="No Record found"
         android:textColor="@color/md_black_1000"
         android:textSize="@dimen/text_20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 </FrameLayout>

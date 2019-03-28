@@ -79,6 +79,7 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+//        private final RecyclerView rvChild;
         private LinearLayout llAgendaListItem;
         private TextView txtAgendaTitle;
 
@@ -86,6 +87,7 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
             super(itemView);
             txtAgendaTitle = (TextView) itemView.findViewById(R.id.tv_agenda_title);
             llAgendaListItem = (LinearLayout) itemView.findViewById(R.id.ll_agenda_list_item);
+//            rvChild = (RecyclerView) itemView.findViewById(R.id.rv_child);
         }
     }
 }

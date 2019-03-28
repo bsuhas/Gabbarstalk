@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import com.gabbarstalk.fragments.AgendaFragment;
-import com.gabbarstalk.fragments.MostLikedVideosFragment;
+import com.gabbarstalk.fragments.RecentVideosFragment;
 
 
 public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAdapter {
@@ -21,7 +21,7 @@ public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAd
             case 0:
                 return AgendaFragment.newInstance();
             case 1:
-                return MostLikedVideosFragment.newInstance();
+                return RecentVideosFragment.newInstance();
             default:
                 return null;
         }
