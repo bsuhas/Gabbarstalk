@@ -4,10 +4,12 @@ package com.gabbarstalk.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.gabbarstalk.R;
 import com.gabbarstalk.adapters.AgendaListAdapter;
@@ -30,6 +32,7 @@ public class AgendaListActivity extends AppCompatActivity {
     private RecyclerView rvAgendaList;
     private List<AgendaDetailsModel> agendaDetailList;
     private AgendaListAdapter adapter;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class AgendaListActivity extends AppCompatActivity {
         setContentView(R.layout.agenda_list_activity);
         mContext = this;
         init();
-        getAgendaList();
+//        getAgendaList(true);
     }
 
     private void init() {
@@ -59,6 +62,17 @@ public class AgendaListActivity extends AppCompatActivity {
         agendaDetailList = new ArrayList<>();
         adapter = new AgendaListAdapter(mContext, agendaDetailList);
         rvAgendaList.setAdapter(adapter);
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setColorSchemeResources(R.color.gplus_color_1,
+                R.color.gplus_color_2,
+                R.color.gplus_color_3,
+                R.color.gplus_color_4);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getAgendaList(false);
+            }
+        });
     }
 
     @Override
@@ -67,8 +81,9 @@ public class AgendaListActivity extends AppCompatActivity {
         return true;
     }
 
-    private void getAgendaList() {
-        Utils.getInstance().showProgressDialog(AgendaListActivity.this);
+    private void getAgendaList(boolean isShowProgressBar) {
+        if(isShowProgressBar)
+            Utils.getInstance().showProgressDialog(AgendaListActivity.this);
 
         new AgendaListService().getAgendaList(AgendaListActivity.this, new RESTClientResponse() {
             @Override
@@ -78,6 +93,8 @@ public class AgendaListActivity extends AppCompatActivity {
                     AgendaListResponse model = (AgendaListResponse) response;
                     agendaDetailList = model.getAgendaDetailList();
                     adapter.refreshAdapter(agendaDetailList);
+                    swipeContainer.setRefreshing(false);
+
                 }
             }
 

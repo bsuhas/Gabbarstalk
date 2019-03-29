@@ -30,12 +30,18 @@
         android:layout_marginTop="50dp"
         android:background="@color/md_white_1000">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_agenda_list"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_10dp"
-            android:background="@color/md_white_1000" />
+            android:layout_height="match_parent">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_agenda_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:background="@color/md_white_1000" />
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
+
 </android.support.design.widget.CoordinatorLayout>
