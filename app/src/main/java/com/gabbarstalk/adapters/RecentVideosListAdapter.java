@@ -2,7 +2,10 @@ package com.gabbarstalk.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gabbarstalk.R;
+import com.gabbarstalk.activity.AgendaWithVideosActivity;
+import com.gabbarstalk.models.AgendaDetailsModel;
 import com.gabbarstalk.models.VideoDetailsModel;
+import com.gabbarstalk.utils.Constants;
 import com.gabbarstalk.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -55,16 +61,31 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final VideoDetailsModel model = videoDetailsModelList.get(position);
 
+        holder.tvAgendaTitle.setText(model.getAgendaTitle());
         holder.tvUsername.setText(model.getUserName());
-        Picasso.with(mContext).load(model.getVideoThumbnail()).placeholder(R.color.md_black_1000).into(holder.imgVideoThumb);
+        holder.tvVideoCaption.setText(model.getCaption());
+        if (!TextUtils.isEmpty(model.getVideoThumbnail()))
+            Picasso.with(mContext).load(model.getVideoThumbnail()).placeholder(R.color.md_black_1000).into(holder.imgVideoThumb);
 
         holder.imgVideoPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.getInstance().openVideoPlayer(mActivity, model.getVideoUrl());
+//                Utils.getInstance().openVideoPlayer(mActivity, model.getVideoUrl());
+                Utils.getInstance().showToast(mContext, "Coming Soon");
+            }
+        });
+        holder.tvAgendaTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AgendaDetailsModel agendaDetailsModel = new AgendaDetailsModel();
+                agendaDetailsModel.setAgendaId(Integer.parseInt(model.getAgendaId()));
+                agendaDetailsModel.setAgendaTitle(model.getAgendaTitle());
+                Intent intent = new Intent(view.getContext(), AgendaWithVideosActivity.class);
+                intent.putExtra(Constants.AGENDA_MODEL, agendaDetailsModel);
+                view.getContext().startActivity(intent);
             }
         });
     }
@@ -78,7 +99,9 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
         private LinearLayout llListItem;
         private LinearLayout llProfileData;
         private ImageView profileImg;
+        private TextView tvAgendaTitle;
         private TextView tvUsername;
+        private TextView tvVideoCaption;
         private ImageView imgVideoThumb;
         private ImageView imgVideoPlay;
         private ImageView ivLike;
@@ -89,6 +112,8 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
             llListItem = (LinearLayout) view.findViewById(R.id.ll_list_item);
             llProfileData = (LinearLayout) view.findViewById(R.id.ll_profile_data);
             profileImg = (ImageView) view.findViewById(R.id.profile_img);
+            tvVideoCaption = (TextView) view.findViewById(R.id.tv_video_caption);
+            tvAgendaTitle = (TextView) view.findViewById(R.id.tv_agenda_title);
             tvUsername = (TextView) view.findViewById(R.id.tv_username);
             imgVideoThumb = (ImageView) view.findViewById(R.id.img_video_thumb);
             imgVideoPlay = (ImageView) view.findViewById(R.id.img_video_play);

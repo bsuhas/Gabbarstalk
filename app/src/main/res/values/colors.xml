@@ -319,6 +319,7 @@
     <color name="light_gray_80">#CC5e5e5e</color>
     <color name="light_red">#fe4e50</color>
     <color name="dark_gray">#3F3F3F</color>
+    <color name="my_gray">#eeeeee</color>
 
     <color name="list_color1">#fadcaf</color>
     <color name="list_color2">#afcdfa</color>

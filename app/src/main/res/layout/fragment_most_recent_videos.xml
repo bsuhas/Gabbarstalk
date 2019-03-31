@@ -5,20 +5,32 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AgendaFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_most_liked_list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/md_white_1000" />
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_50dp"
-        android:gravity="center"
-        android:text="No Record found"
-        android:textColor="@color/md_black_1000"
-        android:textSize="@dimen/text_20sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_10dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_most_liked_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/md_white_1000" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+        <!--<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_50dp"
+            android:gravity="center"
+            android:text="No Record found"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/text_20sp"
+            android:textStyle="bold"
+            android:visibility="gone" />-->
+    </LinearLayout>
 </FrameLayout>

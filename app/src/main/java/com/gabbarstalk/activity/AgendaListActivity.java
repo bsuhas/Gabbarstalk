@@ -16,6 +16,7 @@ import com.gabbarstalk.adapters.AgendaListAdapter;
 import com.gabbarstalk.interfaces.RESTClientResponse;
 import com.gabbarstalk.models.AgendaDetailsModel;
 import com.gabbarstalk.models.AgendaListResponse;
+import com.gabbarstalk.models.VideoDetailsModel;
 import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.AgendaListService;
 
@@ -40,7 +41,7 @@ public class AgendaListActivity extends AppCompatActivity {
         setContentView(R.layout.agenda_list_activity);
         mContext = this;
         init();
-//        getAgendaList(true);
+        getAgendaList(true);
     }
 
     private void init() {
@@ -60,7 +61,7 @@ public class AgendaListActivity extends AppCompatActivity {
         rvAgendaList.setLayoutManager(llm);
 
         agendaDetailList = new ArrayList<>();
-        adapter = new AgendaListAdapter(mContext, agendaDetailList);
+        adapter = new AgendaListAdapter(AgendaListActivity.this, mContext, agendaDetailList);
         rvAgendaList.setAdapter(adapter);
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setColorSchemeResources(R.color.gplus_color_1,
@@ -82,7 +83,7 @@ public class AgendaListActivity extends AppCompatActivity {
     }
 
     private void getAgendaList(boolean isShowProgressBar) {
-        if(isShowProgressBar)
+        if (isShowProgressBar)
             Utils.getInstance().showProgressDialog(AgendaListActivity.this);
 
         new AgendaListService().getAgendaList(AgendaListActivity.this, new RESTClientResponse() {
@@ -92,6 +93,22 @@ public class AgendaListActivity extends AppCompatActivity {
                     Utils.getInstance().hideProgressDialog();
                     AgendaListResponse model = (AgendaListResponse) response;
                     agendaDetailList = model.getAgendaDetailList();
+
+                    //TODO hardcoded
+
+                    VideoDetailsModel videoDetailsModel = new VideoDetailsModel();
+                    videoDetailsModel.setUserName("Suhas Bachewar");
+                    videoDetailsModel.setVideoThumbnail("https://www.webslake.com/w_img/t_i/plc.png");
+                    videoDetailsModel.setVideoUrl("http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4");
+                    List<VideoDetailsModel> videoDetailsModelList = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        videoDetailsModelList.add(videoDetailsModel);
+                    }
+
+                    for (int i = 0; i < agendaDetailList.size(); i++) {
+                        agendaDetailList.get(i).setVideoDetailsModelList(videoDetailsModelList);
+                    }
+                    //TODO
                     adapter.refreshAdapter(agendaDetailList);
                     swipeContainer.setRefreshing(false);
 

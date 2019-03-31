@@ -56,7 +56,7 @@ public class AgendaFragment extends Fragment {
         rvAgendaList.setLayoutManager(llm);
 
         agendaDetailList = new ArrayList<>();
-        adapter = new AgendaListAdapter(mActivity, agendaDetailList);
+        adapter = new AgendaListAdapter(mActivity, mActivity,agendaDetailList);
         rvAgendaList.setAdapter(adapter);
     }
 

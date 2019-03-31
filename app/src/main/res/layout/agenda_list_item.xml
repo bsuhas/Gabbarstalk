@@ -21,22 +21,22 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="@dimen/margin_5dp"
             android:weightSum="1">
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_weight="0.3"
+                android:layout_height="60dp"
+                android:layout_weight="0.2"
+                android:paddingTop="@dimen/margin_5dp"
                 android:src="@drawable/ic_agenda" />
 
             <TextView
                 android:id="@+id/tv_agenda_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:gravity="center_vertical"
-                android:padding="@dimen/margin_10dp"
+                android:layout_weight="0.8"
+                android:gravity="start"
+                android:padding="@dimen/margin_5dp"
                 android:text="Agenda Title"
                 android:textColor="@color/md_black_1000"
                 android:textSize="@dimen/text_20sp" />
@@ -46,10 +46,8 @@
             android:id="@+id/rv_child"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:padding="10dp"
-            android:visibility="gone"
             tools:layout_editor_absoluteX="74dp" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

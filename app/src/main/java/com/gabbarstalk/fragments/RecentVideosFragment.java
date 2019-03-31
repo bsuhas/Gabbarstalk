@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,10 +14,11 @@ import android.view.ViewGroup;
 import com.gabbarstalk.R;
 import com.gabbarstalk.adapters.RecentVideosListAdapter;
 import com.gabbarstalk.interfaces.RESTClientResponse;
+import com.gabbarstalk.models.RecentVideoResponse;
 import com.gabbarstalk.models.VideoDetailsModel;
 import com.gabbarstalk.utils.SimpleDividerItemDecoration;
 import com.gabbarstalk.utils.Utils;
-import com.gabbarstalk.webservices.AgendaListService;
+import com.gabbarstalk.webservices.RecentVideoListService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ public class RecentVideosFragment extends Fragment {
     private RecyclerView rvAgendaList;
     private List<VideoDetailsModel> videoDetailsModelList;
     private RecentVideosListAdapter adapter;
+    private SwipeRefreshLayout swipeContainer;
 
     public static RecentVideosFragment newInstance() {
         return new RecentVideosFragment();
@@ -43,7 +46,7 @@ public class RecentVideosFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_most_recent_videos, container, false);
         this.mActivity = getActivity();
         init(view);
-//        getAgendaList();
+        getRecentVideoList(true);
         return view;
     }
 
@@ -57,31 +60,35 @@ public class RecentVideosFragment extends Fragment {
 
         videoDetailsModelList = new ArrayList<>();
 
-        //TODO hardcoded
-
-        VideoDetailsModel model = new VideoDetailsModel();
-        model.setUserName("Suhas Bachewar");
-        model.setVideoThumbnail("https://www.webslake.com/w_img/t_i/plc.png");
-        model.setVideoUrl("http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4");
-
-        for (int i=0;i<5;i++){
-            videoDetailsModelList.add(model);
-        }
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         adapter = new RecentVideosListAdapter(mActivity, getActivity(), videoDetailsModelList);
         rvAgendaList.setAdapter(adapter);
+
+        swipeContainer.setColorSchemeResources(R.color.gplus_color_1,
+                R.color.gplus_color_2,
+                R.color.gplus_color_3,
+                R.color.gplus_color_4);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getRecentVideoList(false);
+            }
+        });
     }
 
-    private void getAgendaList() {
-        Utils.getInstance().showProgressDialog(mActivity);
+    private void getRecentVideoList(boolean isShowProgressBar) {
+        if (isShowProgressBar)
+            Utils.getInstance().showProgressDialog(mActivity);
 
-        new AgendaListService().getAgendaList(mActivity, new RESTClientResponse() {
+        new RecentVideoListService().getRecentVideoList(mActivity, new RESTClientResponse() {
             @Override
             public void onSuccess(Object response, int statusCode) {
                 if (statusCode == 201) {
                     Utils.getInstance().hideProgressDialog();
-//                    AgendaListResponse model = (AgendaListResponse) response;
-//                    videoDetailsModelList = model.getAgendaDetailList();
-//                    adapter.refreshAdapter(videoDetailsModelList);
+                    RecentVideoResponse model = (RecentVideoResponse) response;
+                    videoDetailsModelList = model.getVideoDetailsModelList();
+                    adapter.refreshAdapter(videoDetailsModelList);
+                    swipeContainer.setRefreshing(false);
                 }
             }
 

@@ -12,7 +12,8 @@
             android:id="@+id/img_video_thumb"
             android:layout_width="120dp"
             android:layout_height="150dp"
-            android:background="@color/md_black_1000" />
+            android:background="@color/md_black_1000"
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/img_video_play"

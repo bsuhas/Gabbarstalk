@@ -3,6 +3,7 @@ package com.gabbarstalk.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 
 import com.gabbarstalk.R;
 import com.gabbarstalk.models.VideoDetailsModel;
-import com.gabbarstalk.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -58,13 +58,15 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final VideoDetailsModel model = videoDetailsModelList.get(position);
 
-        holder.tvUsername.setText(model.getUserName());
-        Picasso.with(mContext).load(model.getVideoThumbnail()).placeholder(R.color.md_black_1000).into(holder.imgVideoThumb);
+        holder.tvUsername.setText(model.getProfileName());
+        holder.tvVideoCaption.setText(model.getCaption());
+        if (!TextUtils.isEmpty(model.getVideoThumbnail()))
+            Picasso.with(mContext).load(model.getVideoThumbnail()).placeholder(R.color.md_black_1000).into(holder.imgVideoThumb);
 
         holder.imgVideoPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.getInstance().openVideoPlayer(mActivity, model.getVideoUrl());
+//                Utils.getInstance().openVideoPlayer(mActivity, model.getVideoUrl());
             }
         });
     }
@@ -79,6 +81,7 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
         private LinearLayout llProfileData;
         private ImageView profileImg;
         private TextView tvUsername;
+        private TextView tvVideoCaption;
         private ImageView imgVideoThumb;
         private ImageView imgVideoPlay;
         private ImageView ivLike;
@@ -90,6 +93,7 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
             llProfileData = (LinearLayout) view.findViewById(R.id.ll_profile_data);
             profileImg = (ImageView) view.findViewById(R.id.profile_img);
             tvUsername = (TextView) view.findViewById(R.id.tv_username);
+            tvVideoCaption = (TextView) view.findViewById(R.id.tv_video_caption);
             imgVideoThumb = (ImageView) view.findViewById(R.id.img_video_thumb);
             imgVideoPlay = (ImageView) view.findViewById(R.id.img_video_play);
             ivLike = (ImageView) view.findViewById(R.id.iv_like);

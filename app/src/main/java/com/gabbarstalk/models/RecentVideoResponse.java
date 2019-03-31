@@ -6,11 +6,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by SUHAS on 25/03/2019.
+ * Created by SUHAS on 27/03/2019.
  */
 
-public class AgendaVideosResponse implements Serializable {
-
+public class RecentVideoResponse implements Serializable{
     @SerializedName("error_code")
     private int errorCode;
 
@@ -46,7 +45,7 @@ public class AgendaVideosResponse implements Serializable {
 
     @Override
     public String toString() {
-        return "AgendaVideosResponse{" +
+        return "RecentVideoResponse{" +
                 "errorCode=" + errorCode +
                 ", errorMsg='" + errorMsg + '\'' +
                 ", videoDetailsModelList=" + videoDetailsModelList +

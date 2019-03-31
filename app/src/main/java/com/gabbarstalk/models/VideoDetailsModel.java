@@ -8,25 +8,37 @@ import java.io.Serializable;
  * Created by SUHAS on 25/03/2019.
  */
 
-public class VideoDetailsModel implements Serializable{
+public class VideoDetailsModel implements Serializable {
 
     @SerializedName("video_url")
     private String videoUrl;
 
-    @SerializedName("video_thumbnail")
+    @SerializedName("video_title")
+    private String caption;
+
+    @SerializedName("video_thumb")
     private String videoThumbnail;
 
-    @SerializedName("like_count")
-    private int likeCount = 5;
+    @SerializedName("likes")
+    private int likeCount;
 
     @SerializedName("share_url")
-    private String shareUrl = "Test";
+    private String shareUrl;
 
     @SerializedName("user_img")
-    private String userImg = "test";
+    private String userImg;
+
+    @SerializedName("name")
+    private String profileName;
 
     @SerializedName("user_name")
     private String userName;
+
+    @SerializedName("agenda_id")
+    private String agendaId;
+
+    @SerializedName("agenda_title")
+    private String agendaTitle;
 
     public String getVideoUrl() {
         return videoUrl;
@@ -34,6 +46,14 @@ public class VideoDetailsModel implements Serializable{
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 
     public String getVideoThumbnail() {
@@ -68,6 +88,14 @@ public class VideoDetailsModel implements Serializable{
         this.userImg = userImg;
     }
 
+    public String getProfileName() {
+        return profileName;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -76,15 +104,35 @@ public class VideoDetailsModel implements Serializable{
         this.userName = userName;
     }
 
+    public String getAgendaId() {
+        return agendaId;
+    }
+
+    public void setAgendaId(String agendaId) {
+        this.agendaId = agendaId;
+    }
+
+    public String getAgendaTitle() {
+        return agendaTitle;
+    }
+
+    public void setAgendaTitle(String agendaTitle) {
+        this.agendaTitle = agendaTitle;
+    }
+
     @Override
     public String toString() {
         return "VideoDetailsModel{" +
                 "videoUrl='" + videoUrl + '\'' +
+                ", caption='" + caption + '\'' +
                 ", videoThumbnail='" + videoThumbnail + '\'' +
                 ", likeCount=" + likeCount +
                 ", shareUrl='" + shareUrl + '\'' +
                 ", userImg='" + userImg + '\'' +
+                ", profileName='" + profileName + '\'' +
                 ", userName='" + userName + '\'' +
+                ", agendaId='" + agendaId + '\'' +
+                ", agendaTitle='" + agendaTitle + '\'' +
                 '}';
     }
 }

@@ -1,7 +1,9 @@
 package com.gabbarstalk.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +14,10 @@ import android.widget.TextView;
 import com.gabbarstalk.R;
 import com.gabbarstalk.activity.AgendaWithVideosActivity;
 import com.gabbarstalk.models.AgendaDetailsModel;
+import com.gabbarstalk.models.VideoDetailsModel;
 import com.gabbarstalk.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +28,7 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
     private static int position = -1;
     private List<AgendaDetailsModel> mAgendaDetailModelList;
     private final Context mContext;
-
+    private Activity mActivity;
 
     public static int getPosition() {
         return position;
@@ -34,9 +38,10 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
         this.position = position;
     }
 
-    public AgendaListAdapter(Context context, List<AgendaDetailsModel> AgendaDetailModelList) {
+    public AgendaListAdapter(Activity activity, Context context, List<AgendaDetailsModel> AgendaDetailModelList) {
         this.mAgendaDetailModelList = AgendaDetailModelList;
         this.mContext = context;
+        this.mActivity = activity;
     }
 
     public void refreshAdapter(List<AgendaDetailsModel> VoterDetailModelList) {
@@ -58,17 +63,23 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
 
         holder.txtAgendaTitle.setText(model.getAgendaTitle());
 
-        holder.llAgendaListItem.setOnClickListener(new View.OnClickListener() {
+        LinearLayoutManager llm = new LinearLayoutManager(mContext);
+        llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        holder.rvChildView.setHasFixedSize(true);
+        holder.rvChildView.setLayoutManager(llm);
+
+//        List<VideoDetailsModel> videoDetailsModelList = new ArrayList<>();
+//        videoDetailsModelList = mAgendaDetailModelList.get(position).getVideoDetailsModelList();
+
+        ChildVideoListAdapter childVideoListAdapter = new ChildVideoListAdapter(mActivity, mContext, mAgendaDetailModelList.get(position));
+        holder.rvChildView.setAdapter(childVideoListAdapter);
+
+        holder.txtAgendaTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* Bundle bundle = new Bundle();
-                bundle.putSerializable(Constants.VOTER_MODEL, model);
-                ((HomeScreenActivity) mContext).setFragment(new VoterDetailsFragment(), bundle);*/
-
                 Intent loginIntent = new Intent(view.getContext(), AgendaWithVideosActivity.class);
-                loginIntent.putExtra(Constants.AGENDA_MODEL,model);
+                loginIntent.putExtra(Constants.AGENDA_MODEL, model);
                 view.getContext().startActivity(loginIntent);
-
             }
         });
     }
@@ -79,7 +90,7 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-//        private final RecyclerView rvChild;
+        private final RecyclerView rvChildView;
         private LinearLayout llAgendaListItem;
         private TextView txtAgendaTitle;
 
@@ -87,7 +98,7 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
             super(itemView);
             txtAgendaTitle = (TextView) itemView.findViewById(R.id.tv_agenda_title);
             llAgendaListItem = (LinearLayout) itemView.findViewById(R.id.ll_agenda_list_item);
-//            rvChild = (RecyclerView) itemView.findViewById(R.id.rv_child);
+            rvChildView = (RecyclerView) itemView.findViewById(R.id.rv_child);
         }
     }
 }

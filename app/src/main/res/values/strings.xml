@@ -39,4 +39,5 @@
     <string name="agenda_details">Agenda Details</string>
     <string name="upload_video">Upload Video</string>
     <string name="group_about">About</string>
+    <string name="load_more"><u>Load More</u></string>
 </resources>
