@@ -10,6 +10,9 @@ import java.io.Serializable;
 
 public class VideoDetailsModel implements Serializable {
 
+    @SerializedName("video_id")
+    private String videoId;
+
     @SerializedName("video_url")
     private String videoUrl;
 
@@ -120,10 +123,19 @@ public class VideoDetailsModel implements Serializable {
         this.agendaTitle = agendaTitle;
     }
 
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
+    }
+
     @Override
     public String toString() {
         return "VideoDetailsModel{" +
-                "videoUrl='" + videoUrl + '\'' +
+                "videoId='" + videoId + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
                 ", caption='" + caption + '\'' +
                 ", videoThumbnail='" + videoThumbnail + '\'' +
                 ", likeCount=" + likeCount +

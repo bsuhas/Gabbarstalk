@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_5dp"
-    app:cardBackgroundColor="@color/md_white_1000"
-    app:cardCornerRadius="@dimen/margin_10dp"
-    app:cardElevation="@dimen/margin_5dp"
+    android:layout_marginBottom="@dimen/margin_10dp"
+    android:background="@color/md_white_1000"
     tools:ignore="MissingDefaultResource">
 
     <LinearLayout
@@ -50,4 +47,4 @@
             android:padding="10dp"
             tools:layout_editor_absoluteX="74dp" />
     </LinearLayout>
-</android.support.v7.widget.CardView>
+</LinearLayout>

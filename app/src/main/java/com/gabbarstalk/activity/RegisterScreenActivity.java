@@ -137,7 +137,7 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
                     Log.e("TAG", "Response:" + model.toString());
 
                     if (model.getErrorCode() == 0 || model.getErrorCode() == 1) {
-                        UserPreferences.getInstance(RegisterScreenActivity.this).saveUserInfo(userData, true);
+                        UserPreferences.getInstance(RegisterScreenActivity.this).saveUserInfo(userData, false);
                         Intent intent = new Intent(RegisterScreenActivity.this, OTPValidateActivity.class);
                         intent.putExtra("UserData", userData);
                         startActivity(intent);

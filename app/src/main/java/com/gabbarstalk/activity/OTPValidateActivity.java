@@ -22,6 +22,7 @@ import com.gabbarstalk.interfaces.RESTClientResponse;
 import com.gabbarstalk.models.OTPRequestModel;
 import com.gabbarstalk.models.RegisterResponseModel;
 import com.gabbarstalk.models.UserData;
+import com.gabbarstalk.utils.UserPreferences;
 import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.ResendOTPService;
 import com.gabbarstalk.webservices.VerifyUserService;
@@ -35,6 +36,7 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
     private Context mContext;
     private EditText edtOTP;
     private String mobileNumber;
+    private UserData mUserData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,8 +45,8 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
         mContext = this;
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            UserData userData = (UserData) intent.getSerializableExtra("UserData");
-            mobileNumber = userData.getMobileNumber();
+            mUserData = (UserData) intent.getSerializableExtra("UserData");
+            mobileNumber = mUserData.getMobileNumber();
         }
         init();
     }
@@ -123,6 +125,9 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
                     Utils.getInstance().hideProgressDialog();
                     RegisterResponseModel model = (RegisterResponseModel) response;
                     Log.e("TAG", "Response:" + model.toString());
+                    mUserData.setUserId(model.getUserId());
+                    UserPreferences.getInstance(OTPValidateActivity.this).saveUserInfo(mUserData, true);
+
                     Intent intent = new Intent(mContext, HomeScreenActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);

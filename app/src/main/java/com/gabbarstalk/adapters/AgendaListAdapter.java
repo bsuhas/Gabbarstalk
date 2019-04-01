@@ -14,10 +14,8 @@ import android.widget.TextView;
 import com.gabbarstalk.R;
 import com.gabbarstalk.activity.AgendaWithVideosActivity;
 import com.gabbarstalk.models.AgendaDetailsModel;
-import com.gabbarstalk.models.VideoDetailsModel;
 import com.gabbarstalk.utils.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

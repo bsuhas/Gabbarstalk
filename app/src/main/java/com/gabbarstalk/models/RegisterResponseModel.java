@@ -20,6 +20,10 @@ public class RegisterResponseModel {
     @Expose
     private boolean isNewUser;
 
+    @SerializedName("user_id")
+    @Expose
+    private String userId;
+
     public int getErrorCode() {
         return errorCode;
     }
@@ -44,12 +48,21 @@ public class RegisterResponseModel {
         isNewUser = newUser;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "RegisterResponseModel{" +
                 "errorCode=" + errorCode +
                 ", errorMsg='" + errorMsg + '\'' +
                 ", isNewUser=" + isNewUser +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }
