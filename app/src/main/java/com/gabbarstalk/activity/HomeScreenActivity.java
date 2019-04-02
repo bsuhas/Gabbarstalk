@@ -172,7 +172,7 @@ public class HomeScreenActivity extends AppCompatActivity
         if (id == R.id.nav_agenda) {
             startActivity(new Intent(this, AgendaListActivity.class));
         } else if (id == R.id.nav_profile) {
-            //TODO
+            startActivity(new Intent(this, ProfileActivity.class));
         } else if (id == R.id.nav_my_videos) {
             //TODO
         } else if (id == R.id.nav_disclaimer) {

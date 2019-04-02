@@ -3,6 +3,7 @@ package com.gabbarstalk.interfaces;
 import com.gabbarstalk.models.AgendaListResponse;
 import com.gabbarstalk.models.AgendaVideosResponse;
 import com.gabbarstalk.models.EmptyResponse;
+import com.gabbarstalk.models.GetProfileResponse;
 import com.gabbarstalk.models.LikeData;
 import com.gabbarstalk.models.OTPRequestModel;
 import com.gabbarstalk.models.RecentVideoResponse;
@@ -62,4 +63,9 @@ public interface RetrofitRestClient {
     @Headers("Content-Type: application/json")
     @POST("likeVideo")
     Call<EmptyResponse> likeData(@Body LikeData likeData);
+
+    @Headers("Content-Type: application/json")
+    @POST("getUserProfile")
+    Call<GetProfileResponse> getUserProfileData(@Body HashMap<String, String> body);
+
 }

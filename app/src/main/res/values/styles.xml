@@ -54,6 +54,15 @@
         <item name="android:textColor">@color/md_black_1000</item>
         <item name="android:singleLine">true</item>
     </style>
+    <style name="EditText_style_Profile">
+        <item name="android:textSize">@dimen/text_18sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:padding">@dimen/margin_5dp</item>
+        <item name="android:layout_height">@dimen/margin_50dp</item>
+        <item name="android:background">@drawable/edit_box_black_drawable</item>
+        <item name="android:textColor">@color/md_black_1000</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
 
     <style name="DashBoard_Text_style">

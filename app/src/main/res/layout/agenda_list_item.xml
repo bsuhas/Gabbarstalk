@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_10dp"
+    android:layout_marginBottom="@dimen/margin_15dp"
     android:background="@color/md_white_1000"
     tools:ignore="MissingDefaultResource">
 
@@ -21,22 +21,21 @@
             android:weightSum="1">
 
             <ImageView
-                android:layout_width="0dp"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_weight="0.2"
                 android:paddingTop="@dimen/margin_5dp"
                 android:src="@drawable/ic_agenda" />
 
             <TextView
                 android:id="@+id/tv_agenda_title"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
                 android:gravity="start"
                 android:padding="@dimen/margin_5dp"
                 android:text="Agenda Title"
                 android:textColor="@color/md_black_1000"
-                android:textSize="@dimen/text_20sp" />
+                android:textSize="@dimen/text_16sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

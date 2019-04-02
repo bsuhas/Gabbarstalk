@@ -1,11 +1,13 @@
 package com.gabbarstalk.webservices;
+
 import android.app.Activity;
 
 import com.gabbarstalk.interfaces.RESTClientResponse;
-import com.gabbarstalk.models.EmptyResponse;
-import com.gabbarstalk.models.LikeData;
+import com.gabbarstalk.models.GetProfileResponse;
 import com.gabbarstalk.utils.Utils;
 import com.google.gson.Gson;
+
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,23 +16,24 @@ import retrofit2.Response;
 /**
  * Created by suhas.bachewar on 1/24/2017.
  */
-public class LikeService {
+public class GetProfileDataService {
 
-    public void likeService(final Activity activity, LikeData likeData, final RESTClientResponse restClientResponse) {
-
-        Call<EmptyResponse> call = Utils.getInstance().getRestClient().likeData(likeData);
-        call.enqueue(new Callback<EmptyResponse>() {
+    public void getProfileData(final Activity activity, String userId, final RESTClientResponse restClientResponse) {
+        HashMap<String, String> body = new HashMap<>();
+        body.put("user_id", userId);
+        Call<GetProfileResponse> call = Utils.getInstance().getRestClient().getUserProfileData(body);
+        call.enqueue(new Callback<GetProfileResponse>() {
             @Override
-            public void onResponse(Call<EmptyResponse> call, Response<EmptyResponse> response) {
+            public void onResponse(Call<GetProfileResponse> call, Response<GetProfileResponse> response) {
 
                 if (response.isSuccessful()) {
                     restClientResponse.onSuccess(response.body(), response.code());
                 } else {
                     if (response.errorBody() != null) {
                         try {
-                            EmptyResponse EmptyResponse = new Gson().getAdapter(EmptyResponse.class)
+                            GetProfileResponse GetProfileResponse = new Gson().getAdapter(GetProfileResponse.class)
                                     .fromJson(response.errorBody().string());
-                            restClientResponse.onSuccess(EmptyResponse, response.code());
+                            restClientResponse.onSuccess(GetProfileResponse, response.code());
                         } catch (Exception e) {
                             e.printStackTrace();
                             restClientResponse.onFailure(e);
@@ -40,7 +43,7 @@ public class LikeService {
             }
 
             @Override
-            public void onFailure(Call<EmptyResponse> call, Throwable t) {
+            public void onFailure(Call<GetProfileResponse> call, Throwable t) {
                 t.printStackTrace();
                 restClientResponse.onFailure(t);
             }
