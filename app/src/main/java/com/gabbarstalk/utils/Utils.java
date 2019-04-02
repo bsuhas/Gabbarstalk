@@ -185,7 +185,7 @@ public class Utils {
                     activity.startActivity(intent);
                 }
             } else {
-//                Toast.makeText(activity, activity.getString(R.string.no_application_found_to_play_video), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, " No application found to play video", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             e.printStackTrace();

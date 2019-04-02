@@ -105,7 +105,7 @@ public class UploadVideoActivity extends AppCompatActivity implements View.OnCli
 
     private void uploadVideo() {
         mVideoCaption = edtCaption.getText().toString();
-        if(TextUtils.isEmpty(mVideoCaption)){
+        if (TextUtils.isEmpty(mVideoCaption)) {
             Toast.makeText(mContext, "Please enter caption", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -130,15 +130,12 @@ public class UploadVideoActivity extends AppCompatActivity implements View.OnCli
                             Utils.getInstance().hideProgressDialog();
                             EmptyResponse model = (EmptyResponse) response;
                             Log.e("TAG", "Response:" + model.toString());
-//                            Intent intent = new Intent(mContext, HomeScreenActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                            startActivity(intent);
-//                            finish();
-                    /*if (statusModel.getErrorcode() == 1) {
-                    }else{
-                        showToast(mContext,"This user is already register, please contact to administer ");
-                    }
-*/
+                            if (model.getErrorCode() == 0) {
+                                finish();
+                            }else{
+                                Utils.getInstance().showToast(mContext,model.getErrorMsg());
+                            }
+
                         }
                     }
 
