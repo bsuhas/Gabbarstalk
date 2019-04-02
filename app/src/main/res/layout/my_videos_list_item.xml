@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_agenda_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5dp"
+            android:padding="@dimen/margin_5dp"
+            android:text="Agenda Name"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/text_18sp"
+            android:textStyle="bold" />
+
+        <!-- <LinearLayout
+             android:id="@+id/ll_profile_data"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:gravity="center_horizontal"
+             android:orientation="horizontal"
+             android:padding="@dimen/margin_5dp"
+             android:weightSum="1">
+
+             <ImageView
+                 android:id="@+id/profile_img"
+                 android:layout_width="0dp"
+                 android:layout_height="40dp"
+                 android:layout_weight="0.2"
+                 android:src="@drawable/user" />
+
+             <TextView
+                 android:id="@+id/tv_username"
+                 android:layout_width="0dp"
+                 android:layout_height="40dp"
+                 android:layout_weight="0.8"
+                 android:padding="@dimen/margin_10dp"
+                 android:text="Username"
+                 android:textColor="@color/md_black_1000"
+                 android:textSize="@dimen/text_16sp" />
+         </LinearLayout>-->
+
+        <TextView
+            android:id="@+id/tv_video_caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_5dp"
+            android:paddingEnd="@dimen/margin_5dp"
+            android:paddingStart="@dimen/margin_5dp"
+            android:text="Caption"
+            android:textColor="@color/md_black_1000"
+            android:textSize="@dimen/text_16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_video_thumb"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_200dp"
+                android:background="@color/md_black_1000" />
+
+            <ImageView
+                android:id="@+id/img_video_play"
+                android:layout_width="@dimen/margin_50dp"
+                android:layout_height="@dimen/margin_50dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_play_circle" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:layout_marginTop="@dimen/margin_10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/margin_30dp"
+                android:gravity="start|center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_30dp"
+                    android:src="@drawable/ic_favorite_red" />
+
+                <TextView
+                    android:id="@+id/tv_like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_30dp"
+                    android:gravity="start|center"
+                    android:text="1234"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="@dimen/text_14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/margin_30dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_share" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

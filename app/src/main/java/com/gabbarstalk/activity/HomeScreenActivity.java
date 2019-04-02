@@ -174,7 +174,7 @@ public class HomeScreenActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             startActivity(new Intent(this, ProfileActivity.class));
         } else if (id == R.id.nav_my_videos) {
-            //TODO
+            startActivity(new Intent(this, MyVideosActivity.class));
         } else if (id == R.id.nav_disclaimer) {
             startActivity(intent);
         } else if (id == R.id.nav_privacy_policy) {
