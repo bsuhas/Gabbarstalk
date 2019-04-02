@@ -73,7 +73,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".activity.UpdateVideoActivity"
+            android:name=".activity.UploadVideoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 

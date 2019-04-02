@@ -55,10 +55,11 @@ public interface RetrofitRestClient {
 
     @Multipart
     @POST("videoUpload")
-    Call<ResponseBody> uploadVideo(@Part MultipartBody.Part video,
+    Call<EmptyResponse> uploadVideo(@Part MultipartBody.Part video,
                               @Part("user_id") RequestBody userId,
                               @Part("agenda_id") RequestBody agendaId,
-                              @Part("agenda_title") RequestBody agendaTitle
+                              @Part("agenda_title") RequestBody agendaTitle,
+                              @Part("video_title") RequestBody videoTitle
     );
 
     @Headers("Content-Type: application/json")

@@ -72,8 +72,8 @@ public class MyVideosListAdapter extends RecyclerView.Adapter<MyVideosListAdapte
         holder.imgVideoPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Utils.getInstance().openVideoPlayer(mActivity, model.getVideoUrl());
-                Utils.getInstance().showToast(mContext, "Coming Soon");
+                Utils.getInstance().openVideoPlayer(mActivity, model.getVideoUrl());
+//                Utils.getInstance().showToast(mContext, "Coming Soon");
             }
         });
     }

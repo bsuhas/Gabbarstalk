@@ -16,21 +16,16 @@ import android.widget.TextView;
 
 import com.gabbarstalk.R;
 import com.gabbarstalk.activity.AgendaWithVideosActivity;
-import com.gabbarstalk.activity.HomeScreenActivity;
-import com.gabbarstalk.activity.UpdateVideoActivity;
 import com.gabbarstalk.interfaces.RESTClientResponse;
 import com.gabbarstalk.models.AgendaDetailsModel;
 import com.gabbarstalk.models.EmptyResponse;
 import com.gabbarstalk.models.LikeData;
-import com.gabbarstalk.models.OTPRequestModel;
-import com.gabbarstalk.models.RegisterResponseModel;
 import com.gabbarstalk.models.UserData;
 import com.gabbarstalk.models.VideoDetailsModel;
 import com.gabbarstalk.utils.Constants;
 import com.gabbarstalk.utils.UserPreferences;
 import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.LikeService;
-import com.gabbarstalk.webservices.VerifyUserService;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

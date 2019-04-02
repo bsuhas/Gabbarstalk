@@ -1,5 +1,6 @@
 package com.gabbarstalk.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +9,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,7 +82,7 @@ public class AgendaWithVideosActivity extends AppCompatActivity {
         rvAgendaVideoList.setAdapter(adapter);
 
         FloatingActionButton fabButton = (FloatingActionButton) findViewById(R.id.fab_btn);
-       /* fabButton.setOnClickListener(new View.OnClickListener() {
+        fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ContextCompat.checkSelfPermission(AgendaWithVideosActivity.this, Manifest.permission.CAMERA)
@@ -88,7 +92,7 @@ public class AgendaWithVideosActivity extends AppCompatActivity {
                     recordedVideoPath = CameraUtils.startCameraIntent(AgendaWithVideosActivity.this);
                 }
             }
-        });*/
+        });
     }
 
     @Override
@@ -135,7 +139,7 @@ public class AgendaWithVideosActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CameraUtils.ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                Intent intent = new Intent(AgendaWithVideosActivity.this, UpdateVideoActivity.class);
+                Intent intent = new Intent(AgendaWithVideosActivity.this, UploadVideoActivity.class);
                 intent.putExtra(Constants.AGENDA_DETAILS_MODEL, agendaDetailsModel);
                 intent.putExtra(Constants.RECORDED_VIDEO, recordedVideoPath);
                 startActivity(intent);
