@@ -29,6 +29,7 @@ import com.gabbarstalk.R;
 import com.gabbarstalk.fragments.RecentVideosFragment;
 import com.gabbarstalk.models.UserData;
 import com.gabbarstalk.utils.CircularImageView;
+import com.gabbarstalk.utils.Constants;
 import com.gabbarstalk.utils.DialogUtils;
 import com.gabbarstalk.utils.UserPreferences;
 import com.gabbarstalk.utils.Utils;
@@ -80,15 +81,6 @@ public class HomeScreenActivity extends AppCompatActivity
             txtProfileName.setText(mUserData.getName());
             txtMobileNumber.setText(mUserData.getMobileNumber());
         }
-        /*LayoutInflater mInflater = LayoutInflater.from(getApplicationContext());
-        @SuppressLint("InflateParams") View mCustomView = mInflater.inflate(R.layout.activity_home_toolbar, null);
-        toolbar.addView(mCustomView);*/
-
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-//        tabLayout.setVisibility(View.VISIBLE);
-//        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-//        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()));
-//        tabLayout.setupWithViewPager(viewPager);
         setDrawerProfileImage();
 
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
@@ -176,10 +168,16 @@ public class HomeScreenActivity extends AppCompatActivity
         } else if (id == R.id.nav_my_videos) {
             startActivity(new Intent(this, MyVideosActivity.class));
         } else if (id == R.id.nav_disclaimer) {
+            intent.putExtra(Constants.URL, "https://www.termsfeed.com/blog/sample-disclaimer-template/");
+            intent.putExtra(Constants.PAGE_TYPE, getString(R.string.drawer_disclaimer));
             startActivity(intent);
         } else if (id == R.id.nav_privacy_policy) {
+            intent.putExtra(Constants.URL, "https://www.google.com");
+            intent.putExtra(Constants.PAGE_TYPE, getString(R.string.drawer_privacy_policy));
             startActivity(intent);
         } else if (id == R.id.nav_terms_cond) {
+            intent.putExtra(Constants.URL, "https://www.website.com/terms-and-conditions/");
+            intent.putExtra(Constants.PAGE_TYPE, getString(R.string.drawer_terms_cond));
             startActivity(intent);
         } else if (id == R.id.nav_contact_us) {
             //TODO

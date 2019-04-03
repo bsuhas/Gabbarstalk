@@ -14,8 +14,11 @@
     <string name="registration">Registration</string>
     <string name="mobile_number">Mobile number </string>
     <string name="error_msg_enter_mobile_number">Please enter mobile number </string>
+    <string name="error_msg_enter_address">Please enter address </string>
+    <string name="error_msg_enter_email_id">Please enter email id </string>
     <string name="enter_valid_mobile_number">Enter valid mobile number </string>
     <string name="enter_mobile_number">Enter mobile number </string>
+    <string name="error_msg_enter_valid_email_id">Please enter valid email id </string>
 
     <string name="otp_screen">OTP Verification </string>
     <string name="otp_lbl">OTP </string>

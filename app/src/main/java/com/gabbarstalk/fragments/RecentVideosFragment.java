@@ -99,19 +99,4 @@ public class RecentVideosFragment extends Fragment {
         });
     }
 
-
-    /*public static RecentVideosFragment newInstance() {
-        return new RecentVideosFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_most_recent_videos, container, false);
-    }
-*/
 }

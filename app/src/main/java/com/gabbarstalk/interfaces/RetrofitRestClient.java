@@ -7,6 +7,7 @@ import com.gabbarstalk.models.GetProfileResponse;
 import com.gabbarstalk.models.LikeData;
 import com.gabbarstalk.models.MyVideoResponse;
 import com.gabbarstalk.models.OTPRequestModel;
+import com.gabbarstalk.models.ProfileData;
 import com.gabbarstalk.models.RecentVideoResponse;
 import com.gabbarstalk.models.RegisterResponseModel;
 import com.gabbarstalk.models.UserData;
@@ -74,4 +75,7 @@ public interface RetrofitRestClient {
     @POST("myVideos")
     Call<MyVideoResponse> getRecentVideoList(@Body HashMap<String, String> body);
 
+    @Headers("Content-Type: application/json")
+    @POST("updateUserProfile")
+    Call<EmptyResponse> updateProfileData(@Body ProfileData profileData);
 }

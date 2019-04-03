@@ -5,21 +5,15 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gabbarstalk.R;
-import com.gabbarstalk.interfaces.RESTClientResponse;
-import com.gabbarstalk.models.EmptyResponse;
-import com.gabbarstalk.models.LikeData;
 import com.gabbarstalk.models.VideoDetailsModel;
 import com.gabbarstalk.utils.Utils;
-import com.gabbarstalk.webservices.LikeService;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -67,6 +61,7 @@ public class MyVideosListAdapter extends RecyclerView.Adapter<MyVideosListAdapte
 
         holder.tvAgendaTitle.setText(model.getAgendaTitle());
         holder.tvVideoCaption.setText(model.getCaption());
+        holder.tvLikeCount.setText("" + model.getLikeCount());
         if (!TextUtils.isEmpty(model.getVideoThumbnail()))
             Picasso.with(mContext).load(model.getVideoThumbnail()).placeholder(R.color.md_black_1000).into(holder.imgVideoThumb);
         holder.imgVideoPlay.setOnClickListener(new View.OnClickListener() {
@@ -84,52 +79,22 @@ public class MyVideosListAdapter extends RecyclerView.Adapter<MyVideosListAdapte
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout llListItem;
-        private LinearLayout llProfileData;
-        private ImageView profileImg;
+
         private TextView tvAgendaTitle;
-        private TextView tvUsername;
+        private TextView tvLikeCount;
+
         private TextView tvVideoCaption;
         private ImageView imgVideoThumb;
         private ImageView imgVideoPlay;
-        private ImageView ivLike;
-        private ImageView ivShare;
+
 
         ViewHolder(View view) {
             super(view);
-            llListItem = (LinearLayout) view.findViewById(R.id.ll_list_item);
-            llProfileData = (LinearLayout) view.findViewById(R.id.ll_profile_data);
-            profileImg = (ImageView) view.findViewById(R.id.profile_img);
+            tvLikeCount = (TextView) view.findViewById(R.id.tv_like);
             tvVideoCaption = (TextView) view.findViewById(R.id.tv_video_caption);
             tvAgendaTitle = (TextView) view.findViewById(R.id.tv_agenda_title);
-            tvUsername = (TextView) view.findViewById(R.id.tv_username);
             imgVideoThumb = (ImageView) view.findViewById(R.id.img_video_thumb);
             imgVideoPlay = (ImageView) view.findViewById(R.id.img_video_play);
-            ivLike = (ImageView) view.findViewById(R.id.iv_like);
-            ivShare = (ImageView) view.findViewById(R.id.iv_share);
         }
-    }
-
-    private void likeVideo(final LikeData likeData) {
-        Log.e("TAG", "Request:" + likeData.toString());
-        Utils.getInstance().showProgressDialog(mActivity);
-
-        new LikeService().likeService(mActivity, likeData, new RESTClientResponse() {
-            @Override
-            public void onSuccess(Object response, int statusCode) {
-                if (statusCode == 201) {
-                    Utils.getInstance().hideProgressDialog();
-                    EmptyResponse model = (EmptyResponse) response;
-                    Log.e("TAG", "Response:" + model.toString());
-                    Utils.getInstance().showToast(mActivity, model.getErrorMsg());
-                }
-            }
-
-            @Override
-            public void onFailure(Object errorResponse) {
-
-            }
-        });
-
     }
 }

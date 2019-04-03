@@ -1,5 +1,6 @@
 package com.gabbarstalk.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -67,13 +68,17 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
         return new ViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final VideoDetailsModel model = videoDetailsModelList.get(position);
+        String myString = model.getAgendaTitle();
+        String upperString = myString.substring(0, 1).toUpperCase() + myString.substring(1);
+        holder.tvAgendaTitle.setText(upperString);
 
-        holder.tvAgendaTitle.setText(model.getAgendaTitle());
         holder.tvUsername.setText(model.getUserName());
         holder.tvVideoCaption.setText(model.getCaption());
+        holder.tvLikeCount.setText(model.getLikeCount() + " likes");
         if (!TextUtils.isEmpty(model.getVideoThumbnail()))
             Picasso.with(mContext).load(model.getVideoThumbnail()).placeholder(R.color.md_black_1000).into(holder.imgVideoThumb);
 
@@ -91,8 +96,8 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
         holder.imgVideoPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Utils.getInstance().openVideoPlayer(mActivity, model.getVideoUrl());
-                Utils.getInstance().showToast(mContext, "Coming Soon");
+                Utils.getInstance().openVideoPlayer(mActivity, model.getVideoUrl());
+//                Utils.getInstance().showToast(mContext, "Coming Soon");
             }
         });
         holder.tvAgendaTitle.setOnClickListener(new View.OnClickListener() {
@@ -115,10 +120,10 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout llListItem;
-        private LinearLayout llProfileData;
         private ImageView profileImg;
         private TextView tvAgendaTitle;
         private TextView tvUsername;
+        private TextView tvLikeCount;
         private TextView tvVideoCaption;
         private ImageView imgVideoThumb;
         private ImageView imgVideoPlay;
@@ -128,9 +133,9 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
         ViewHolder(View view) {
             super(view);
             llListItem = (LinearLayout) view.findViewById(R.id.ll_list_item);
-            llProfileData = (LinearLayout) view.findViewById(R.id.ll_profile_data);
             profileImg = (ImageView) view.findViewById(R.id.profile_img);
             tvVideoCaption = (TextView) view.findViewById(R.id.tv_video_caption);
+            tvLikeCount = (TextView) view.findViewById(R.id.tv_like_count);
             tvAgendaTitle = (TextView) view.findViewById(R.id.tv_agenda_title);
             tvUsername = (TextView) view.findViewById(R.id.tv_username);
             imgVideoThumb = (ImageView) view.findViewById(R.id.img_video_thumb);

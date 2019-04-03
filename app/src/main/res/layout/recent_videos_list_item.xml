@@ -29,21 +29,18 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
-            android:padding="@dimen/margin_5dp"
-            android:weightSum="1">
+            android:padding="@dimen/margin_5dp">
 
             <ImageView
                 android:id="@+id/profile_img"
-                android:layout_width="0dp"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_weight="0.2"
                 android:src="@drawable/user" />
 
             <TextView
                 android:id="@+id/tv_username"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_weight="0.8"
                 android:padding="@dimen/margin_10dp"
                 android:text="Username"
                 android:textColor="@color/md_black_1000"

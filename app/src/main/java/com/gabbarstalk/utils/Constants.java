@@ -29,6 +29,8 @@ public class Constants {
     public static Boolean isExternalStorageDirectoryExist = null;
     public static boolean isExternalHiddenStorageDirectoryExist = false;
     public static final String HIDE_APP_DIRECTORY = ".YouVOXX";
+    public static String URL = "url";
+    public static String PAGE_TYPE = "page_type";
 
     public static String getTemporaryFilePath(Activity activity) {
         return getFilePath(YOUVOXX_TEMPORARY_DIRECTORY + File.separator, activity);
