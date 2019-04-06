@@ -93,25 +93,8 @@ public class AgendaListActivity extends AppCompatActivity {
                     Utils.getInstance().hideProgressDialog();
                     AgendaListResponse model = (AgendaListResponse) response;
                     agendaDetailList = model.getAgendaDetailList();
-
-                    //TODO hardcoded
-
-                    VideoDetailsModel videoDetailsModel = new VideoDetailsModel();
-                    videoDetailsModel.setUserName("Suhas Bachewar");
-                    videoDetailsModel.setVideoThumbnail("https://www.webslake.com/w_img/t_i/plc.png");
-                    videoDetailsModel.setVideoUrl("http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4");
-                    List<VideoDetailsModel> videoDetailsModelList = new ArrayList<>();
-                    for (int i = 0; i < 5; i++) {
-                        videoDetailsModelList.add(videoDetailsModel);
-                    }
-
-                    for (int i = 0; i < agendaDetailList.size(); i++) {
-                        agendaDetailList.get(i).setVideoDetailsModelList(videoDetailsModelList);
-                    }
-                    //TODO
                     adapter.refreshAdapter(agendaDetailList);
                     swipeContainer.setRefreshing(false);
-
                 }
             }
 

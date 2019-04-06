@@ -44,4 +44,5 @@
     <string name="upload_video">Upload Video</string>
     <string name="group_about">About</string>
     <string name="load_more"><u>Load More</u></string>
+    <string name="no_video_found">No video found</string>
 </resources>

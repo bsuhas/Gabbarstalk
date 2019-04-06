@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gabbarstalk.R;
@@ -66,11 +65,16 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
         holder.rvChildView.setHasFixedSize(true);
         holder.rvChildView.setLayoutManager(llm);
 
-//        List<VideoDetailsModel> videoDetailsModelList = new ArrayList<>();
-//        videoDetailsModelList = mAgendaDetailModelList.get(position).getVideoDetailsModelList();
+        if (mAgendaDetailModelList.get(position).getVideoDetailsModelList().size() > 0) {
+            ChildVideoListAdapter childVideoListAdapter = new ChildVideoListAdapter(mActivity, mContext, mAgendaDetailModelList.get(position));
+            holder.rvChildView.setAdapter(childVideoListAdapter);
+            holder.rvChildView.setVisibility(View.VISIBLE);
+            holder.txtEmpty.setVisibility(View.GONE);
+        } else {
+            holder.rvChildView.setVisibility(View.GONE);
+            holder.txtEmpty.setVisibility(View.VISIBLE);
+        }
 
-        ChildVideoListAdapter childVideoListAdapter = new ChildVideoListAdapter(mActivity, mContext, mAgendaDetailModelList.get(position));
-        holder.rvChildView.setAdapter(childVideoListAdapter);
 
         holder.txtAgendaTitle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,13 +93,13 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private final RecyclerView rvChildView;
-        private LinearLayout llAgendaListItem;
         private TextView txtAgendaTitle;
+        private TextView txtEmpty;
 
         ViewHolder(View itemView) {
             super(itemView);
+            txtEmpty = (TextView) itemView.findViewById(R.id.tv_empty);
             txtAgendaTitle = (TextView) itemView.findViewById(R.id.tv_agenda_title);
-            llAgendaListItem = (LinearLayout) itemView.findViewById(R.id.ll_agenda_list_item);
             rvChildView = (RecyclerView) itemView.findViewById(R.id.rv_child);
         }
     }

@@ -45,5 +45,16 @@
             android:orientation="horizontal"
             android:padding="10dp"
             tools:layout_editor_absoluteX="74dp" />
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/no_video_found"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

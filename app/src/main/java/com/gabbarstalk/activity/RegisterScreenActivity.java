@@ -110,11 +110,6 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
         model.setModel(getDeviceName());
         model.setAppVersion(mContext.getString(R.string.app_version));
         userData.setDeviceDetail(model);
-//        //TODO Api call remove this activity call
-//        Intent intent = new Intent(RegisterScreenActivity.this, OTPValidateActivity.class);
-//        intent.putExtra("UserData", userData);
-//        startActivity(intent);
-//        finish();
         callToRegisterUser(userData);
     }
 

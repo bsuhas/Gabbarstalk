@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -168,19 +169,35 @@ public class HomeScreenActivity extends AppCompatActivity
         } else if (id == R.id.nav_my_videos) {
             startActivity(new Intent(this, MyVideosActivity.class));
         } else if (id == R.id.nav_disclaimer) {
-            intent.putExtra(Constants.URL, "https://www.termsfeed.com/blog/sample-disclaimer-template/");
+            intent.putExtra(Constants.URL, "http://gabbartalks.com/disclaimer");
             intent.putExtra(Constants.PAGE_TYPE, getString(R.string.drawer_disclaimer));
             startActivity(intent);
         } else if (id == R.id.nav_privacy_policy) {
-            intent.putExtra(Constants.URL, "https://www.google.com");
+            intent.putExtra(Constants.URL, "http://gabbartalks.com/privacy_policy");
             intent.putExtra(Constants.PAGE_TYPE, getString(R.string.drawer_privacy_policy));
             startActivity(intent);
         } else if (id == R.id.nav_terms_cond) {
-            intent.putExtra(Constants.URL, "https://www.website.com/terms-and-conditions/");
+            intent.putExtra(Constants.URL, "http://gabbartalks.com/terms_and_conditions");
             intent.putExtra(Constants.PAGE_TYPE, getString(R.string.drawer_terms_cond));
             startActivity(intent);
         } else if (id == R.id.nav_contact_us) {
-            //TODO
+
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto","support@gabbartalks.com", null));
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, "support@gabbartalks.com");
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Gabbartalks Support Request ");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Oh No!\n" +
+                    "\n" +
+                    "We are sorry to hear that you are having a problem.\n" +
+                    "Please describe what is happening below.\n" +
+                    "\n" +
+                    "We will be back in touch.\n" +
+                    "Gabbartalks Support Team\n" +
+                    "\n" +
+                    "Please Provide a Brief Problem Description Here:");
+
+            startActivity(Intent.createChooser(emailIntent, "Send Email"));
+
         }
         return true;
     }
