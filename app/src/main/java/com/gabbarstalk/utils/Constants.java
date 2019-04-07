@@ -14,8 +14,11 @@ public class Constants {
     public static final String CAMERA_OUTPUT_NAME = APP_DIRECTORY + "_";
     private static final String YOUVOXX_TEMPORARY_DIRECTORY = "Temporary Files";
 
-
+    public static String mCurrentPhotoPath = "";
+    public static final int GALLERY_INTENT_REQUEST_CODE = 0x000005;
+    public static final int CAMERA_REQUEST = 0x000003;
     public static final String PROFILE_IMAGE = "Profile_Path";
+    public static String STORED_IMAGE_PATH = "/" + "GabbarsTalk";
     public static final String PARTY_LOGO_IMAGE = "Party_Logo_Path";
     public static final String DEFAULT_LANG = "Profile_Path";
     public static final String AGENDA_MODEL = "Agenda_model";

@@ -45,4 +45,7 @@
     <string name="group_about">About</string>
     <string name="load_more"><u>Load More</u></string>
     <string name="no_video_found">No video found</string>
+
+    <string name="mem_txt_gallery">Gallery</string>
+    <string name="mem_txt_camera">Camera</string>
 </resources>

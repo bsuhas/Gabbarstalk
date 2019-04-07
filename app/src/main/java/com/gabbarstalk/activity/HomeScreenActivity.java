@@ -3,13 +3,19 @@ package com.gabbarstalk.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -27,8 +33,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gabbarstalk.R;
+import com.gabbarstalk.dialogs.PickMemoryDialog;
 import com.gabbarstalk.fragments.RecentVideosFragment;
 import com.gabbarstalk.models.UserData;
+import com.gabbarstalk.utils.CameraUtils;
 import com.gabbarstalk.utils.CircularImageView;
 import com.gabbarstalk.utils.Constants;
 import com.gabbarstalk.utils.DialogUtils;
@@ -38,6 +46,11 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.nio.channels.FileChannel;
 
 public class HomeScreenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +59,8 @@ public class HomeScreenActivity extends AppCompatActivity
     private CircularImageView profileImage;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 201;
     private NavigationView navigationView;
+    private PickMemoryDialog mPickMemoryDialog;
+    private Context mContext;
 
 
     @Override
@@ -53,10 +68,24 @@ public class HomeScreenActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mUserData = UserPreferences.getInstance(this).getUserNameInfo();
+        mContext = this;
         initToolBar();
         Bundle bundle = new Bundle();
         setFragment(new RecentVideosFragment(), bundle);
-//        checkPermissionForWrite();
+        checkPermissionForWrite();
+
+        removeFileExposer();
+    }
+
+    private void removeFileExposer() {
+        if(Build.VERSION.SDK_INT>=24){
+            try{
+                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+                m.invoke(null);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     private void initToolBar() {
@@ -82,6 +111,13 @@ public class HomeScreenActivity extends AppCompatActivity
             txtProfileName.setText(mUserData.getName());
             txtMobileNumber.setText(mUserData.getMobileNumber());
         }
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPickMemoryDialog = new PickMemoryDialog(HomeScreenActivity.this, HomeScreenActivity.this);
+                mPickMemoryDialog.show();
+            }
+        });
         setDrawerProfileImage();
 
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
@@ -183,7 +219,7 @@ public class HomeScreenActivity extends AppCompatActivity
         } else if (id == R.id.nav_contact_us) {
 
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                    "mailto","support@gabbartalks.com", null));
+                    "mailto", "support@gabbartalks.com", null));
             emailIntent.putExtra(Intent.EXTRA_EMAIL, "support@gabbartalks.com");
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Gabbartalks Support Request ");
             emailIntent.putExtra(Intent.EXTRA_TEXT, "Oh No!\n" +
@@ -276,4 +312,91 @@ public class HomeScreenActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Image from Camera
+        if (requestCode == Constants.CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            String compressedPath = CameraUtils.compressImage(Constants.mCurrentPhotoPath, this);
+
+            UserPreferences.getInstance(HomeScreenActivity.this).saveProfileImage(compressedPath);
+            setDrawerProfileImage();
+            mPickMemoryDialog.dismiss();
+
+        }
+        //Image from Gallery
+        else if (requestCode == Constants.GALLERY_INTENT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+
+            try {
+                String path = getFilePath(data);
+                String compressedPath = CameraUtils.compressImage(path, this);
+                File src = new File(compressedPath);
+                File dest = getImageUri();
+                copyFile(src, dest);
+
+                UserPreferences.getInstance(mContext).saveProfileImage(dest.getAbsolutePath());
+                setDrawerProfileImage();
+                mPickMemoryDialog.dismiss();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void setImageToView(String path) {
+        File file = new File(path);
+        if (file.exists()) {
+            Picasso.with(HomeScreenActivity.this).load("file:///" + file.getAbsolutePath()).placeholder(R.drawable.user).into(profileImage);
+            setDrawerProfileImage();
+        } else {
+            profileImage.setImageResource(R.drawable.user);
+        }
+    }
+
+    private String getFilePath(Intent data) {
+        String imagePath;
+        Uri selectedImage = data.getData();
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+        Cursor cursor = mContext.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+        cursor.moveToFirst();
+
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        imagePath = cursor.getString(columnIndex);
+        cursor.close();
+
+        return imagePath;
+
+    }
+
+    private void copyFile(File sourceFile, File destFile) throws IOException {
+        if (!sourceFile.exists()) {
+            return;
+        }
+
+        FileChannel source = null;
+        FileChannel destination = null;
+        source = new FileInputStream(sourceFile).getChannel();
+        destination = new FileOutputStream(destFile).getChannel();
+        if (destination != null && source != null) {
+            destination.transferFrom(source, 0, source.size());
+        }
+        if (source != null) {
+            source.close();
+        }
+        if (destination != null) {
+            destination.close();
+        }
+    }
+
+    public File getImageUri() {
+
+        File file = new File(Environment.getExternalStorageDirectory().getPath(), Constants.STORED_IMAGE_PATH + "/Images/camera");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        String currentPhotoPath = (file.getAbsolutePath() + "/" + "IMG_" + "profile.jpg");
+        return new File(currentPhotoPath);
+    }
 }
