@@ -89,7 +89,7 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
                 LikeData likeData = new LikeData();
                 likeData.setUserId(userData.getUserId());
                 likeData.setVideoId(model.getVideoId());
-                likeVideo(likeData);
+                likeVideo(likeData,position);
             }
         });
 
@@ -145,7 +145,7 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
         }
     }
 
-    private void likeVideo(final LikeData likeData) {
+    private void likeVideo(final LikeData likeData, final int position) {
         Log.e("TAG", "Request:" + likeData.toString());
         Utils.getInstance().showProgressDialog(mActivity);
 
@@ -157,6 +157,10 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
                     EmptyResponse model = (EmptyResponse) response;
                     Log.e("TAG", "Response:" + model.toString());
                     Utils.getInstance().showToast(mActivity, model.getErrorMsg());
+                    VideoDetailsModel videoDetailsModel = videoDetailsModelList.get(position);
+                    int count = videoDetailsModel.getLikeCount() + 1;
+                    videoDetailsModel.setLikeCount(count);
+                    notifyDataSetChanged();
                 } else {
                     Utils.getInstance().showToast(mContext, mContext.getString(R.string.somthing_went_wrong));
                     Utils.getInstance().hideProgressDialog();

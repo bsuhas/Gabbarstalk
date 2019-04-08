@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gabbarstalk.R;
 import com.gabbarstalk.adapters.RecentVideosListAdapter;
@@ -31,6 +32,7 @@ public class RecentVideosFragment extends Fragment {
     private List<VideoDetailsModel> videoDetailsModelList;
     private RecentVideosListAdapter adapter;
     private SwipeRefreshLayout swipeContainer;
+    private TextView tvEmpty;
 
     public static RecentVideosFragment newInstance() {
         return new RecentVideosFragment();
@@ -61,6 +63,7 @@ public class RecentVideosFragment extends Fragment {
         videoDetailsModelList = new ArrayList<>();
 
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        tvEmpty = (TextView) view.findViewById(R.id.tv_empty);
         adapter = new RecentVideosListAdapter(mActivity, getActivity(), videoDetailsModelList);
         rvAgendaList.setAdapter(adapter);
 
@@ -86,10 +89,20 @@ public class RecentVideosFragment extends Fragment {
                 if (statusCode == 201) {
                     Utils.getInstance().hideProgressDialog();
                     RecentVideoResponse model = (RecentVideoResponse) response;
-                    videoDetailsModelList = model.getVideoDetailsModelList();
-                    adapter.refreshAdapter(videoDetailsModelList);
-                    swipeContainer.setRefreshing(false);
-                }else {
+                    if (model.getErrorCode() != 1) {
+                        videoDetailsModelList = model.getVideoDetailsModelList();
+                        adapter.refreshAdapter(videoDetailsModelList);
+                        swipeContainer.setRefreshing(false);
+                        swipeContainer.setVisibility(View.VISIBLE);
+                        rvAgendaList.setVisibility(View.VISIBLE);
+                        tvEmpty.setVisibility(View.GONE);
+                    } else {
+                        swipeContainer.setVisibility(View.GONE);
+                        rvAgendaList.setVisibility(View.GONE);
+                        tvEmpty.setVisibility(View.VISIBLE);
+                        Utils.getInstance().showToast(mActivity, model.getErrorMsg());
+                    }
+                } else {
                     Utils.getInstance().showToast(mActivity, mActivity.getString(R.string.somthing_went_wrong));
                     Utils.getInstance().hideProgressDialog();
                 }

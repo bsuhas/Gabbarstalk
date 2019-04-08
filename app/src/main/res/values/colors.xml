@@ -28,7 +28,7 @@
     <color name="color_nav_text_selected">@color/colorPrimaryDark</color>
     <color name="color_nav_text_unselected">@android:color/black</color>
 
-    <color name="black_color_40">#66000000</color>
+    <color name="black_color_40">#80000000</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="md_red_50">#FFEBEE</color>
@@ -308,7 +308,7 @@
     <color name="md_blue_grey_800">#37474F</color>
     <color name="md_blue_grey_900">#263238</color>
     <color name="orange_xb">#eac51f</color>
-    <color name="transparent">#23000000</color>
+    <color name="transparent">#80000000</color>
     <!--<color name="orange_xb">#facf00</color>-->
 
 
