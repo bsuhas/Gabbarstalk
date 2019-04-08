@@ -3,15 +3,12 @@ package com.gabbarstalk.utils;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
@@ -21,13 +18,14 @@ import com.gabbarstalk.R;
 import com.gabbarstalk.interfaces.RetrofitRestClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.khizar1556.mkvideoplayer.MKPlayerActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+//import hb.xvideoplayer.MxVideoPlayerWidget;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -168,7 +166,7 @@ public class Utils {
     }
 
     public void openVideoPlayer(Activity activity, String videoUrl) {
-        try {
+        /*try {
             Uri fileUri = Uri.parse(videoUrl);
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(fileUri, "video/*");
@@ -190,6 +188,9 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
 //            Toast.makeText(activity, activity.getString(R.string.no_application_found_to_play_video), Toast.LENGTH_SHORT).show();
-        }
+        }*/
+
+//        MxVideoPlayerWidget.startFullscreen(activity, MxVideoPlayerWidget.class,videoUrl, "");
+        MKPlayerActivity.configPlayer(activity).play(videoUrl);
     }
 }
