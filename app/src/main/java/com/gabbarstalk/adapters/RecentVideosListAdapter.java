@@ -157,6 +157,9 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
                     EmptyResponse model = (EmptyResponse) response;
                     Log.e("TAG", "Response:" + model.toString());
                     Utils.getInstance().showToast(mActivity, model.getErrorMsg());
+                } else {
+                    Utils.getInstance().showToast(mContext, mContext.getString(R.string.somthing_went_wrong));
+                    Utils.getInstance().hideProgressDialog();
                 }
             }
 

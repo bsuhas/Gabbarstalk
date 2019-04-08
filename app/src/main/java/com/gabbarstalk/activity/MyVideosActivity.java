@@ -131,6 +131,9 @@ public class MyVideosActivity extends AppCompatActivity {
                             rvMyVideoList.setVisibility(View.VISIBLE);
                         }
                         swipeContainer.setRefreshing(false);
+                    }else {
+                        Utils.getInstance().showToast(mContext, mContext.getString(R.string.somthing_went_wrong));
+                        Utils.getInstance().hideProgressDialog();
                     }
                 }
 

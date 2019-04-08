@@ -137,6 +137,9 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
                         showToast(mContext,"This user is already register, please contact to administer ");
                     }
 */
+                } else {
+                    Utils.getInstance().showToast(mContext, mContext.getString(R.string.somthing_went_wrong));
+                    Utils.getInstance().hideProgressDialog();
                 }
             }
 
@@ -180,6 +183,9 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
                     Log.e("TAG", "Response:" + model.toString());
                     showToast(mContext, model.getErrorMsg());
                     edtOTP.setText("");
+                } else {
+                    Utils.getInstance().showToast(mContext, mContext.getString(R.string.somthing_went_wrong));
+                    Utils.getInstance().hideProgressDialog();
                 }
             }
 

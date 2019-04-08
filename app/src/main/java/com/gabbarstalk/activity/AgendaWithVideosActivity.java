@@ -123,6 +123,9 @@ public class AgendaWithVideosActivity extends AppCompatActivity {
                     } else {
                         Utils.getInstance().showToast(AgendaWithVideosActivity.this, model.getErrorMsg());
                     }
+                }else{
+                    Utils.getInstance().showToast(mContext,getString(R.string.somthing_went_wrong));
+                    Utils.getInstance().hideProgressDialog();
                 }
             }
 

@@ -133,7 +133,8 @@ public class UploadVideoActivity extends AppCompatActivity implements View.OnCli
                             if (model.getErrorCode() == 0) {
                                 finish();
                             }else{
-                                Utils.getInstance().showToast(mContext,model.getErrorMsg());
+                                Utils.getInstance().showToast(mContext,getString(R.string.somthing_went_wrong));
+                                Utils.getInstance().hideProgressDialog();
                             }
 
                         }
@@ -141,7 +142,8 @@ public class UploadVideoActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onFailure(Object errorResponse) {
-
+                        Utils.getInstance().showToast(mContext,errorResponse.toString());
+                        Utils.getInstance().hideProgressDialog();
                     }
                 });
 

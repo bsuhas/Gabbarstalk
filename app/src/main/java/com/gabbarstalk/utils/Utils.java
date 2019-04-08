@@ -77,8 +77,8 @@ public class Utils {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
             OkHttpClient client = httpClient
-                    .readTimeout(1, TimeUnit.MINUTES)
-                    .connectTimeout(1, TimeUnit.MINUTES)
+                    .readTimeout(5, TimeUnit.MINUTES)
+                    .connectTimeout(5, TimeUnit.MINUTES)
                     .build();
 
             Gson gson = new GsonBuilder()

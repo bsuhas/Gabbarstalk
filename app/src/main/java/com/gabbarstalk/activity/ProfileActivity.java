@@ -86,7 +86,10 @@ public class ProfileActivity extends AppCompatActivity {
                 if (statusCode == 201) {
                     Utils.getInstance().hideProgressDialog();
                     EmptyResponse model = (EmptyResponse) response;
-                    Utils.getInstance().showToast(mContext,model.getErrorMsg());
+                    Utils.getInstance().showToast(mContext, model.getErrorMsg());
+                }else {
+                    Utils.getInstance().showToast(mContext, mContext.getString(R.string.somthing_went_wrong));
+                    Utils.getInstance().hideProgressDialog();
                 }
             }
 
@@ -115,6 +118,9 @@ public class ProfileActivity extends AppCompatActivity {
                         GetProfileResponse model = (GetProfileResponse) response;
                         if (model.getProfileDataList().size() > 0)
                             setDataInform(model.getProfileDataList().get(0));
+                    } else {
+                        Utils.getInstance().showToast(mContext, getString(R.string.somthing_went_wrong));
+                        Utils.getInstance().hideProgressDialog();
                     }
                 }
 

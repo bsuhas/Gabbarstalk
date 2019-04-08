@@ -95,6 +95,9 @@ public class AgendaListActivity extends AppCompatActivity {
                     agendaDetailList = model.getAgendaDetailList();
                     adapter.refreshAdapter(agendaDetailList);
                     swipeContainer.setRefreshing(false);
+                }else{
+                    Utils.getInstance().showToast(AgendaListActivity.this,getString(R.string.somthing_went_wrong));
+                    Utils.getInstance().hideProgressDialog();
                 }
             }
 

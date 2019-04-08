@@ -65,7 +65,7 @@ public class UploadVideoService {
             @Override
             public void onFailure(Call<EmptyResponse> call, Throwable t) {
                 t.printStackTrace();
-                restClientResponse.onFailure(t);
+                restClientResponse.onFailure(t.getMessage());
             }
         });
     }

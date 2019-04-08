@@ -48,4 +48,5 @@
 
     <string name="mem_txt_gallery">Gallery</string>
     <string name="mem_txt_camera">Camera</string>
+    <string name="somthing_went_wrong">Oops ..!! there was an error processing your request,please try again later.</string>
 </resources>

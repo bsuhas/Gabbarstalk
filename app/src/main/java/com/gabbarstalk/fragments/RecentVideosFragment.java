@@ -89,6 +89,9 @@ public class RecentVideosFragment extends Fragment {
                     videoDetailsModelList = model.getVideoDetailsModelList();
                     adapter.refreshAdapter(videoDetailsModelList);
                     swipeContainer.setRefreshing(false);
+                }else {
+                    Utils.getInstance().showToast(mActivity, mActivity.getString(R.string.somthing_went_wrong));
+                    Utils.getInstance().hideProgressDialog();
                 }
             }
 

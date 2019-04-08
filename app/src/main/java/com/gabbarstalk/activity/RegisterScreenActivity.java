@@ -138,7 +138,8 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
                         startActivity(intent);
                         finish();
                     } else {
-                        showToast(mContext, model.getErrorMsg());
+                        Utils.getInstance().showToast(mContext, mContext.getString(R.string.somthing_went_wrong));
+                        Utils.getInstance().hideProgressDialog();
                     }
                 }
             }

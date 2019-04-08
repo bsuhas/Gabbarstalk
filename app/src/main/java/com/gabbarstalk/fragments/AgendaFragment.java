@@ -71,6 +71,9 @@ public class AgendaFragment extends Fragment {
                     AgendaListResponse model = (AgendaListResponse) response;
                     agendaDetailList = model.getAgendaDetailList();
                     adapter.refreshAdapter(agendaDetailList);
+                }else{
+                    Utils.getInstance().showToast(getActivity(),getString(R.string.somthing_went_wrong));
+                    Utils.getInstance().hideProgressDialog();
                 }
             }
 
