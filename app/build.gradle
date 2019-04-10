@@ -37,5 +37,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
 //    compile 'com.henryblue.mxvideoplayer:xvideoplayer:1.2.1'
     compile 'com.github.khizar1556.MKVideoPlayer:mkvideoplayer:0.1.5'
+    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     testCompile 'junit:junit:4.12'
 }

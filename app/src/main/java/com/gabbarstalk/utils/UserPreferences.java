@@ -3,6 +3,7 @@ package com.gabbarstalk.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.gabbarstalk.models.ProfileData;
 import com.google.gson.Gson;
 import com.gabbarstalk.models.UserData;
 
@@ -88,29 +89,45 @@ public class UserPreferences {
         return userData;
     }
 
+    public void saveProfileInfo(ProfileData profileData) {
+        Gson gson = new Gson();
+        String json = gson.toJson(profileData);
+        saveString(Constants.PROFILE_DATA, json);
+    }
+
+    public ProfileData getProfilInfo() {
+        Gson gson = new Gson();
+        String json = loadString(Constants.PROFILE_DATA, "");
+        ProfileData profileData = gson.fromJson(json, ProfileData.class);
+        return profileData;
+    }
+
     //check whether user is login or not
     public boolean isUserLogin() {
         return loadBoolean(Constants.KEEP_ME_LOGIN, false);
     }
 
     public void saveProfileImage(String path) {
-        saveString(Constants.PROFILE_IMAGE,path );
+        saveString(Constants.PROFILE_IMAGE, path);
     }
+
     public String getProfileImage() {
-        return loadString(Constants.PROFILE_IMAGE,null);
+        return loadString(Constants.PROFILE_IMAGE, null);
     }
 
     public String getUserDefaultLanguage() {
-        return loadString(Constants.DEFAULT_LANG,Constants.LANG_ENGLISH);
+        return loadString(Constants.DEFAULT_LANG, Constants.LANG_ENGLISH);
     }
+
     public void setUserDefaultLanguage(String lang) {
-        saveString(Constants.DEFAULT_LANG,lang);
+        saveString(Constants.DEFAULT_LANG, lang);
     }
 
     public void savePartyLogoImage(String path) {
-        saveString(Constants.PARTY_LOGO_IMAGE,path );
+        saveString(Constants.PARTY_LOGO_IMAGE, path);
     }
+
     public String getPartyLogoImage() {
-        return loadString(Constants.PARTY_LOGO_IMAGE,null);
+        return loadString(Constants.PARTY_LOGO_IMAGE, null);
     }
 }

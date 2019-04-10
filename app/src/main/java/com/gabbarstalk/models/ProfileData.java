@@ -35,6 +35,10 @@ public class ProfileData implements Serializable {
     @Expose
     private String address;
 
+    @SerializedName("user_profile_img")
+    @Expose
+    private String profileImgURL;
+
     public String getName() {
         return name;
     }
@@ -83,6 +87,14 @@ public class ProfileData implements Serializable {
         this.address = address;
     }
 
+    public String getProfileImgURL() {
+        return profileImgURL;
+    }
+
+    public void setProfileImgURL(String profileImgURL) {
+        this.profileImgURL = profileImgURL;
+    }
+
     @Override
     public String toString() {
         return "ProfileData{" +
@@ -92,6 +104,7 @@ public class ProfileData implements Serializable {
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", emailId='" + emailId + '\'' +
                 ", address='" + address + '\'' +
+                ", profileImgURL='" + profileImgURL + '\'' +
                 '}';
     }
 }

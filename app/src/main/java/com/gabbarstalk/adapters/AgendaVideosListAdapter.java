@@ -50,7 +50,7 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
     }
 
     public void refreshAdapter(List<VideoDetailsModel> videoDetailsModelList) {
-        this.videoDetailsModelList = videoDetailsModelList;
+        this.videoDetailsModelList.addAll(videoDetailsModelList);
         notifyDataSetChanged();
     }
 
@@ -66,10 +66,14 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final VideoDetailsModel model = videoDetailsModelList.get(position);
 
-        holder.tvUsername.setText(model.getProfileName());
+        holder.tvUsername.setText(model.getUserName());
         holder.tvVideoCaption.setText(model.getCaption());
+        holder.tvLikeCount.setText(model.getLikeCount() + " likes");
         if (!TextUtils.isEmpty(model.getVideoThumbnail()))
             Picasso.with(mContext).load(model.getVideoThumbnail()).placeholder(R.color.md_black_1000).into(holder.imgVideoThumb);
+
+        if (!TextUtils.isEmpty(model.getProfileImage()))
+            Picasso.with(mContext).load(model.getProfileImage()).placeholder(R.color.md_black_1000).into(holder.profileImg);
 
         holder.imgVideoPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +89,7 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
                 LikeData likeData = new LikeData();
                 likeData.setUserId(userData.getUserId());
                 likeData.setVideoId(model.getVideoId());
-                likeVideo(likeData);
+                likeVideo(likeData,position);
             }
         });
     }
@@ -101,6 +105,7 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
         private ImageView profileImg;
         private TextView tvUsername;
         private TextView tvVideoCaption;
+        private TextView tvLikeCount;
         private ImageView imgVideoThumb;
         private ImageView imgVideoPlay;
         private ImageView ivLike;
@@ -112,6 +117,7 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
             llProfileData = (LinearLayout) view.findViewById(R.id.ll_profile_data);
             profileImg = (ImageView) view.findViewById(R.id.profile_img);
             tvUsername = (TextView) view.findViewById(R.id.tv_username);
+            tvLikeCount = (TextView) view.findViewById(R.id.tv_like_count);
             tvVideoCaption = (TextView) view.findViewById(R.id.tv_video_caption);
             imgVideoThumb = (ImageView) view.findViewById(R.id.img_video_thumb);
             imgVideoPlay = (ImageView) view.findViewById(R.id.img_video_play);
@@ -120,7 +126,7 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
         }
     }
 
-    private void likeVideo(final LikeData likeData) {
+    private void likeVideo(final LikeData likeData, final int position) {
         Log.e("TAG", "Request:" + likeData.toString());
         Utils.getInstance().showProgressDialog(mActivity);
 
@@ -132,6 +138,11 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
                     EmptyResponse model = (EmptyResponse) response;
                     Log.e("TAG", "Response:" + model.toString());
                     Utils.getInstance().showToast(mActivity, model.getErrorMsg());
+
+                    VideoDetailsModel videoDetailsModel = videoDetailsModelList.get(position);
+                    int count = videoDetailsModel.getLikeCount() + 1;
+                    videoDetailsModel.setLikeCount(count);
+                    notifyDataSetChanged();
                 } else {
                     Utils.getInstance().showToast(mContext, mContext.getString(R.string.somthing_went_wrong));
                     Utils.getInstance().hideProgressDialog();

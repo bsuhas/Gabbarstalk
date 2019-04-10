@@ -8,6 +8,7 @@ import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -33,6 +34,8 @@ import com.gabbarstalk.webservices.UploadVideoService;
 import com.gabbarstalk.webservices.VerifyUserService;
 
 import java.io.File;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 /**
@@ -131,9 +134,10 @@ public class UploadVideoActivity extends AppCompatActivity implements View.OnCli
                             EmptyResponse model = (EmptyResponse) response;
                             Log.e("TAG", "Response:" + model.toString());
                             if (model.getErrorCode() == 0) {
-                                finish();
-                            }else{
-                                Utils.getInstance().showToast(mContext,getString(R.string.somthing_went_wrong));
+                                Utils.getInstance().showToast(mContext, model.getErrorMsg());
+                                refreshPage();
+                            } else {
+                                Utils.getInstance().showToast(mContext, getString(R.string.somthing_went_wrong));
                                 Utils.getInstance().hideProgressDialog();
                             }
 
@@ -142,11 +146,22 @@ public class UploadVideoActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onFailure(Object errorResponse) {
-                        Utils.getInstance().showToast(mContext,errorResponse.toString());
+                        Utils.getInstance().showToast(mContext, errorResponse.toString());
                         Utils.getInstance().hideProgressDialog();
                     }
                 });
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    private void refreshPage() {
+        Intent intent = new Intent(Constants.REFRESH_PAGE);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        finish();
     }
 }
 

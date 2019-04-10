@@ -63,6 +63,13 @@ public interface RetrofitRestClient {
                               @Part("video_title") RequestBody videoTitle
     );
 
+    @Multipart
+    @POST("imageUpload")
+    Call<EmptyResponse> uploadImage(@Part MultipartBody.Part image,
+                                    @Part("user_id") RequestBody userId
+    );
+
+
     @Headers("Content-Type: application/json")
     @POST("likeVideo")
     Call<EmptyResponse> likeData(@Body LikeData likeData);

@@ -2,8 +2,10 @@ package com.gabbarstalk.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +37,8 @@ import com.gabbarstalk.webservices.AgendaVideoListService;
 
 import java.util.ArrayList;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class AgendaWithVideosActivity extends AppCompatActivity {
     private Context mContext;
     private AgendaDetailsModel agendaDetailsModel;
@@ -42,6 +47,14 @@ public class AgendaWithVideosActivity extends AppCompatActivity {
     private AgendaVideosListAdapter adapter;
     private String recordedVideoPath;
     private int CAMERA_PERMISSION = 454;
+
+    private BroadcastReceiver mRefreshReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("TAG","in side onReceive");
+            getVideoList(agendaDetailsModel);
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +67,14 @@ public class AgendaWithVideosActivity extends AppCompatActivity {
         }
         init();
         getVideoList(agendaDetailsModel);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRefreshReceiver,
+                new IntentFilter(Constants.REFRESH_PAGE));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRefreshReceiver);
     }
 
     private void init() {
@@ -161,6 +182,11 @@ public class AgendaWithVideosActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
 

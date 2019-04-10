@@ -27,6 +27,8 @@ import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.ResendOTPService;
 import com.gabbarstalk.webservices.VerifyUserService;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 /**
  * Created by SUHAS on 19/03/2019.
@@ -195,6 +197,11 @@ public class OTPValidateActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
 

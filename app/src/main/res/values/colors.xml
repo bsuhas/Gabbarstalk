@@ -27,6 +27,7 @@
     <color name="color_nav_icon">@color/colorPrimaryDark</color>
     <color name="color_nav_text_selected">@color/colorPrimaryDark</color>
     <color name="color_nav_text_unselected">@android:color/black</color>
+    <color name="color_user_name">#828282</color>
 
     <color name="black_color_40">#80000000</color>
     <color name="white">#FFFFFF</color>

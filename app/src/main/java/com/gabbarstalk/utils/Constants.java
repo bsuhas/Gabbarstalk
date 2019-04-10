@@ -27,11 +27,13 @@ public class Constants {
     public static final String AGENDA_DETAILS_MODEL = "agenda_details_model";
     public static final String RECORDED_VIDEO = "recorded_video";
     public static final String USERDATA = "username";
+    public static final String PROFILE_DATA = "profile";
     public static final String KEEP_ME_LOGIN = "keepmelogin";
+    public static final String REFRESH_PAGE = "refresh_page";
 
     public static Boolean isExternalStorageDirectoryExist = null;
     public static boolean isExternalHiddenStorageDirectoryExist = false;
-    public static final String HIDE_APP_DIRECTORY = ".YouVOXX";
+    public static final String HIDE_APP_DIRECTORY = ".Gabbarstalk";
     public static String URL = "url";
     public static String PAGE_TYPE = "page_type";
 

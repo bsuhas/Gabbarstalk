@@ -34,6 +34,8 @@ import com.gabbarstalk.webservices.RecentVideoListService;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 /**
  * Created by SUHAS on 19/03/2019.
@@ -143,6 +145,11 @@ public class MyVideosActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
 

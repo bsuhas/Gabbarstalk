@@ -1,5 +1,6 @@
 package com.gabbarstalk.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -15,6 +16,10 @@ public class EmptyResponse implements Serializable {
 
     @SerializedName("error_msg")
     private String errorMsg;
+
+    @SerializedName("user_profile_img")
+    @Expose
+    private String profileImgURL;
 
 
     public int getErrorCode() {
@@ -33,12 +38,20 @@ public class EmptyResponse implements Serializable {
         this.errorMsg = errorMsg;
     }
 
+    public String getProfileImgURL() {
+        return profileImgURL;
+    }
+
+    public void setProfileImgURL(String profileImgURL) {
+        this.profileImgURL = profileImgURL;
+    }
 
     @Override
     public String toString() {
-        return "RecentVideoResponse{" +
+        return "EmptyResponse{" +
                 "errorCode=" + errorCode +
                 ", errorMsg='" + errorMsg + '\'' +
+                ", profileImgURL='" + profileImgURL + '\'' +
                 '}';
     }
 }

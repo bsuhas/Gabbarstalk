@@ -43,6 +43,17 @@ public class VideoDetailsModel implements Serializable {
     @SerializedName("agenda_title")
     private String agendaTitle;
 
+    @SerializedName("user_profile_img")
+    private String profileImage;
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
     public String getVideoUrl() {
         return videoUrl;
     }
@@ -145,6 +156,7 @@ public class VideoDetailsModel implements Serializable {
                 ", userName='" + userName + '\'' +
                 ", agendaId='" + agendaId + '\'' +
                 ", agendaTitle='" + agendaTitle + '\'' +
+                ", profileImage='" + profileImage + '\'' +
                 '}';
     }
 }

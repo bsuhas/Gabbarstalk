@@ -23,6 +23,7 @@ import com.gabbarstalk.models.EmptyResponse;
 import com.gabbarstalk.models.LikeData;
 import com.gabbarstalk.models.UserData;
 import com.gabbarstalk.models.VideoDetailsModel;
+import com.gabbarstalk.utils.CircularImageView;
 import com.gabbarstalk.utils.Constants;
 import com.gabbarstalk.utils.UserPreferences;
 import com.gabbarstalk.utils.Utils;
@@ -56,7 +57,7 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
     }
 
     public void refreshAdapter(List<VideoDetailsModel> videoDetailsModelList) {
-        this.videoDetailsModelList = videoDetailsModelList;
+        this.videoDetailsModelList.addAll(videoDetailsModelList);
         notifyDataSetChanged();
     }
 
@@ -81,6 +82,9 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
         holder.tvLikeCount.setText(model.getLikeCount() + " likes");
         if (!TextUtils.isEmpty(model.getVideoThumbnail()))
             Picasso.with(mContext).load(model.getVideoThumbnail()).placeholder(R.color.md_black_1000).into(holder.imgVideoThumb);
+
+        if (!TextUtils.isEmpty(model.getProfileImage()))
+            Picasso.with(mContext).load(model.getProfileImage()).placeholder(R.color.md_black_1000).into(holder.profileImg);
 
         holder.ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +124,7 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout llListItem;
-        private ImageView profileImg;
+        private CircularImageView profileImg;
         private TextView tvAgendaTitle;
         private TextView tvUsername;
         private TextView tvLikeCount;
@@ -133,7 +137,7 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
         ViewHolder(View view) {
             super(view);
             llListItem = (LinearLayout) view.findViewById(R.id.ll_list_item);
-            profileImg = (ImageView) view.findViewById(R.id.profile_img);
+            profileImg = (CircularImageView) view.findViewById(R.id.profile_img);
             tvVideoCaption = (TextView) view.findViewById(R.id.tv_video_caption);
             tvLikeCount = (TextView) view.findViewById(R.id.tv_like_count);
             tvAgendaTitle = (TextView) view.findViewById(R.id.tv_agenda_title);

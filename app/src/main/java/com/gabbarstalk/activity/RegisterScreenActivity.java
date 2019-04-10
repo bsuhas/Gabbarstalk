@@ -30,6 +30,8 @@ import com.gabbarstalk.utils.UserPreferences;
 import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.RegisterUserService;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 /**
  * Created by SUHAS on 04/03/2017.
@@ -235,6 +237,11 @@ public class RegisterScreenActivity extends AppCompatActivity implements View.On
         } else {
             return Character.toUpperCase(first) + s.substring(1);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
 

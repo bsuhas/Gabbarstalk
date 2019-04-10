@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
@@ -27,6 +28,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +37,10 @@ import android.widget.TextView;
 import com.gabbarstalk.R;
 import com.gabbarstalk.dialogs.PickMemoryDialog;
 import com.gabbarstalk.fragments.RecentVideosFragment;
+import com.gabbarstalk.interfaces.RESTClientResponse;
+import com.gabbarstalk.models.EmptyResponse;
+import com.gabbarstalk.models.GetProfileResponse;
+import com.gabbarstalk.models.ProfileData;
 import com.gabbarstalk.models.UserData;
 import com.gabbarstalk.utils.CameraUtils;
 import com.gabbarstalk.utils.CircularImageView;
@@ -42,6 +48,8 @@ import com.gabbarstalk.utils.Constants;
 import com.gabbarstalk.utils.DialogUtils;
 import com.gabbarstalk.utils.UserPreferences;
 import com.gabbarstalk.utils.Utils;
+import com.gabbarstalk.webservices.GetProfileDataService;
+import com.gabbarstalk.webservices.UploadImageService;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.squareup.picasso.Picasso;
 
@@ -52,22 +60,30 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class HomeScreenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private UserData mUserData;
     private SystemBarTintManager mTintManager;
     private CircularImageView profileImage;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 201;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 202;
     private NavigationView navigationView;
     private PickMemoryDialog mPickMemoryDialog;
     private Context mContext;
+    private ProfileData profileData;
+    private TextView txtProfileName;
+    HomeScreenActivity mActivity;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        mActivity = this;
         mUserData = UserPreferences.getInstance(this).getUserNameInfo();
+        profileData = UserPreferences.getInstance(mActivity).getProfilInfo();
         mContext = this;
         initToolBar();
         Bundle bundle = new Bundle();
@@ -75,14 +91,25 @@ public class HomeScreenActivity extends AppCompatActivity
         checkPermissionForWrite();
 
         removeFileExposer();
+
+        if (profileData == null) {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getProfileData();
+                }
+            }, 5000);
+
+        }
     }
 
     private void removeFileExposer() {
-        if(Build.VERSION.SDK_INT>=24){
-            try{
+        if (Build.VERSION.SDK_INT >= 24) {
+            try {
                 Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
                 m.invoke(null);
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -103,19 +130,24 @@ public class HomeScreenActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
-        TextView txtProfileName = (TextView) view.findViewById(R.id.txt_profile_name);
-        TextView txtMobileNumber = (TextView) view.findViewById(R.id.txt_mobile_number);
+        txtProfileName = (TextView) view.findViewById(R.id.txt_profile_name);
+//        TextView txtMobileNumber = (TextView) view.findViewById(R.id.txt_mobile_number);
         profileImage = (CircularImageView) view.findViewById(R.id.profile_image);
 
-        if (mUserData != null) {
-            txtProfileName.setText(mUserData.getName());
-            txtMobileNumber.setText(mUserData.getMobileNumber());
+        if (profileData != null) {
+            txtProfileName.setText(profileData.getUsername());
+//            txtMobileNumber.setText(mUserData.getMobileNumber());
         }
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPickMemoryDialog = new PickMemoryDialog(HomeScreenActivity.this, HomeScreenActivity.this);
-                mPickMemoryDialog.show();
+                if (ContextCompat.checkSelfPermission(mActivity, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    checkPermissionForCamera();
+                } else {
+                    mPickMemoryDialog = new PickMemoryDialog(mActivity, mActivity);
+                    mPickMemoryDialog.show();
+                }
             }
         });
         setDrawerProfileImage();
@@ -140,15 +172,11 @@ public class HomeScreenActivity extends AppCompatActivity
     }
 
     public void setDrawerProfileImage() {
-        String profileImg = UserPreferences.getInstance(this).getProfileImage();
+        String profileImg = UserPreferences.getInstance(mActivity).getProfileImage();
         if (profileImg == null) {
             profileImage.setImageResource(R.drawable.user);
         } else {
-            File file = new File(profileImg);
-            if (file.exists()) {
-                Picasso.with(HomeScreenActivity.this).load("file:///" + file.getAbsolutePath()).placeholder(R.drawable.user).into(profileImage);
-            } else
-                profileImage.setImageResource(R.drawable.user);
+            Picasso.with(mActivity).load(profileImg).placeholder(R.drawable.user).into(profileImage);
         }
     }
 
@@ -284,13 +312,20 @@ public class HomeScreenActivity extends AppCompatActivity
         // Here, mContext is the current activity
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(HomeScreenActivity.this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            } else {
-                ActivityCompat.requestPermissions(HomeScreenActivity.this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-            }
+
+            ActivityCompat.requestPermissions(mActivity,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+        }
+    }
+
+    private void checkPermissionForCamera() {
+        // Here, mContext is the current activity
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(mActivity,
+                    new String[]{Manifest.permission.CAMERA},
+                    MY_PERMISSIONS_REQUEST_CAMERA);
         }
     }
 
@@ -306,8 +341,19 @@ public class HomeScreenActivity extends AppCompatActivity
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
+                    return;
                 }
-                return;
+            }
+            break;
+            case MY_PERMISSIONS_REQUEST_CAMERA: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mPickMemoryDialog = new PickMemoryDialog(mActivity, mActivity);
+                    mPickMemoryDialog.show();
+                } else {
+                    return;
+                }
             }
         }
     }
@@ -318,9 +364,16 @@ public class HomeScreenActivity extends AppCompatActivity
         if (requestCode == Constants.CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             String compressedPath = CameraUtils.compressImage(Constants.mCurrentPhotoPath, this);
 
-            UserPreferences.getInstance(HomeScreenActivity.this).saveProfileImage(compressedPath);
-            setDrawerProfileImage();
+            Log.e("Src", "compressedPath" + compressedPath);
+            File src = new File(compressedPath);
+            Log.e("Src", src.getAbsolutePath());
+//            UserPreferences.getInstance(mActivity).saveProfileImage(compressedPath);
+//            setDrawerProfileImage();
             mPickMemoryDialog.dismiss();
+            uploadImage(src);
+            File fileDelete = new File(Constants.mCurrentPhotoPath);
+            if (fileDelete.exists())
+                fileDelete.delete();
 
         }
         //Image from Gallery
@@ -330,11 +383,8 @@ public class HomeScreenActivity extends AppCompatActivity
                 String path = getFilePath(data);
                 String compressedPath = CameraUtils.compressImage(path, this);
                 File src = new File(compressedPath);
-                File dest = getImageUri();
-                copyFile(src, dest);
-
-                UserPreferences.getInstance(mContext).saveProfileImage(dest.getAbsolutePath());
-                setDrawerProfileImage();
+                mPickMemoryDialog.dismiss();
+                uploadImage(src);
                 mPickMemoryDialog.dismiss();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -347,7 +397,7 @@ public class HomeScreenActivity extends AppCompatActivity
     private void setImageToView(String path) {
         File file = new File(path);
         if (file.exists()) {
-            Picasso.with(HomeScreenActivity.this).load("file:///" + file.getAbsolutePath()).placeholder(R.drawable.user).into(profileImage);
+            Picasso.with(mActivity).load("file:///" + file.getAbsolutePath()).placeholder(R.drawable.user).into(profileImage);
             setDrawerProfileImage();
         } else {
             profileImage.setImageResource(R.drawable.user);
@@ -398,5 +448,78 @@ public class HomeScreenActivity extends AppCompatActivity
         }
         String currentPhotoPath = (file.getAbsolutePath() + "/" + "IMG_" + "profile.jpg");
         return new File(currentPhotoPath);
+    }
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    private void getProfileData() {
+
+        UserData userData = UserPreferences.getInstance(mActivity).getUserNameInfo();
+
+        if (userData != null) {
+//            Utils.getInstance().showProgressDialog(mActivity);
+            new GetProfileDataService().getProfileData(mActivity, userData.getUserId(), new RESTClientResponse() {
+                @Override
+                public void onSuccess(Object response, int statusCode) {
+                    if (statusCode == 201) {
+//                        Utils.getInstance().hideProgressDialog();
+                        GetProfileResponse model = (GetProfileResponse) response;
+                        if (model.getProfileDataList().size() > 0) {
+                            UserPreferences.getInstance(mActivity).saveProfileInfo(model.getProfileDataList().get(0));
+                            txtProfileName.setText(model.getProfileDataList().get(0).getUsername());
+                            UserPreferences.getInstance(mActivity).saveProfileImage(model.getProfileDataList().get(0).getProfileImgURL());
+                            setDrawerProfileImage();
+                        }
+                    } else {
+                        Utils.getInstance().showToast(mContext, getString(R.string.somthing_went_wrong));
+//                        Utils.getInstance().hideProgressDialog();
+                    }
+                }
+
+                @Override
+                public void onFailure(Object errorResponse) {
+
+                }
+            });
+        }
+
+    }
+
+    private void uploadImage(final File file) {
+        UserPreferences.getInstance(mContext).saveProfileImage(file.getAbsolutePath());
+        Utils.getInstance().showProgressDialog(mActivity);
+        Log.e("TAG", "Request:" + file.getAbsolutePath());
+
+        UserData userData = UserPreferences.getInstance(mActivity).getUserNameInfo();
+
+        new UploadImageService().uploadImage(mActivity,
+                userData.getUserId(), file, new RESTClientResponse() {
+                    @Override
+                    public void onSuccess(Object response, int statusCode) {
+                        if (statusCode == 201) {
+                            Utils.getInstance().hideProgressDialog();
+                            EmptyResponse model = (EmptyResponse) response;
+                            Log.e("TAG", "Response:" + model.toString());
+                            if (model.getErrorCode() == 0) {
+                                UserPreferences.getInstance(mActivity).saveProfileImage(model.getProfileImgURL());
+                                Picasso.with(mActivity).load("file:///" + file.getAbsolutePath()).placeholder(R.drawable.user).into(profileImage);
+                            } else {
+                                Utils.getInstance().showToast(mContext, getString(R.string.somthing_went_wrong));
+                                Utils.getInstance().hideProgressDialog();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Object errorResponse) {
+                        Utils.getInstance().showToast(mContext, errorResponse.toString());
+                        Utils.getInstance().hideProgressDialog();
+                    }
+                });
+
     }
 }

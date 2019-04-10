@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 public class CameraUtils {
     public static final int CAMERA_REQUEST = 0x000003;
-    public static String STORED_IMAGE_PATH = "/ContainerPackAPP";
+    public static String STORED_IMAGE_PATH = "/Gabbarstalk";
     public static String mCurrentPhotoPath = "";
     public static Bitmap sImageThumbBitmap;
     public static Bitmap sImageActualBitmap;
@@ -127,8 +127,8 @@ public class CameraUtils {
         String filename = getFilename(activity);
         try {
             out = new FileOutputStream(filename);
-//            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
-            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 20, out);
+            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
+//            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 20, out);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

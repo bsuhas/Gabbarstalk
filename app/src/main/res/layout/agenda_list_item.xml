@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,17 +26,27 @@
                 android:layout_height="60dp"
                 android:paddingTop="@dimen/margin_5dp"
                 android:src="@drawable/ic_agenda" />
+            <!--<com.gabbarstalk.utils.CircularImageView
+                android:id="@+id/profile_img"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_agenda"
+                app:border_ci="true"
+                app:border_color_ci="@color/colorPrimary"
+                app:border_width_ci="@dimen/margin_2dp"
+                app:shadow_ci="true" />-->
 
             <TextView
                 android:id="@+id/tv_agenda_title"
-                android:layout_width="wrap_content"
+                fontPath="fonts/sofia_pro_regular.ttf"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
                 android:padding="@dimen/margin_5dp"
-                android:text="Agenda Title"
+                android:text="Agenda Name"
                 android:textColor="@color/md_black_1000"
-                android:textSize="@dimen/text_16sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/text_20sp"
+                android:textStyle="bold"
+                tools:ignore="MissingPrefix" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

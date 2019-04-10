@@ -53,7 +53,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="Name"
-                android:textColor="@color/md_black_1000"
+                android:textColor="@color/color_user_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -71,7 +71,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="@string/mobile_number"
-                android:textColor="@color/md_black_1000"
+                android:textColor="@color/color_user_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -92,7 +92,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="Username"
-                android:textColor="@color/md_black_1000"
+                android:textColor="@color/color_user_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -110,7 +110,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="Email Id"
-                android:textColor="@color/md_black_1000"
+                android:textColor="@color/color_user_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -130,7 +130,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="Address"
-                android:textColor="@color/md_black_1000"
+                android:textColor="@color/color_user_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -146,6 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
+
                 android:layout_marginTop="40dp"
                 android:background="@drawable/login_button_bg"
                 android:padding="5dp"

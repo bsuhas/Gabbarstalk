@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_list_item"
     android:layout_width="match_parent"
@@ -14,14 +15,16 @@
 
         <TextView
             android:id="@+id/tv_agenda_title"
+            fontPath="fonts/sofia_pro_regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5dp"
             android:padding="@dimen/margin_5dp"
             android:text="Agenda Name"
             android:textColor="@color/md_black_1000"
-            android:textSize="@dimen/text_18sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/text_20sp"
+            android:textStyle="bold"
+            tools:ignore="MissingPrefix" />
 
         <LinearLayout
             android:id="@+id/ll_profile_data"
@@ -31,25 +34,31 @@
             android:orientation="horizontal"
             android:padding="@dimen/margin_5dp">
 
-            <ImageView
+            <com.gabbarstalk.utils.CircularImageView
                 android:id="@+id/profile_img"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/user" />
+                android:src="@drawable/user"
+                app:border_ci="true"
+                app:border_color_ci="@color/colorPrimary"
+                app:border_width_ci="@dimen/margin_2dp"
+                app:shadow_ci="true" />
 
             <TextView
                 android:id="@+id/tv_username"
+                fontPath="fonts/sofia_pro_regular.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginStart="@dimen/margin_5dp"
                 android:padding="@dimen/margin_5dp"
                 android:text="Username"
-                android:textColor="@color/md_black_1000"
-                android:textSize="@dimen/text_16sp" />
+                android:textColor="@color/color_user_name"
+                android:textSize="@dimen/text_16sp"
+                tools:ignore="MissingPrefix" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_video_caption"
+            fontPath="fonts/sofia_pro_regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/margin_5dp"
@@ -58,7 +67,8 @@
             android:paddingTop="@dimen/margin_5dp"
             android:text="Caption"
             android:textColor="@color/md_black_1000"
-            android:textSize="@dimen/text_16sp" />
+            android:textSize="@dimen/text_14sp"
+            tools:ignore="MissingPrefix" />
 
         <RelativeLayout
             android:layout_width="match_parent"

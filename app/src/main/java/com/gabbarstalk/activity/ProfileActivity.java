@@ -23,6 +23,8 @@ import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.GetProfileDataService;
 import com.gabbarstalk.webservices.UpdateProfileService;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 /**
  * Created by SUHAS on 19/03/2019.
@@ -118,6 +120,8 @@ public class ProfileActivity extends AppCompatActivity {
                         GetProfileResponse model = (GetProfileResponse) response;
                         if (model.getProfileDataList().size() > 0)
                             setDataInform(model.getProfileDataList().get(0));
+                            UserPreferences.getInstance(ProfileActivity.this).saveProfileInfo(model.getProfileDataList().get(0));
+
                     } else {
                         Utils.getInstance().showToast(mContext, getString(R.string.somthing_went_wrong));
                         Utils.getInstance().hideProgressDialog();
@@ -166,7 +170,10 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }
 
 
