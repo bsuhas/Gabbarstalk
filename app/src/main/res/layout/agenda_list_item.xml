@@ -35,18 +35,37 @@
                 app:border_color_ci="@color/colorPrimary"
                 app:border_width_ci="@dimen/margin_2dp"
                 app:shadow_ci="true" />-->
-
-            <TextView
-                android:id="@+id/tv_agenda_title"
-                fontPath="fonts/sofia_pro_regular.ttf"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_5dp"
-                android:text="Agenda Name"
-                android:textColor="@color/md_black_1000"
-                android:textSize="@dimen/text_20sp"
-                android:textStyle="bold"
-                tools:ignore="MissingPrefix" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_agenda_title"
+                    fontPath="fonts/sofia_pro_regular.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_5dp"
+                    android:text="Agenda Name"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="@dimen/text_20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix" />
+
+                <TextView
+                    android:id="@+id/tv_video_count"
+                    fontPath="fonts/sofia_pro_regular.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_video_black"
+                    android:drawablePadding="@dimen/margin_5dp"
+                    android:paddingLeft="@dimen/margin_5dp"
+                    android:text="50"
+                    android:textColor="@color/color_user_name"
+                    android:textSize="@dimen/text_16sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix" />
+            </LinearLayout>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

@@ -59,6 +59,7 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
         final AgendaDetailsModel model = mAgendaDetailModelList.get(position);
 
         holder.txtAgendaTitle.setText(model.getAgendaTitle());
+        holder.tvVideoCount.setText(model.getTotalVideoCount());
 
         LinearLayoutManager llm = new LinearLayoutManager(mContext);
         llm.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -95,10 +96,12 @@ public class AgendaListAdapter extends RecyclerView.Adapter<AgendaListAdapter.Vi
         private final RecyclerView rvChildView;
         private TextView txtAgendaTitle;
         private TextView txtEmpty;
+        private TextView tvVideoCount;
 
         ViewHolder(View itemView) {
             super(itemView);
             txtEmpty = (TextView) itemView.findViewById(R.id.tv_empty);
+            tvVideoCount = (TextView) itemView.findViewById(R.id.tv_video_count);
             txtAgendaTitle = (TextView) itemView.findViewById(R.id.tv_agenda_title);
             rvChildView = (RecyclerView) itemView.findViewById(R.id.rv_child);
         }

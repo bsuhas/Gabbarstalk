@@ -115,6 +115,13 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
                 view.getContext().startActivity(intent);
             }
         });
+
+        holder.ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.getInstance().shareUrl(view.getContext(),model.getShareUrl());
+            }
+        });
     }
 
     @Override

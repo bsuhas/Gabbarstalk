@@ -101,6 +101,7 @@
             android:id="@+id/rv_agenda_video_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_50dp"
             android:background="@color/md_white_1000" />
 
     </LinearLayout>

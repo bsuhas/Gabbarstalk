@@ -64,11 +64,19 @@ public class MyVideosListAdapter extends RecyclerView.Adapter<MyVideosListAdapte
         holder.tvLikeCount.setText("" + model.getLikeCount());
         if (!TextUtils.isEmpty(model.getVideoThumbnail()))
             Picasso.with(mContext).load(model.getVideoThumbnail()).placeholder(R.color.md_black_1000).into(holder.imgVideoThumb);
+
         holder.imgVideoPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Utils.getInstance().openVideoPlayer(mActivity, model.getVideoUrl());
 //                Utils.getInstance().showToast(mContext, "Coming Soon");
+            }
+        });
+
+        holder.ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.getInstance().shareUrl(view.getContext(), model.getShareUrl());
             }
         });
     }
@@ -86,7 +94,7 @@ public class MyVideosListAdapter extends RecyclerView.Adapter<MyVideosListAdapte
         private TextView tvVideoCaption;
         private ImageView imgVideoThumb;
         private ImageView imgVideoPlay;
-
+        private ImageView ivShare;
 
         ViewHolder(View view) {
             super(view);
@@ -95,6 +103,7 @@ public class MyVideosListAdapter extends RecyclerView.Adapter<MyVideosListAdapte
             tvAgendaTitle = (TextView) view.findViewById(R.id.tv_agenda_title);
             imgVideoThumb = (ImageView) view.findViewById(R.id.img_video_thumb);
             imgVideoPlay = (ImageView) view.findViewById(R.id.img_video_play);
+            ivShare = (ImageView) view.findViewById(R.id.iv_share);
         }
     }
 }

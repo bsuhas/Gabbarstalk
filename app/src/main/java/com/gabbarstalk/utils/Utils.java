@@ -3,6 +3,7 @@ package com.gabbarstalk.utils;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -192,5 +193,14 @@ public class Utils {
 
 //        MxVideoPlayerWidget.startFullscreen(activity, MxVideoPlayerWidget.class,videoUrl, "");
         MKPlayerActivity.configPlayer(activity).play(videoUrl);
+    }
+
+    public void shareUrl(Context context, String url) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, url);
+        sendIntent.setType("text/plain");
+
+        context.startActivity(sendIntent);
     }
 }

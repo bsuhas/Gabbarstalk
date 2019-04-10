@@ -92,6 +92,14 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
                 likeVideo(likeData,position);
             }
         });
+
+        holder.ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.getInstance().shareUrl(view.getContext(),model.getShareUrl());
+            }
+        });
+
     }
 
     @Override
