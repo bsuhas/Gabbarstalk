@@ -28,6 +28,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -173,7 +174,7 @@ public class HomeScreenActivity extends AppCompatActivity
 
     public void setDrawerProfileImage() {
         String profileImg = UserPreferences.getInstance(mActivity).getProfileImage();
-        if (profileImg == null) {
+        if (TextUtils.isEmpty(profileImg)) {
             profileImage.setImageResource(R.drawable.user);
         } else {
             Picasso.with(mActivity).load(profileImg).placeholder(R.drawable.user).into(profileImage);
