@@ -3,9 +3,11 @@ package com.gabbarstalk.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -23,6 +25,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -75,8 +78,7 @@ public class HomeScreenActivity extends AppCompatActivity
     private Context mContext;
     private ProfileData profileData;
     private TextView txtProfileName;
-    HomeScreenActivity mActivity;
-
+    private HomeScreenActivity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +105,8 @@ public class HomeScreenActivity extends AppCompatActivity
             }, 5000);
 
         }
+        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mRefreshProfileReceiver,
+                new IntentFilter(Constants.REFRESH_PROFILE_DATA));
     }
 
     private void removeFileExposer() {
@@ -284,28 +288,6 @@ public class HomeScreenActivity extends AppCompatActivity
 
     public UserData getUserData() {
         return mUserData;
-    }
-
-    public void showYesNoDialog(final Activity mActivity, String title, String msg) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mActivity);
-        if (title != null)
-            alertDialogBuilder.setTitle(title);
-        alertDialogBuilder.setMessage(msg);
-        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int i) {
-                dialog.dismiss();
-//                callWebServiceFromMenu(mActivity);
-            }
-        });
-        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        alertDialogBuilder.setCancelable(false);
-        alertDialogBuilder.create().show();
     }
 
 
@@ -522,5 +504,21 @@ public class HomeScreenActivity extends AppCompatActivity
                     }
                 });
 
+    }
+
+    private BroadcastReceiver mRefreshProfileReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("TAG", "in side onReceive mRefreshProfileReceiver");
+            setDrawerProfileImage();
+            ProfileData profileData = UserPreferences.getInstance(mActivity).getProfilInfo();
+            txtProfileName.setText(profileData.getUsername());
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRefreshProfileReceiver);
     }
 }

@@ -73,7 +73,7 @@ public class MyVideosActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(mContext);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rvMyVideoList.setHasFixedSize(true);
-        rvMyVideoList.addItemDecoration(new SimpleDividerItemDecoration(mContext));
+//        rvMyVideoList.addItemDecoration(new SimpleDividerItemDecoration(mContext));
         rvMyVideoList.setLayoutManager(llm);
 
         videoDetailsModelList = new ArrayList<>();

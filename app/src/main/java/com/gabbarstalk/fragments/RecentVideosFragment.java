@@ -1,12 +1,18 @@
 package com.gabbarstalk.fragments;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +23,7 @@ import com.gabbarstalk.adapters.RecentVideosListAdapter;
 import com.gabbarstalk.interfaces.RESTClientResponse;
 import com.gabbarstalk.models.RecentVideoResponse;
 import com.gabbarstalk.models.VideoDetailsModel;
+import com.gabbarstalk.utils.Constants;
 import com.gabbarstalk.utils.SimpleDividerItemDecoration;
 import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.RecentVideoListService;
@@ -49,6 +56,8 @@ public class RecentVideosFragment extends Fragment {
         this.mActivity = getActivity();
         init(view);
         getRecentVideoList(true);
+        LocalBroadcastManager.getInstance(mActivity).registerReceiver(mRefreshRecentVideoListReceiver,
+                new IntentFilter(Constants.REFRESH_RECENT_VIDEOS));
         return view;
     }
 
@@ -57,7 +66,7 @@ public class RecentVideosFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(mActivity);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rvAgendaList.setHasFixedSize(true);
-        rvAgendaList.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+        //rvAgendaList.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         rvAgendaList.setLayoutManager(llm);
 
         videoDetailsModelList = new ArrayList<>();
@@ -110,9 +119,22 @@ public class RecentVideosFragment extends Fragment {
 
             @Override
             public void onFailure(Object errorResponse) {
-
+                Utils.getInstance().hideProgressDialog();
             }
         });
     }
 
+    private BroadcastReceiver mRefreshRecentVideoListReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("TAG", "in side onReceive mRefreshRecentVideoListReceiver");
+            getRecentVideoList(false);
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mRefreshRecentVideoListReceiver);
+    }
 }

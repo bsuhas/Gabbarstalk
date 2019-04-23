@@ -22,7 +22,6 @@
             android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:titleTextColor="@color/md_black_1000" />
-
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -38,157 +37,141 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <com.gabbarstalk.utils.CircularImageView
-                android:id="@+id/profile_image"
+            <ImageView
                 android:layout_width="@dimen/margin_100dp"
                 android:layout_height="@dimen/margin_100dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="50dp"
                 android:gravity="center"
-                android:src="@drawable/user"
-                app:border_ci="true"
-                app:border_color_ci="@color/colorPrimary"
-                app:border_width_ci="@dimen/margin_2dp"
-                app:shadow_ci="true" />
+                android:src="@mipmap/app_icon"
+                android:visibility="gone" />
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="Name"
                 android:textColor="@color/color_user_name"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="bottom"
-                android:textColor="@color/md_black_1000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <EditText
+                android:id="@+id/edt_name"
+                style="@style/EditText_style_Profile"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:hint="Enter name" />
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="Status"
                 android:textColor="@color/color_user_name"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="bottom"
-                android:textColor="@color/md_black_1000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <EditText
+                android:id="@+id/edt_status"
+                style="@style/EditText_style_Profile"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:hint="Enter status" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="@string/mobile_number"
                 android:textColor="@color/color_user_name"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_mobile_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="bottom"
-                android:textColor="@color/md_black_1000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <EditText
+                android:id="@+id/edt_mobile"
+                style="@style/EditText_style_Profile"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/enter_mobile_number"
+                android:inputType="number"
+                android:maxLength="10" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="Username"
                 android:textColor="@color/color_user_name"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="bottom"
-                android:textColor="@color/md_black_1000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <EditText
+                android:id="@+id/edt_username"
+                style="@style/EditText_style_Profile"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:hint="Enter Username" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="Email Id"
                 android:textColor="@color/color_user_name"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_email_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="bottom"
-                android:textColor="@color/md_black_1000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <EditText
+                android:id="@+id/edt_email_id"
+                style="@style/EditText_style_Profile"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:hint="Enter Email Id"
+                android:inputType="textEmailAddress" />
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="bottom"
                 android:text="Address"
                 android:textColor="@color/color_user_name"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="bottom"
-                android:textColor="@color/md_black_1000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <EditText
+                android:id="@+id/edt_address"
+                style="@style/EditText_style_Profile"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:hint="Enter Address" />
+
             <Button
-                android:id="@+id/btn_edit"
+                android:id="@+id/btn_update"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/login_button_bg"
                 android:padding="5dp"
-                android:text="@string/edit"
+                android:text="@string/update"
                 android:textColor="@color/md_black_1000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

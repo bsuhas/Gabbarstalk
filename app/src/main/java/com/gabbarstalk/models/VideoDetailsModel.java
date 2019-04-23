@@ -46,6 +46,9 @@ public class VideoDetailsModel implements Serializable {
     @SerializedName("user_profile_img")
     private String profileImage;
 
+    @SerializedName("agenda_content")
+    private String agendaDetails;
+
     public String getProfileImage() {
         return profileImage;
     }
@@ -142,6 +145,14 @@ public class VideoDetailsModel implements Serializable {
         this.videoId = videoId;
     }
 
+    public String getAgendaDetails() {
+        return agendaDetails;
+    }
+
+    public void setAgendaDetails(String agendaDetails) {
+        this.agendaDetails = agendaDetails;
+    }
+
     @Override
     public String toString() {
         return "VideoDetailsModel{" +
@@ -157,6 +168,7 @@ public class VideoDetailsModel implements Serializable {
                 ", agendaId='" + agendaId + '\'' +
                 ", agendaTitle='" + agendaTitle + '\'' +
                 ", profileImage='" + profileImage + '\'' +
+                ", agendaDetails='" + agendaDetails + '\'' +
                 '}';
     }
 }

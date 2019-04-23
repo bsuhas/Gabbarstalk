@@ -16,6 +16,9 @@ public class AgendaDetailsModel implements Serializable {
     @SerializedName("agenda_title")
     private String agendaTitle;
 
+    @SerializedName("agenda_content")
+    private String agendaDetails;
+
     @SerializedName("videoCounts")
     private String totalVideoCount;
 
@@ -54,11 +57,20 @@ public class AgendaDetailsModel implements Serializable {
         this.totalVideoCount = totalVideoCount;
     }
 
+    public String getAgendaDetails() {
+        return agendaDetails;
+    }
+
+    public void setAgendaDetails(String agendaDetails) {
+        this.agendaDetails = agendaDetails;
+    }
+
     @Override
     public String toString() {
         return "AgendaDetailsModel{" +
                 "agendaId=" + agendaId +
                 ", agendaTitle='" + agendaTitle + '\'' +
+                ", agendaDetails='" + agendaDetails + '\'' +
                 ", totalVideoCount='" + totalVideoCount + '\'' +
                 ", videoDetailsModelList=" + videoDetailsModelList +
                 '}';

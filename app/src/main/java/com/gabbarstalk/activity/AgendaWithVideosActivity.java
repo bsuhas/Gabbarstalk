@@ -51,8 +51,10 @@ public class AgendaWithVideosActivity extends AppCompatActivity {
     private BroadcastReceiver mRefreshReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e("TAG","in side onReceive");
+            Log.e("TAG", "in side onReceive");
             getVideoList(agendaDetailsModel);
+            Intent intentRefresh = new Intent(Constants.REFRESH_RECENT_VIDEOS);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intentRefresh);
         }
     };
 
@@ -87,19 +89,21 @@ public class AgendaWithVideosActivity extends AppCompatActivity {
         }
 
         TextView txtAgendaName = (TextView) findViewById(R.id.txt_agenda_name);
+        TextView txtAgendaDetails = (TextView) findViewById(R.id.txt_agenda_details);
         txtAgendaName.setText(agendaDetailsModel.getAgendaTitle());
+        txtAgendaDetails.setText(agendaDetailsModel.getAgendaDetails());
 
 
         rvAgendaVideoList = (RecyclerView) findViewById(R.id.rv_agenda_video_list);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rvAgendaVideoList.setHasFixedSize(true);
-        rvAgendaVideoList.addItemDecoration(new SimpleDividerItemDecoration(this));
+//        rvAgendaVideoList.addItemDecoration(new SimpleDividerItemDecoration(this));
         rvAgendaVideoList.setLayoutManager(llm);
 
         videoDetailsModelList = new ArrayList<>();
 
-        adapter = new AgendaVideosListAdapter(this, this, videoDetailsModelList);
+        adapter = new AgendaVideosListAdapter(this, this, videoDetailsModelList, agendaDetailsModel.getAgendaTitle());
         rvAgendaVideoList.setAdapter(adapter);
 
         FloatingActionButton fabButton = (FloatingActionButton) findViewById(R.id.fab_btn);
@@ -144,8 +148,8 @@ public class AgendaWithVideosActivity extends AppCompatActivity {
                     } else {
                         Utils.getInstance().showToast(AgendaWithVideosActivity.this, model.getErrorMsg());
                     }
-                }else{
-                    Utils.getInstance().showToast(mContext,getString(R.string.somthing_went_wrong));
+                } else {
+                    Utils.getInstance().showToast(mContext, getString(R.string.somthing_went_wrong));
                     Utils.getInstance().hideProgressDialog();
                 }
             }

@@ -23,6 +23,7 @@ import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.LikeService;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +35,7 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
     private List<VideoDetailsModel> videoDetailsModelList;
     private final Context mContext;
     private Activity mActivity;
+    private  String agendaTitle;
 
     public static int getPosition() {
         return position;
@@ -43,14 +45,15 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
         this.position = position;
     }
 
-    public AgendaVideosListAdapter(Activity activity, Context context, List<VideoDetailsModel> videoDetailsModelList) {
+    public AgendaVideosListAdapter(Activity activity, Context context, List<VideoDetailsModel> videoDetailsModelList, String agendaTitle) {
         this.videoDetailsModelList = videoDetailsModelList;
         this.mContext = context;
         this.mActivity = activity;
+        this.agendaTitle = agendaTitle;
     }
 
     public void refreshAdapter(List<VideoDetailsModel> videoDetailsModelList) {
-        this.videoDetailsModelList.addAll(videoDetailsModelList);
+        this.videoDetailsModelList = new ArrayList<>(videoDetailsModelList);
         notifyDataSetChanged();
     }
 
@@ -66,7 +69,8 @@ public class AgendaVideosListAdapter extends RecyclerView.Adapter<AgendaVideosLi
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final VideoDetailsModel model = videoDetailsModelList.get(position);
 
-        holder.tvUsername.setText(model.getUserName());
+//        holder.tvAgendaName.setText(model.getAgendaTitle());
+        holder.tvUsername.setText(String.format("@%s", model.getUserName()));
         holder.tvVideoCaption.setText(model.getCaption());
         holder.tvLikeCount.setText(model.getLikeCount() + " likes");
         if (!TextUtils.isEmpty(model.getVideoThumbnail()))

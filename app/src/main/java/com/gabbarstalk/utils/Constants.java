@@ -30,6 +30,9 @@ public class Constants {
     public static final String PROFILE_DATA = "profile";
     public static final String KEEP_ME_LOGIN = "keepmelogin";
     public static final String REFRESH_PAGE = "refresh_page";
+    public static final String REFRESH_PROFILE = "refresh_profile";
+    public static final String REFRESH_RECENT_VIDEOS = "refresh_recent_videos";
+    public static final String REFRESH_PROFILE_DATA = "refresh_profile_data";
 
     public static Boolean isExternalStorageDirectoryExist = null;
     public static boolean isExternalHiddenStorageDirectoryExist = false;

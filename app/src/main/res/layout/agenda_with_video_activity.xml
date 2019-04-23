@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/product_activity_coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_black_1000"
+    android:background="@color/md_white_1000"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -28,14 +27,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:background="@color/md_white_1000"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/app_color"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -43,8 +41,7 @@
                 android:id="@+id/ll_agenda_list_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/app_color"
-                android:gravity="center"
+                android:gravity="center|top"
                 android:orientation="horizontal"
                 android:padding="@dimen/margin_5dp"
                 android:weightSum="1">
@@ -52,27 +49,45 @@
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/margin_10dp"
                     android:layout_weight="0.2"
                     android:src="@drawable/ic_agenda" />
 
-                <TextView
-                    android:id="@+id/txt_agenda_name"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.8"
-                    android:padding="@dimen/margin_10dp"
-                    android:textColor="@color/md_black_1000"
-                    android:textSize="@dimen/text_24sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_agenda_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_10dp"
+                        android:paddingBottom="@dimen/margin_5dp"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="@dimen/text_16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_agenda_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/margin_10dp"
+                        android:paddingLeft="@dimen/margin_10dp"
+                        android:paddingRight="@dimen/margin_10dp"
+                        android:textColor="@color/color_user_name"
+                        android:textSize="@dimen/text_14sp" />
+                </LinearLayout>
 
             </LinearLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/margin_10dp"
                 android:layout_marginLeft="@dimen/margin_5dp"
                 android:layout_marginRight="@dimen/margin_5dp"
-                android:layout_marginBottom="@dimen/margin_10dp"
                 android:background="@drawable/black_button_bg"
                 android:gravity="center"
                 android:padding="10dp"
@@ -110,8 +125,8 @@
         android:id="@+id/fab_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_gravity="bottom|end|right"
         android:layout_margin="@dimen/margin_10dp"
         android:scaleType="center"

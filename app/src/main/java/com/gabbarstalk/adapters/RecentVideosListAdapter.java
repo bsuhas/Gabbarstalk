@@ -30,6 +30,7 @@ import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.LikeService;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +58,7 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
     }
 
     public void refreshAdapter(List<VideoDetailsModel> videoDetailsModelList) {
-        this.videoDetailsModelList.addAll(videoDetailsModelList);
+        this.videoDetailsModelList = new ArrayList<>(videoDetailsModelList);
         notifyDataSetChanged();
     }
 
@@ -77,7 +78,7 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
         String upperString = myString.substring(0, 1).toUpperCase() + myString.substring(1);
         holder.tvAgendaTitle.setText(upperString);
 
-        holder.tvUsername.setText(model.getUserName());
+        holder.tvUsername.setText(String.format("@%s", model.getUserName()));
         holder.tvVideoCaption.setText(model.getCaption());
         holder.tvLikeCount.setText(model.getLikeCount() + " likes");
         if (!TextUtils.isEmpty(model.getVideoThumbnail()))
@@ -110,6 +111,7 @@ public class RecentVideosListAdapter extends RecyclerView.Adapter<RecentVideosLi
                 AgendaDetailsModel agendaDetailsModel = new AgendaDetailsModel();
                 agendaDetailsModel.setAgendaId(Integer.parseInt(model.getAgendaId()));
                 agendaDetailsModel.setAgendaTitle(model.getAgendaTitle());
+                agendaDetailsModel.setAgendaDetails(model.getAgendaDetails());
                 Intent intent = new Intent(view.getContext(), AgendaWithVideosActivity.class);
                 intent.putExtra(Constants.AGENDA_MODEL, agendaDetailsModel);
                 view.getContext().startActivity(intent);

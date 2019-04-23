@@ -1,27 +1,34 @@
 package com.gabbarstalk.activity;
 
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Patterns;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.gabbarstalk.R;
 import com.gabbarstalk.interfaces.RESTClientResponse;
-import com.gabbarstalk.models.EmptyResponse;
 import com.gabbarstalk.models.GetProfileResponse;
 import com.gabbarstalk.models.ProfileData;
 import com.gabbarstalk.models.UserData;
+import com.gabbarstalk.utils.Constants;
 import com.gabbarstalk.utils.UserPreferences;
 import com.gabbarstalk.utils.Utils;
 import com.gabbarstalk.webservices.GetProfileDataService;
-import com.gabbarstalk.webservices.UpdateProfileService;
+import com.squareup.picasso.Picasso;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -33,8 +40,26 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class ProfileActivity extends AppCompatActivity {
     private Context mContext;
 
-    private EditText edtName, edtMobile, edtUsername, edtEmailId, edtAddress;
-    private Button btnUpdate;
+    private TextView tvName, tvStatus, tvMobile, tvUsername, tvEmailId, tvAddress;
+    private ProfileData mProfileData;
+    private ImageView profileImage;
+
+    private BroadcastReceiver mRefreshProfileReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("TAG", "in side onReceive");
+            mProfileData = (ProfileData) intent.getSerializableExtra(Constants.PROFILE_DATA);
+            setDataInform(mProfileData);
+            UserPreferences.getInstance(ProfileActivity.this).saveProfileInfo(mProfileData);
+
+            Intent intentRefresh = new Intent(Constants.REFRESH_RECENT_VIDEOS);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intentRefresh);
+
+            Intent intentProfileRefresh = new Intent(Constants.REFRESH_PROFILE_DATA);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intentProfileRefresh);
+        }
+    };
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +68,8 @@ public class ProfileActivity extends AppCompatActivity {
         mContext = this;
         init();
         getProfileData();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRefreshProfileReceiver,
+                new IntentFilter(Constants.REFRESH_PROFILE));
     }
 
     private void init() {
@@ -54,52 +81,50 @@ public class ProfileActivity extends AppCompatActivity {
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
         }
 
-        edtName = (EditText) findViewById(R.id.edt_name);
-        edtMobile = (EditText) findViewById(R.id.edt_mobile);
-        edtUsername = (EditText) findViewById(R.id.edt_username);
-        edtEmailId = (EditText) findViewById(R.id.edt_email_id);
-        edtAddress = (EditText) findViewById(R.id.edt_address);
-        btnUpdate = (Button) findViewById(R.id.btn_update);
+        tvName = (TextView) findViewById(R.id.tv_name);
+        tvStatus = (TextView) findViewById(R.id.tv_status);
+        tvMobile = (TextView) findViewById(R.id.tv_mobile_number);
+        tvUsername = (TextView) findViewById(R.id.tv_username);
+        tvEmailId = (TextView) findViewById(R.id.tv_email_id);
+        tvAddress = (TextView) findViewById(R.id.tv_address);
+        profileImage = (ImageView) findViewById(R.id.profile_image);
+        Button btnEdit = (Button) findViewById(R.id.btn_edit);
 
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validate()) {
-                    UserData userData = UserPreferences.getInstance(ProfileActivity.this).getUserNameInfo();
-                    if (userData != null) {
-                        ProfileData profileData = new ProfileData();
-                        profileData.setUserId(userData.getUserId());
-                        profileData.setUsername(edtUsername.getText().toString().trim());
-                        profileData.setName(edtName.getText().toString().trim());
-                        profileData.setEmailId(edtEmailId.getText().toString().trim());
-                        profileData.setAddress(edtAddress.getText().toString().trim());
-                        updateProfileData(profileData);
-                    }
-                }
+                openEditProfile();
             }
         });
     }
 
-    private void updateProfileData(ProfileData profileData) {
-        Utils.getInstance().showProgressDialog(ProfileActivity.this);
-        new UpdateProfileService().updateProfileData(ProfileActivity.this, profileData, new RESTClientResponse() {
-            @Override
-            public void onSuccess(Object response, int statusCode) {
-                if (statusCode == 201) {
-                    Utils.getInstance().hideProgressDialog();
-                    EmptyResponse model = (EmptyResponse) response;
-                    Utils.getInstance().showToast(mContext, model.getErrorMsg());
-                }else {
-                    Utils.getInstance().showToast(mContext, mContext.getString(R.string.somthing_went_wrong));
-                    Utils.getInstance().hideProgressDialog();
-                }
-            }
+    private void openEditProfile() {
+        Intent intent = new Intent(mContext, EditProfileActivity.class);
+        intent.putExtra(Constants.PROFILE_DATA, mProfileData);
+        mContext.startActivity(intent);
+    }
 
-            @Override
-            public void onFailure(Object errorResponse) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.profile_menu, menu);
+        return true;
+    }
 
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.edit_profile) {
+            openEditProfile();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -120,7 +145,7 @@ public class ProfileActivity extends AppCompatActivity {
                         GetProfileResponse model = (GetProfileResponse) response;
                         if (model.getProfileDataList().size() > 0)
                             setDataInform(model.getProfileDataList().get(0));
-                            UserPreferences.getInstance(ProfileActivity.this).saveProfileInfo(model.getProfileDataList().get(0));
+                        UserPreferences.getInstance(ProfileActivity.this).saveProfileInfo(model.getProfileDataList().get(0));
 
                     } else {
                         Utils.getInstance().showToast(mContext, getString(R.string.somthing_went_wrong));
@@ -137,42 +162,29 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void setDataInform(ProfileData profileData) {
-        edtName.setText(profileData.getName());
-        edtMobile.setText(profileData.getMobileNumber());
-        edtEmailId.setText(profileData.getEmailId());
-        edtUsername.setText(profileData.getUsername());
-        edtAddress.setText(profileData.getAddress());
-    }
-
-    private boolean validate() {
-
-        if (TextUtils.isEmpty(edtName.getText().toString().trim())) {
-            Utils.getInstance().showToast(this, getString(R.string.error_msg_enter_name));
-            return false;
+        if (TextUtils.isEmpty(profileData.getProfileImgURL())) {
+            profileImage.setImageResource(R.drawable.user);
+        } else {
+            Picasso.with(mContext).load(profileData.getProfileImgURL()).placeholder(R.drawable.user).into(profileImage);
         }
-        if (TextUtils.isEmpty(edtUsername.getText().toString().trim())) {
-            Utils.getInstance().showToast(this, getString(R.string.error_msg_enter_username));
-            return false;
-        }
-        if (TextUtils.isEmpty(edtEmailId.getText().toString().trim())) {
-            Utils.getInstance().showToast(this, getString(R.string.error_msg_enter_email_id));
-            return false;
-        }
-        if (!Patterns.EMAIL_ADDRESS.matcher(edtEmailId.getText().toString().trim()).matches()) {
-            Utils.getInstance().showToast(this, getString(R.string.error_msg_enter_valid_email_id));
-            return false;
-        }
-        if (TextUtils.isEmpty(edtAddress.getText().toString().trim())) {
-            Utils.getInstance().showToast(this, getString(R.string.error_msg_enter_address));
-            return false;
-        }
-
-        return true;
+        mProfileData = profileData;
+        tvName.setText(profileData.getName());
+        tvStatus.setText(profileData.getStatus());
+        tvMobile.setText(profileData.getMobileNumber());
+        tvEmailId.setText(profileData.getEmailId());
+        tvUsername.setText(profileData.getUsername());
+        tvAddress.setText(profileData.getAddress());
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRefreshProfileReceiver);
     }
 }
 

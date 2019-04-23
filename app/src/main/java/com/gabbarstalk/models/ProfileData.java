@@ -15,6 +15,10 @@ public class ProfileData implements Serializable {
     @Expose
     private String name;
 
+    @SerializedName("status")
+    @Expose
+    private String status;
+
     @SerializedName("user_name")
     @Expose
     private String username;
@@ -95,10 +99,19 @@ public class ProfileData implements Serializable {
         this.profileImgURL = profileImgURL;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "ProfileData{" +
                 "name='" + name + '\'' +
+                ", status='" + status + '\'' +
                 ", username='" + username + '\'' +
                 ", userId='" + userId + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +

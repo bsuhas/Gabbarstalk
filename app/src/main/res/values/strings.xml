@@ -11,6 +11,7 @@
 
     <string name="submit">Register </string>
     <string name="update">Update </string>
+    <string name="edit">Edit </string>
     <string name="registration">Registration</string>
     <string name="mobile_number">Mobile number </string>
     <string name="error_msg_enter_mobile_number">Please enter mobile number </string>
@@ -49,4 +50,5 @@
     <string name="mem_txt_gallery">Gallery</string>
     <string name="mem_txt_camera">Camera</string>
     <string name="somthing_went_wrong">Oops ..!! there was an error processing your request,please try again later.</string>
+    <string name="privacy_msg">By confirming you agree to the Terms &amp; Conditions of our services. Make sure the video that you are uploading does not contain any vulgar/in-appropriate content for the viewers.\nViolating the terms of use may result in legal proceedings.</string>
 </resources>

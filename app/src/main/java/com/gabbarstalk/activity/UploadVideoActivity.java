@@ -1,7 +1,10 @@
 package com.gabbarstalk.activity;
 
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
@@ -98,12 +101,35 @@ public class UploadVideoActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_upload_video:
-                uploadVideo();
+                showYesNoDialog(UploadVideoActivity.this,"Cautionary Advice !",getString(R.string.privacy_msg));
                 break;
             case R.id.img_video_play:
                 Utils.getInstance().openVideoPlayer(this, mRecordedVideoUrl);
                 break;
         }
+    }
+
+    public void showYesNoDialog(final Activity mActivity, String title, String msg) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mActivity);
+        if (title != null)
+            alertDialogBuilder.setTitle(title);
+        alertDialogBuilder.setMessage(msg);
+        alertDialogBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                uploadVideo();
+                dialog.dismiss();
+//                callWebServiceFromMenu(mActivity);
+            }
+        });
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.create().show();
     }
 
     private void uploadVideo() {
